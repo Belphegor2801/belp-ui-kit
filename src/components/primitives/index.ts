@@ -4,6 +4,8 @@ export * from './checkbox';
 export * from './radio';
 export * from './switch';
 export * from './select';
+export * from './slider';
+export * from './segmented-control';
 export * from './typography';
 export * from './badge';
 export * from './avatar';

@@ -22,6 +22,12 @@ import {
   Check,
   Layers as LayersIcon,
   Database,
+  Search,
+  Sliders,
+  Command,
+  Clock,
+  Tag,
+  AlertTriangle,
 } from 'lucide-react';
 
 import {
@@ -38,9 +44,12 @@ import {
   SelectItem,
   SelectGroup,
   SelectLabel,
+  Slider,
+  SegmentedControl,
   TypographyHeading,
   TypographyText,
   Code,
+  Kbd,
   Badge,
   Divider,
   Card,
@@ -70,6 +79,14 @@ import {
   DrawerFooter,
   DrawerClose,
   DatePicker,
+  DateRangePicker,
+  type DateRange,
+  CommandMenu,
+  type CommandAction,
+  Timeline,
+  type TimelineItem,
+  TagInput,
+  CodeSnippet,
   NumberInput,
   ConfirmDialog,
   ProgressBar,
@@ -293,6 +310,121 @@ export default function App() {
   const [newServiceRepo, setNewServiceRepo] = useState('');
   const [newServiceReplicas, setNewServiceReplicas] = useState(2);
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  // New Components Interactive State
+  const [commandOpen, setCommandOpen] = useState(false);
+  const [cpuSliderValue, setCpuSliderValue] = useState<number[]>([75]);
+  const [latencyRangeValue, setLatencyRangeValue] = useState<number[]>([40, 240]);
+  const [activeSegment, setActiveSegment] = useState('services');
+  const [activeTimeframe, setActiveTimeframe] = useState('24h');
+  const [demoDateRange, setDemoDateRange] = useState<DateRange>({});
+  const [demoTags, setDemoTags] = useState<string[]>([
+    'production',
+    'ap-southeast-1',
+    'canary-v2',
+    'high-cpu',
+    'auto-scaling',
+  ]);
+
+  // Global Cmd+K / Ctrl+K keyboard shortcut
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setCommandOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const commandActions: CommandAction[] = useMemo(
+    () => [
+      {
+        id: 'new-service',
+        title: 'Deploy New Service',
+        subtitle: 'Khởi tạo container mới từ GitHub repo hoặc Docker',
+        icon: <Plus className="h-4 w-4" />,
+        shortcut: ['N'],
+        group: 'Triển khai',
+        onSelect: () => toast.info('Khởi tạo service', 'Mở form deploy service.'),
+      },
+      {
+        id: 'sync-cluster',
+        title: 'Sync Cluster Nodes',
+        subtitle: 'Đồng bộ lại thông tin metrics và trạng thái pods',
+        icon: <RefreshCw className="h-4 w-4" />,
+        shortcut: ['R'],
+        group: 'Triển khai',
+        onSelect: () => handleRefresh(),
+      },
+      {
+        id: 'theme-toggle',
+        title: 'Chuyển đổi Giao diện Sáng / Tối',
+        subtitle: isDark ? 'Chuyển sang Light Theme' : 'Chuyển sang Dark Theme',
+        icon: isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />,
+        shortcut: ['T'],
+        group: 'Cài đặt',
+        onSelect: () => toggleTheme(),
+      },
+      {
+        id: 'cluster-logs',
+        title: 'Xem Cluster Audit Logs',
+        subtitle: 'Dòng thời gian các sự kiện triển khai và bảo mật',
+        icon: <Clock className="h-4 w-4" />,
+        group: 'Quan sát',
+        onSelect: () => toast.info('Audit Logs', 'Đang chuyển tới màn hình nhật ký.'),
+      },
+      {
+        id: 'docs',
+        title: 'Mở Tài liệu Kiến trúc Belp UI Kit',
+        subtitle: 'Xem đặc tả Design Tokens và Nguyên tắc SOLID',
+        icon: <ExternalLink className="h-4 w-4" />,
+        group: 'Tài liệu',
+        onSelect: () => window.open('https://github.com', '_blank'),
+      },
+    ],
+    [isDark]
+  );
+
+  const sampleTimelineItems: TimelineItem[] = [
+    {
+      id: 'evt-1',
+      title: 'Phát hành production-v2.4.1 thành công',
+      description: 'Hệ thống đã tự động rollout phiên bản mới trên cụm Singapore không gián đoạn dịch vụ.',
+      timestamp: '2 phút trước',
+      status: 'success',
+      icon: <Check className="h-3 w-3" />,
+      author: { name: 'Thanh Tùng', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=faces' },
+    },
+    {
+      id: 'evt-2',
+      title: 'Tự động mở rộng +4 Pods (Auto-scaling Triggered)',
+      description: 'Lưu lượng truy cập vượt ngưỡng 12,000 req/s, cụm HPA đã kích hoạt thêm 4 worker pods.',
+      timestamp: '18 phút trước',
+      status: 'info',
+      icon: <Activity className="h-3 w-3" />,
+      author: { name: 'K8s Controller' },
+    },
+    {
+      id: 'evt-3',
+      title: 'Cảnh báo: CPU cụm đạt 84.5% công suất',
+      description: 'Dịch vụ event-worker-celery đang xử lý hàng đợi nén ảnh kích thước lớn.',
+      timestamp: '42 phút trước',
+      status: 'warning',
+      icon: <AlertTriangle className="h-3 w-3" />,
+      author: { name: 'Prometheus Alert' },
+    },
+    {
+      id: 'evt-4',
+      title: 'Container redis-cache restart do Out of Memory',
+      description: 'Container chạm ngưỡng 512MB RAM tối đa và được cgroup tự động tái khởi động.',
+      timestamp: '1 giờ trước',
+      status: 'destructive',
+      icon: <Trash2 className="h-3 w-3" />,
+      author: { name: 'Kubelet' },
+    },
+  ];
 
   // Filtered & Sorted Data
   const filteredData = useMemo(() => {
@@ -564,6 +696,17 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2.5">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setCommandOpen(true)}
+              className="hidden sm:inline-flex items-center gap-2 h-8 text-xs text-muted-foreground hover:text-foreground border-border bg-secondary/50 font-normal"
+            >
+              <Search className="h-3.5 w-3.5 text-primary opacity-80" />
+              <span>Tìm lệnh...</span>
+              <Kbd>⌘K</Kbd>
+            </Button>
+
             <button
               onClick={copyCliCommand}
               className="hidden md:inline-flex items-center gap-2 h-8 px-3 rounded-md border border-border bg-muted/60 text-xs font-mono text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all"
@@ -1031,6 +1174,90 @@ export default function App() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Sliders & SegmentedControl */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Sliders className="h-5 w-5 text-primary" />
+                  <span>Sliders &amp; SegmentedControl</span>
+                </CardTitle>
+                <CardDescription>
+                  Thanh trượt dải giá trị đơn/kép (Radix Slider) và thanh chuyển đổi chế độ siêu đậm đặc (High-density).
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center text-sm font-medium">
+                      <span>Ngưỡng giới hạn CPU Throttling:</span>
+                      <Badge variant="default" mono size="sm">{cpuSliderValue[0]}%</Badge>
+                    </div>
+                    <Slider
+                      min={0}
+                      max={100}
+                      step={5}
+                      value={cpuSliderValue}
+                      onValueChange={setCpuSliderValue}
+                      marks={[
+                        { value: 0, label: '0%' },
+                        { value: 25, label: '25%' },
+                        { value: 50, label: '50%' },
+                        { value: 75, label: '75%' },
+                        { value: 100, label: '100%' },
+                      ]}
+                    />
+                  </div>
+
+                  <div className="space-y-2 pt-2">
+                    <div className="flex justify-between items-center text-sm font-medium">
+                      <span>Dải trễ phản hồi (Latency Range Filter):</span>
+                      <span className="font-mono text-xs text-muted-foreground">{latencyRangeValue[0]}ms – {latencyRangeValue[1]}ms</span>
+                    </div>
+                    <Slider
+                      min={0}
+                      max={500}
+                      step={10}
+                      value={latencyRangeValue}
+                      onValueChange={setLatencyRangeValue}
+                      showValue
+                      formatValue={(v) => `${v}ms`}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-6 pl-0 md:pl-6 border-t md:border-t-0 md:border-l border-border/80 pt-4 md:pt-0">
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase font-mono">
+                      Chế độ xem bảng điều khiển (SegmentedControl MD)
+                    </label>
+                    <SegmentedControl
+                      size="md"
+                      fullWidth
+                      value={activeSegment}
+                      onChange={setActiveSegment}
+                      options={[
+                        { value: 'services', label: 'Services', icon: <Server className="h-3.5 w-3.5" /> },
+                        { value: 'database', label: 'Databases', icon: <Database className="h-3.5 w-3.5" /> },
+                        { value: 'cache', label: 'Cache', icon: <HardDrive className="h-3.5 w-3.5" /> },
+                      ]}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase font-mono">
+                      Khoảng thời gian phân tích (SegmentedControl SM)
+                    </label>
+                    <SegmentedControl
+                      size="sm"
+                      value={activeTimeframe}
+                      onChange={setActiveTimeframe}
+                      options={['15m', '1h', '6h', '24h', '7d', '30d']}
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* TAB 3: COMPOSITE COMPONENTS */}
@@ -1112,6 +1339,115 @@ export default function App() {
                       Đã bổ sung đầy đủ Custom Select, DatePicker, Drawer/Sheet và ProgressBar.
                     </AlertDescription>
                   </Alert>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Command Palette, DateRangePicker & TagInput */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Command className="h-5 w-5 text-primary" />
+                  <span>Command Menu, DateRangePicker &amp; TagInput</span>
+                </CardTitle>
+                <CardDescription>
+                  Công cụ tìm kiếm lệnh nhanh, chọn khoảng ngày dữ liệu và quản lý thẻ gắn tags.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-foreground">
+                      Command Palette (Hộp thoại lệnh nhanh)
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                      Bấm phím <Kbd>⌘K</Kbd> hoặc <Kbd>Ctrl+K</Kbd> ở bất cứ đâu để mở thanh điều hướng.
+                    </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => setCommandOpen(true)}
+                      leftIcon={<Search className="h-4 w-4 text-primary" />}
+                    >
+                      Mở Command Palette
+                    </Button>
+                  </div>
+
+                  <Divider />
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-foreground">
+                      DateRangePicker (Chọn khoảng ngày)
+                    </label>
+                    <DateRangePicker
+                      value={demoDateRange}
+                      onChange={setDemoDateRange}
+                      placeholder="Chọn khoảng ngày báo cáo..."
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-4 pl-0 md:pl-6 border-t md:border-t-0 md:border-l border-border/80 pt-4 md:pt-0">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-foreground flex items-center gap-1.5">
+                      <Tag className="h-4 w-4 text-primary" />
+                      <span>TagInput (Quản lý nhãn gắn microservices)</span>
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                      Gõ tên tag rồi nhấn Enter hoặc dấu phẩy để gắn nhãn, Backspace để xóa thẻ cuối.
+                    </p>
+                    <TagInput
+                      value={demoTags}
+                      onChange={setDemoTags}
+                      suggestions={['production', 'staging', 'qa', 'us-east-1', 'eu-west-1', 'canary', 'redis', 'postgres', 'docker']}
+                    />
+                  </div>
+
+                  <div className="pt-2">
+                    <label className="text-xs font-semibold text-muted-foreground uppercase font-mono">
+                      Inline CodeSnippet với Copy 1 chạm
+                    </label>
+                    <div className="flex flex-wrap items-center gap-2 mt-1.5">
+                      <CodeSnippet code="docker pull belp/cluster-node:latest" variant="inline" />
+                      <CodeSnippet code="git checkout -b release/v0.2.0" variant="inline" />
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Timeline & CodeSnippet */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                  <span>Timeline &amp; CodeSnippet Terminal</span>
+                </CardTitle>
+                <CardDescription>
+                  Dòng thời gian sự kiện triển khai hạ tầng và khối hiển thị lệnh lập trình với phông JetBrains Mono.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-sm font-semibold mb-3">Sự kiện Cụm Gần đây (Cluster ActivityLog)</h4>
+                  <Timeline items={sampleTimelineItems} />
+                </div>
+
+                <div className="space-y-4 pl-0 lg:pl-6 border-t lg:border-t-0 lg:border-l border-border/80 pt-4 lg:pt-0">
+                  <h4 className="text-sm font-semibold mb-2">Block CodeSnippet với Terminal Copy</h4>
+                  <CodeSnippet
+                    language="bash"
+                    code={`# Cài đặt Belp UI Kit và dependencies\nnpm install belp-ui-kit lucide-react\n\n# Khởi tạo theme provider trong root\nimport 'belp-ui-kit/style.css';`}
+                  />
+
+                  <div className="pt-2">
+                    <h4 className="text-sm font-semibold mb-2">Đoạn mã Dockerfile mẫu</h4>
+                    <CodeSnippet
+                      language="dockerfile"
+                      prefix=""
+                      showLineNumbers
+                      code={`FROM node:20-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build\nCMD ["npm", "start"]`}
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -1291,6 +1627,13 @@ export default function App() {
         confirmLabel="Xác nhận Xóa"
         variant="destructive"
         onConfirm={handleDeleteService}
+      />
+
+      {/* Global Command Menu */}
+      <CommandMenu
+        open={commandOpen}
+        onOpenChange={setCommandOpen}
+        actions={commandActions}
       />
 
       {/* Footer */}

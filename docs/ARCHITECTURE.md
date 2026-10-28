@@ -15,13 +15,13 @@ flowchart TD
     subgraph Layer1["Đợt 1: Headless Core & Primitives"]
         RadixPrimitives[Radix UI Headless Primitives]
         BaseStyles[CVA - Class Variance Authority]
-        Primitives[Button, Input, Badge, Card, Stack, Typography, etc.]
+        Primitives[Button, Input, Select, Slider, SegmentedControl, Badge, Card, Stack, Typography, etc.]
     end
 
     subgraph Layer2["Đợt 2: Composite Components"]
-        FormFields[FormField Wrapper & Controls]
-        Overlays[Dialog, Sheet, Popover, Tooltip, DropdownMenu]
-        Feedback[Toast, Alert, Skeleton, EmptyState]
+        FormFields[FormField Wrapper, DatePicker, DateRangePicker, NumberInput, TagInput]
+        Overlays[Dialog, Drawer, CommandMenu, Popover, Tooltip, DropdownMenu, ConfirmDialog]
+        Feedback[Toast, Alert, ProgressBar, Timeline, CodeSnippet, Skeleton, EmptyState]
     end
 
     subgraph Layer3["Đợt 3: Data-Dense & Patterns"]

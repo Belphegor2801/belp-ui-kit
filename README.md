@@ -304,6 +304,133 @@ export function TriggerNotifications() {
 
 ---
 
+### 6. Custom Select & DatePicker / DateRangePicker
+
+```tsx
+import { useState } from 'react';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+  DatePicker,
+  DateRangePicker,
+  type DateRange,
+} from 'belp-ui-kit';
+
+export function FilterControls() {
+  const [date, setDate] = useState<Date | null>(new Date());
+  const [range, setRange] = useState<DateRange>({});
+
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <div className="w-48">
+        <Select defaultValue="production">
+          <SelectTrigger>
+            <SelectValue placeholder="Chọn môi trường" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="production">Production</SelectItem>
+            <SelectItem value="staging">Staging</SelectItem>
+            <SelectItem value="preview">Preview</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="w-44">
+        <DatePicker value={date} onChange={setDate} />
+      </div>
+
+      <div className="w-64">
+        <DateRangePicker value={range} onChange={setRange} />
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+### 7. Slider & SegmentedControl (High-Density)
+
+```tsx
+import { useState } from 'react';
+import { Slider, SegmentedControl } from 'belp-ui-kit';
+
+export function DensityControls() {
+  const [cpuLimit, setCpuLimit] = useState([80]);
+  const [timeframe, setTimeframe] = useState('24h');
+
+  return (
+    <div className="space-y-4 max-w-sm">
+      <SegmentedControl
+        size="sm"
+        value={timeframe}
+        onChange={setTimeframe}
+        options={['1h', '6h', '24h', '7d', '30d']}
+      />
+
+      <Slider
+        min={0}
+        max={100}
+        value={cpuLimit}
+        onValueChange={setCpuLimit}
+        showValue
+        formatValue={(v) => `${v}% CPU`}
+      />
+    </div>
+  );
+}
+```
+
+---
+
+### 8. Command Palette (Cmd+K) & Activity Timeline
+
+```tsx
+import { useState } from 'react';
+import { CommandMenu, Timeline, Button } from 'belp-ui-kit';
+import { Plus, Terminal } from 'lucide-react';
+
+export function PowerTools() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Mở Command Palette (⌘K)</Button>
+
+      <CommandMenu
+        open={open}
+        onOpenChange={setOpen}
+        actions={[
+          {
+            id: 'deploy',
+            title: 'Deploy New Service',
+            icon: <Plus className="h-4 w-4" />,
+            shortcut: ['N'],
+            onSelect: () => console.log('Deploying...'),
+          },
+        ]}
+      />
+
+      <Timeline
+        items={[
+          {
+            id: '1',
+            title: 'Deploy v2.4.0 thành công',
+            timestamp: '5 phút trước',
+            status: 'success',
+          },
+        ]}
+      />
+    </>
+  );
+}
+```
+
+---
+
 ## 🛠️ Lệnh Phát triển & Kiểm thử (CLI Scripts)
 
 Dự án cung cấp sẵn môi trường Showcase tương tác để bạn phát triển và kiểm tra component trực tiếp:

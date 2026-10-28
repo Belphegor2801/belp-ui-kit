@@ -27,6 +27,8 @@
   - [x] `RadioGroup` & `RadioGroupItem` (Radix primitive, label + description).
   - [x] `Switch` (Radix primitive, smooth sliding thumb).
   - [x] `Select` (Radix Select tùy chỉnh với Trigger, Content, Item, Group, Label, Separator, hoàn toàn thay thế native select).
+  - [x] `Slider` (Radix Slider thanh trượt đơn và dải khoảng cách dual-thumb với step, marks, tooltip).
+  - [x] `SegmentedControl` (Chuyển đổi chế độ siêu đậm đặc cho chế độ xem và bộ lọc dữ liệu).
   - [x] `Typography` (`Heading` h1-h6 bằng phông Inter, `Text`, `Code`, `Kbd`).
   - [x] `Badge` (status colors: default, success, warning, destructive, info, outline; dot indicator; glowing pulse effect; monospace variant).
   - [x] `Avatar` (image src, fallback initials, status badge online/busy/away/offline).
@@ -38,14 +40,19 @@
 - [x] **Giai đoạn 3: Đợt 2 — Composite Components**
   - [x] `FormField` (tự động liên kết id, label, required mark, hint, error message, WAI-ARIA `aria-describedby` và `aria-invalid`).
   - [x] `DatePicker` (bộ chọn ngày Calendar Popover tương tác, format ngày, điều hướng tháng/năm, clear button).
+  - [x] `DateRangePicker` (bộ chọn khoảng ngày start/end với các preset nhanh).
   - [x] `NumberInput` / `CurrencyInput` (ô nhập số kèm nút tăng/giảm stepper và định dạng).
+  - [x] `TagInput` / `MultiSelect` (ô chọn và nhập đa thẻ kèm xóa nhanh và tìm kiếm).
   - [x] `Modal / Dialog` (Radix Dialog: Portal, focus trap, escape key, overlay backdrop blur, animated scale-in).
   - [x] `Drawer / Sheet` (Radix Dialog: Panel trượt từ cạnh phải/trái/dưới/trên).
+  - [x] `CommandMenu` (Command Palette `Cmd+K` / `Ctrl+K` tìm kiếm điều hướng toàn hệ thống).
   - [x] `Tooltip` (Radix Tooltip: Hover & focus triggered).
   - [x] `DropdownMenu` (Radix Dropdown: Items, Labels, Separators, Destructive actions).
   - [x] `Popover` (Radix Popover: Rich interactive floating panel).
   - [x] `Alert` (Info, Success, Warning, Destructive with dismiss button).
   - [x] `ProgressBar` (Thanh tiến trình với kích thước và màu sắc chủ đạo).
+  - [x] `Timeline` / `ActivityLog` (Chuỗi sự kiện theo trục thời gian kèm trạng thái và avatar).
+  - [x] `CodeSnippet` / `CopyButton` (Hiển thị lệnh/mã kèm nút copy 1 chạm).
   - [x] `Skeleton` (Shimmer animated loading placeholder).
   - [x] `EmptyState` (Icon minh họa, Tiêu đề, Mô tả, CTA action).
   - [x] `ConfirmDialog` (Hộp thoại xác nhận nhanh các hành động quan trọng).

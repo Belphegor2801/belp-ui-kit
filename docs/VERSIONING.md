@@ -15,7 +15,31 @@ Belp UI Kit tuân thủ tiêu chuẩn [Semantic Versioning 2.0.0](https://semver
 
 ## 📜 Lịch sử Phiên bản (Changelog)
 
-### `v0.1.0` — Initial Foundation & Data-Dense Core (Phiên bản Hiện tại)
+### `v0.2.0` — Expanding Controls, Time Range & Power-User Tools (Hoàn thành)
+*Ngày phát hành: 28/10/2026*
+
+#### ✨ Thành phần mới được bổ sung
+- **Bộ điều khiển nâng cao (Advanced Controls)**:
+  - `Select` (Radix UI): Dropdown tùy chỉnh cao cấp thay thế hoàn toàn thẻ `<select>` native, hỗ trợ SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectSeparator.
+  - `Slider` & `RangeSlider`: Thanh trượt đơn và dải giá trị kép (dual-thumb) trên nền `@radix-ui/react-slider` với bước nhảy (step), min/max, và tooltip giá trị tức thời.
+  - `SegmentedControl`: Thanh chuyển đổi chế độ siêu đậm đặc (High-density mode toggle) cho các góc nhìn (Table | Grid | Metrics) hoặc khoảng thời gian (1h | 24h | 7d | 30d).
+  - `TagInput` / `MultiSelect`: Ô chọn và nhập nhiều thẻ gắn (tags) kèm thao tác xóa nhanh, tìm kiếm và badge hiển thị.
+  - `NumberInput`: Ô nhập số định dạng tiền tệ hoặc số lượng kèm nút tăng giảm (stepper).
+- **Bộ chọn thời gian (Temporal Controls)**:
+  - `DatePicker`: Bộ chọn ngày tương tác dạng Calendar Popover với chọn tháng/năm, điều hướng trước/sau, format ngày `DD/MM/YYYY`, clear button.
+  - `DateRangePicker`: Bộ chọn khoảng ngày `[startDate, endDate]` với các preset nhanh (Hôm nay, 7 ngày qua, 30 ngày qua, Tháng này).
+- **Trải nghiệm Nhà phát triển & Phản hồi (DX & Feedback)**:
+  - `CommandMenu` (`CommandDialog` / `CommandPalette`): Thanh tìm kiếm lệnh và điều hướng nhanh toàn hệ thống qua phím tắt `Cmd+K` / `Ctrl+K`.
+  - `Drawer` / `Sheet`: Ngăn kéo trượt từ 4 cạnh (phải, trái, dưới, trên) chuyên dụng cho chi tiết bản ghi.
+  - `Timeline` / `ActivityLog`: Chuỗi sự kiện theo dòng thời gian với các chấm trạng thái, avatar người thực hiện và chi tiết sự kiện cho audit logs / deployment logs.
+  - `CodeSnippet` / `CopyButton`: Hộp hiển thị mã lệnh hoặc token kỹ thuật kèm nút sao chép nhanh 1 chạm và phông JetBrains Mono.
+  - `ProgressBar`: Thanh tiến trình thanh mảnh hiển thị tỷ lệ % hoàn thành với các biến thể màu.
+  - `Breadcrumb`: Thanh điều hướng phân cấp (Home / Cluster / Service / Logs).
+  - `ConfirmDialog`: Hộp thoại xác nhận nhanh các hành vi quan trọng (xóa, khởi động lại).
+
+---
+
+### `v0.1.0` — Initial Foundation & Data-Dense Core
 *Ngày phát hành: 28/10/2026*
 
 #### ✨ Tính năng nổi bật

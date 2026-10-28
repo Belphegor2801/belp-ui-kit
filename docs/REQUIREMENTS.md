@@ -5,8 +5,8 @@ Xây dựng một thư viện giao diện người dùng (UI Component Library) 
 
 Dự án tuân thủ triệt để lộ trình từ file `building-component-library.md` và sử dụng bảng màu chủ đạo trích xuất từ D3 Design (`https://d3design.vn/uploads/03.jpg`):
 - **Tầng 0: Foundations** (Design Tokens với màu chủ đạo `#1aa7ec`, nền `#1e2f97`, accent `#4adede`, phông Inter & JetBrains Mono).
-- **Đợt 1: Primitives** (Button, IconButton, Link, Input, Textarea, Checkbox, Radio, Switch, Select, Typography, Badge, Avatar, Card, Stack...).
-- **Đợt 2: Composite** (FormField, DatePicker, NumberInput, Modal/Dialog, Drawer/Sheet, Tooltip, DropdownMenu, Toast, Alert, ProgressBar, Skeleton, EmptyState, ConfirmDialog).
+- **Đợt 1: Primitives** (Button, IconButton, Link, Input, Textarea, Checkbox, Radio, Switch, Select, Slider, SegmentedControl, Typography, Badge, Avatar, Card, Stack...).
+- **Đợt 2: Composite** (FormField, DatePicker, DateRangePicker, NumberInput, TagInput, Modal/Dialog, Drawer/Sheet, CommandMenu, Tooltip, DropdownMenu, Toast, Alert, ProgressBar, Timeline, CodeSnippet, Skeleton, EmptyState, ConfirmDialog).
 - **Đợt 3: Nâng cao** (Data Table/DataGrid, Pagination, Breadcrumb, Tabs, FilterBar, MetricCard, Accordion).
 
 ---
@@ -37,6 +37,8 @@ Dự án tuân thủ triệt để lộ trình từ file `building-component-lib
   - `Textarea`: Tự đếm ký tự, maxLength, error state.
   - `Checkbox`, `RadioGroup`, `Switch`: Điều khiển nhị phân và danh sách chọn lọc.
   - `Select` (Custom Radix Select): Dropdown lựa chọn tùy chỉnh thay thế thẻ `<select>` native, hỗ trợ SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectSeparator.
+  - `Slider` & `RangeSlider`: Thanh trượt đơn và dải giá trị kép (dual-thumb) trên nền `@radix-ui/react-slider` với bước nhảy (step), min/max, và tooltip giá trị tức thời.
+  - `SegmentedControl`: Thanh chuyển đổi chế độ siêu đậm đặc (High-density mode toggle) cho các góc nhìn (Table | Grid | Metrics) hoặc khoảng thời gian (1h | 24h | 7d | 30d).
 - **Hiển thị & Thông tin**:
   - `Typography`: Heading, Text, Label, Kbd, Code.
   - `Badge` / `Tag`: Hiển thị trạng thái dữ liệu (success, pending, failed, neutral, v.v.), hỗ trợ chấm phát sáng `pulse`.
@@ -50,17 +52,22 @@ Dự án tuân thủ triệt để lộ trình từ file `building-component-lib
 - **Form System**:
   - `FormField`: Wrapper toàn diện liên kết tự động `id`, `label`, `required`, `hint`, `error`, `aria-describedby` và `aria-invalid`.
   - `DatePicker`: Bộ chọn ngày tương tác dạng Calendar Popover với chọn tháng/năm, điều hướng trước/sau, format ngày `DD/MM/YYYY`, clear button.
+  - `DateRangePicker`: Bộ chọn khoảng ngày `[startDate, endDate]` với các preset nhanh (Hôm nay, 7 ngày qua, 30 ngày qua, Tháng này) tối ưu cho báo cáo dữ liệu.
   - `NumberInput` / `CurrencyInput`: Ô nhập số định dạng tiền tệ hoặc số lượng kèm nút tăng giảm (stepper).
+  - `TagInput` / `MultiSelect`: Ô chọn và nhập nhiều thẻ gắn (tags) kèm thao tác xóa nhanh, tìm kiếm và badge hiển thị.
 - **Overlay Layer (Dựa trên Headless Primitive đồng nhất)**:
   - `Dialog` / `Modal`: Hộp thoại trung tâm với backdrop mờ, focus trap, phím Esc đóng, scale animation.
   - `Drawer` / `Sheet`: Ngăn kéo trượt từ các cạnh (phải, trái, dưới, trên) chuyên dụng cho chi tiết bản ghi.
+  - `CommandMenu` (`CommandDialog` / `CommandPalette`): Thanh tìm kiếm lệnh và điều hướng nhanh toàn hệ thống qua phím tắt `Cmd+K` / `Ctrl+K`.
   - `Tooltip`: Chú giải nhanh khi hover/focus.
   - `Popover`: Cửa sổ nổi hiển thị nội dung phức tạp.
   - `DropdownMenu`: Menu ngữ cảnh, tùy chọn dòng dữ liệu, submenu, separators.
-- **Phản hồi người dùng (Feedback)**:
+- **Phản hồi người dùng (Feedback) & Dữ liệu thời gian**:
   - `Toast` / `Notification`: Thông báo nổi stackable, tự động biến mất, đa trạng thái.
   - `Alert` / `Banner`: Cảnh báo trong trang (info, success, warning, destructive).
   - `ProgressBar`: Thanh tiến trình thanh mảnh hiển thị tỷ lệ % hoàn thành với các biến thể màu.
+  - `Timeline` / `ActivityLog`: Chuỗi sự kiện theo dòng thời gian với các chấm trạng thái, avatar người thực hiện và chi tiết sự kiện cho audit logs / deployment logs.
+  - `CodeSnippet` / `CopyButton`: Hộp hiển thị mã lệnh hoặc token kỹ thuật kèm nút sao chép nhanh 1 chạm và phông JetBrains Mono.
   - `Skeleton`: Hiệu ứng shimmer giả lập dữ liệu đang tải.
   - `EmptyState`: Trạng thái trống có hình minh họa, tiêu đề, mô tả và nút CTA.
   - `ConfirmDialog`: Hộp thoại xác nhận nhanh các hành vi quan trọng (xóa, khởi động lại).
