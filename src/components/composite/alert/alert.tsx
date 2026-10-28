@@ -12,7 +12,7 @@ export const alertVariants = cva(
         info: 'bg-sky-500/10 text-sky-900 dark:text-sky-200 border-sky-500/30 [&>svg]:text-sky-600 dark:[&>svg]:text-sky-400',
         success: 'bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 border-emerald-500/30 [&>svg]:text-emerald-600 dark:[&>svg]:text-emerald-400',
         warning: 'bg-amber-500/10 text-amber-900 dark:text-amber-200 border-amber-500/30 [&>svg]:text-amber-600 dark:[&>svg]:text-amber-400',
-        destructive: 'bg-destructive/10 text-destructive border-destructive/30 [&>svg]:text-destructive',
+        destructive: 'bg-destructive/10 text-rose-900 dark:text-rose-200 border-destructive/30 [&>svg]:text-destructive dark:[&>svg]:text-rose-400',
       },
     },
     defaultVariants: {

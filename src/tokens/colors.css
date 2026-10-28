@@ -2,18 +2,21 @@
   /* ==========================================================================
      LIGHT THEME (Default)
      ========================================================================== */
-  --background: 210 40% 98%;      /* #f8fafc */
-  --foreground: 222 47% 11%;      /* #0f172a */
+  color-scheme: light;
 
-  --card: 0 0% 100%;              /* #ffffff */
+  /* Surfaces & Backgrounds */
+  --background: 210 40% 98%;      /* #f8fafc - Crisp soft slate tint */
+  --foreground: 222 47% 11%;      /* #0f172a - Slate 900 text */
+
+  --card: 0 0% 100%;              /* #ffffff - Pure white cards */
   --card-foreground: 222 47% 11%;
 
-  --popover: 0 0% 100%;
+  --popover: 0 0% 100%;           /* #ffffff - Elevated menus */
   --popover-foreground: 222 47% 11%;
 
   /* Brand / Primary */
   --primary: 221 83% 53%;         /* Modern Royal Blue / Indigo */
-  --primary-foreground: 210 40% 98%;
+  --primary-foreground: 0 0% 100%;
   --primary-hover: 221 83% 45%;
 
   /* Secondary / Neutral */
@@ -37,7 +40,7 @@
   --warning-foreground: 0 0% 100%;
 
   --destructive: 0 84% 60%;       /* Crimson Red */
-  --destructive-foreground: 210 40% 98%;
+  --destructive-foreground: 0 0% 100%;
 
   --info: 199 89% 48%;            /* Sky Blue */
   --info-foreground: 0 0% 100%;
@@ -50,30 +53,35 @@
 
 .dark {
   /* ==========================================================================
-     DARK THEME
+     DARK THEME (Calibrated 3-tier Surface Depth)
      ========================================================================== */
-  --background: 224 71% 4%;       /* #020617 - Deep obsidian */
-  --foreground: 210 40% 98%;      /* #f8fafc */
+  color-scheme: dark;
 
-  --card: 222 47% 9%;             /* #0b1120 */
+  /* Tier 0: Deep canvas background */
+  --background: 224 71% 4%;       /* #020617 - Deep obsidian canvas */
+  --foreground: 210 40% 98%;      /* #f8fafc - Bright readable text */
+
+  /* Tier 1: Cards & Containers */
+  --card: 222 47% 9%;             /* #0b1120 - Distinct from background */
   --card-foreground: 210 40% 98%;
 
-  --popover: 222 47% 9%;
+  /* Tier 2: Popovers, Modals & Floating Menus (Elevated surface) */
+  --popover: 222 47% 13%;          /* #131b2e - Visibly elevated above cards */
   --popover-foreground: 210 40% 98%;
 
   /* Brand / Primary */
-  --primary: 217 91% 60%;
-  --primary-foreground: 222 47% 11%;
+  --primary: 217 91% 60%;         /* Vibrant blue for dark mode */
+  --primary-foreground: 0 0% 100%;
   --primary-hover: 217 91% 68%;
 
   /* Secondary / Neutral */
   --secondary: 217 33% 17%;
   --secondary-foreground: 210 40% 98%;
-  --secondary-hover: 217 33% 22%;
+  --secondary-hover: 217 33% 24%;
 
   /* Muted */
   --muted: 217 33% 15%;
-  --muted-foreground: 215 20% 65%;
+  --muted-foreground: 215 20% 65%; /* High-contrast readable muted text */
 
   /* Accent */
   --accent: 217 33% 18%;
@@ -86,14 +94,14 @@
   --warning: 38 92% 50%;
   --warning-foreground: 0 0% 100%;
 
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 210 40% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
 
   --info: 199 89% 48%;
   --info-foreground: 0 0% 100%;
 
   /* UI Borders & Controls */
-  --border: 217 33% 18%;
-  --input: 217 33% 18%;
+  --border: 217 33% 19%;          /* Clearly delineated borders */
+  --input: 217 33% 19%;
   --ring: 217 91% 60%;
 }

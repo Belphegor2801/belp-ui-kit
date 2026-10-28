@@ -56,11 +56,11 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           <div
             key={toast.id}
             className={cn(
-              'pointer-events-auto flex items-start gap-3 rounded-lg border p-4 shadow-lg transition-all animate-slide-in-right bg-card text-card-foreground',
-              toast.variant === 'success' && 'border-emerald-500/30 text-emerald-900 dark:text-emerald-100 bg-emerald-500/10 backdrop-blur-sm',
-              toast.variant === 'destructive' && 'border-destructive/30 text-destructive bg-destructive/10 backdrop-blur-sm',
-              toast.variant === 'warning' && 'border-amber-500/30 text-amber-900 dark:text-amber-100 bg-amber-500/10 backdrop-blur-sm',
-              toast.variant === 'info' && 'border-sky-500/30 text-sky-900 dark:text-sky-100 bg-sky-500/10 backdrop-blur-sm',
+              'pointer-events-auto flex items-start gap-3 rounded-lg border p-4 shadow-lg transition-all animate-slide-in-right bg-card dark:bg-slate-900/95 text-card-foreground',
+              toast.variant === 'success' && 'border-emerald-500/30 text-emerald-900 dark:text-emerald-100 bg-emerald-500/10 dark:bg-emerald-950/40 backdrop-blur-sm',
+              toast.variant === 'destructive' && 'border-destructive/30 text-rose-900 dark:text-rose-100 bg-destructive/10 dark:bg-rose-950/40 backdrop-blur-sm',
+              toast.variant === 'warning' && 'border-amber-500/30 text-amber-900 dark:text-amber-100 bg-amber-500/10 dark:bg-amber-950/40 backdrop-blur-sm',
+              toast.variant === 'info' && 'border-sky-500/30 text-sky-900 dark:text-sky-100 bg-sky-500/10 dark:bg-sky-950/40 backdrop-blur-sm',
               (!toast.variant || toast.variant === 'default') && 'border-border'
             )}
           >

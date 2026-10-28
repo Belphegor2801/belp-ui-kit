@@ -111,8 +111,8 @@ export function DataTable<T>({
         <table className="w-full caption-bottom text-left border-collapse">
           <thead
             className={cn(
-              'border-b border-border bg-muted/50 text-muted-foreground uppercase font-semibold tracking-wider select-none',
-              stickyHeader && 'sticky top-0 z-10 backdrop-blur-md bg-muted/80'
+              'border-b border-border bg-muted/60 dark:bg-muted/40 text-muted-foreground dark:text-muted-foreground/90 uppercase font-semibold tracking-wider select-none',
+              stickyHeader && 'sticky top-0 z-10 backdrop-blur-md bg-muted/80 dark:bg-muted/90'
             )}
           >
             <tr>
@@ -215,8 +215,8 @@ export function DataTable<T>({
                     onClick={() => onRowClick?.(row)}
                     className={cn(
                       'transition-colors hover:bg-muted/40 cursor-default',
-                      isSelected && 'bg-primary/5 hover:bg-primary/10',
-                      striped && rIdx % 2 === 1 && !isSelected && 'bg-muted/15',
+                      isSelected && 'bg-primary/10 hover:bg-primary/15 dark:bg-primary/20 dark:hover:bg-primary/25',
+                      striped && rIdx % 2 === 1 && !isSelected && 'bg-muted/15 dark:bg-muted/10',
                       onRowClick && 'cursor-pointer'
                     )}
                   >

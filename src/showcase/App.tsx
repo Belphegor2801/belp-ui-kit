@@ -168,10 +168,11 @@ const INITIAL_TRANSACTIONS: Transaction[] = [
 
 export default function App() {
   const [isDark, setIsDark] = useState<boolean>(() => {
-    return (
-      localStorage.getItem('belp_theme') === 'dark' ||
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    );
+    const saved = localStorage.getItem('belp_theme');
+    if (saved) {
+      return saved === 'dark';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   const toast = useToast();
@@ -182,9 +183,11 @@ export default function App() {
       const next = !prev;
       if (next) {
         document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
         localStorage.setItem('belp_theme', 'dark');
       } else {
         document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
         localStorage.setItem('belp_theme', 'light');
       }
       return next;
@@ -194,8 +197,10 @@ export default function App() {
   React.useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
     }
   }, [isDark]);
 
