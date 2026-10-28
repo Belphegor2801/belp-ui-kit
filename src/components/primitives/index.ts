@@ -3,6 +3,7 @@ export * from './input';
 export * from './checkbox';
 export * from './radio';
 export * from './switch';
+export * from './select';
 export * from './typography';
 export * from './badge';
 export * from './avatar';

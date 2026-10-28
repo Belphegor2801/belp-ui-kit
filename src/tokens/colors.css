@@ -1,39 +1,40 @@
 :root {
   /* ==========================================================================
-     RAILWAY LIGHT THEME
+     BELP UI KIT — LIGHT THEME (D3 Design Inspired Palette)
+     Primary: #1aa7ec (Electric Cyan Blue)
      ========================================================================== */
   color-scheme: light;
 
   /* Surfaces & Backgrounds */
-  --background: 240 14% 98%;      /* #f9f9fb - Clean technical off-white canvas */
-  --foreground: 250 25% 6%;       /* #0d0c14 - Deep near-black high-contrast text */
+  --background: 210 30% 98%;      /* #f8fafc - Soft cool slate */
+  --foreground: 232 45% 10%;      /* #0f1325 - Deep navy text */
 
   --card: 0 0% 100%;              /* #ffffff - Crisp white cards */
-  --card-foreground: 250 25% 6%;
+  --card-foreground: 232 45% 10%;
 
   --popover: 0 0% 100%;           /* #ffffff - Elevated menus */
-  --popover-foreground: 250 25% 6%;
+  --popover-foreground: 232 45% 10%;
 
-  /* Brand / Primary: Signature Railway Purple */
-  --primary: 268 75% 54%;         /* #853bce / Vibrant Railway Violet */
+  /* Brand / Primary: #1aa7ec (Electric Cyan Blue) */
+  --primary: 200 85% 51%;         /* #1aa7ec */
   --primary-foreground: 0 0% 100%;
-  --primary-hover: 268 75% 46%;
+  --primary-hover: 200 85% 43%;
 
   /* Secondary / Neutral */
-  --secondary: 250 14% 94%;
-  --secondary-foreground: 250 25% 8%;
-  --secondary-hover: 250 14% 88%;
+  --secondary: 210 30% 95%;
+  --secondary-foreground: 232 45% 12%;
+  --secondary-hover: 210 30% 90%;
 
   /* Muted */
-  --muted: 250 14% 94%;
-  --muted-foreground: 250 10% 46%;
+  --muted: 210 30% 95%;
+  --muted-foreground: 215 16% 47%;
 
-  /* Accent */
-  --accent: 250 14% 92%;
-  --accent-foreground: 250 25% 6%;
+  /* Accent: Periwinkle / Sky */
+  --accent: 200 40% 93%;
+  --accent-foreground: 232 45% 10%;
 
   /* Semantic Feedback */
-  --success: 155 75% 40%;         /* Railway Emerald Green */
+  --success: 180 69% 42%;         /* Aqua Mint #4adede tuned for light mode */
   --success-foreground: 0 0% 100%;
 
   --warning: 38 92% 50%;          /* Amber */
@@ -42,67 +43,67 @@
   --destructive: 348 83% 54%;     /* Crimson */
   --destructive-foreground: 0 0% 100%;
 
-  --info: 199 89% 48%;            /* Cyan / Sky */
+  --info: 200 85% 51%;            /* #1aa7ec */
   --info-foreground: 0 0% 100%;
 
   /* UI Borders & Controls */
-  --border: 250 14% 90%;          /* Fine 1px division */
-  --input: 250 14% 90%;
-  --ring: 268 75% 54%;
+  --border: 214 32% 91%;          /* Slate-200 */
+  --input: 214 32% 91%;
+  --ring: 200 85% 51%;            /* Electric Cyan focus ring */
 }
 
 .dark {
   /* ==========================================================================
-     RAILWAY DARK-FIRST SIGNATURE THEME
-     Deep obsidian/purple-tinted canvas, #13111c surfaces & #853bce brand violet
+     BELP UI KIT — DARK THEME (D3 Design Midnight Navy Hierarchy)
+     Midnight Navy: #1e2f97 base, Primary: #1aa7ec, Accent: #4adede & #797ef6
      ========================================================================== */
   color-scheme: dark;
 
-  /* Tier 0: Canvas Background */
-  --background: 240 15% 5%;       /* #0b0b0f - Deep obsidian canvas */
-  --foreground: 240 7% 97%;       /* #f7f7f8 - High-contrast readable off-white */
+  /* Tier 0: Canvas Background (#080b18 - Deep Midnight Navy Canvas) */
+  --background: 232 50% 6%;       /* #080b18 */
+  --foreground: 210 40% 98%;      /* #f8fafc */
 
-  /* Tier 1: Cards & Containers (Railway signature #13111c) */
-  --card: 252 25% 9%;             /* #13111c - Distinct rich dark purple-navy */
-  --card-foreground: 240 7% 97%;
+  /* Tier 1: Cards & Containers (#0d132a - Midnight Navy Card Surface) */
+  --card: 232 50% 10%;            /* #0d132a */
+  --card-foreground: 210 40% 98%;
 
-  /* Tier 2: Popovers, Modals & Floating Menus (Elevated surface #1b1828) */
-  --popover: 252 25% 13%;          /* #1b1828 - Floating layer clearly above cards */
-  --popover-foreground: 240 7% 97%;
+  /* Tier 2: Popovers, Modals & Floating Menus (#141d40 - Elevated Surface) */
+  --popover: 232 46% 15%;         /* #141d40 */
+  --popover-foreground: 210 40% 98%;
 
-  /* Brand / Primary: Signature Railway Purple */
-  --primary: 268 75% 58%;         /* #853bce - Electric Violet */
+  /* Brand / Primary: #1aa7ec (Electric Cyan Blue) */
+  --primary: 200 85% 51%;         /* #1aa7ec */
   --primary-foreground: 0 0% 100%;
-  --primary-hover: 268 85% 66%;
+  --primary-hover: 200 85% 60%;
 
-  /* Secondary / Neutral: Dark technical surface with subtle purple hue */
-  --secondary: 252 21% 14%;       /* #1e1c2b */
-  --secondary-foreground: 240 7% 97%;
-  --secondary-hover: 252 21% 19%;
+  /* Secondary / Neutral: #1a2246 */
+  --secondary: 232 38% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --secondary-hover: 232 38% 22%;
 
   /* Muted */
-  --muted: 252 21% 12%;
-  --muted-foreground: 250 10% 64%; /* Balanced contrast technical muted text */
+  --muted: 232 35% 14%;
+  --muted-foreground: 215 25% 68%;
 
   /* Accent */
-  --accent: 252 21% 16%;
-  --accent-foreground: 240 7% 97%;
+  --accent: 232 38% 19%;
+  --accent-foreground: 210 40% 98%;
 
   /* Semantic Feedback */
-  --success: 155 75% 45%;         /* Emerald green (active status) */
-  --success-foreground: 0 0% 100%;
+  --success: 180 69% 54%;         /* #4adede Aqua Mint */
+  --success-foreground: 232 50% 8%;
 
-  --warning: 38 92% 50%;          /* Amber (building / warning) */
+  --warning: 38 92% 50%;          /* Amber */
   --warning-foreground: 0 0% 100%;
 
   --destructive: 348 83% 60%;     /* Crimson */
   --destructive-foreground: 0 0% 100%;
 
-  --info: 199 89% 52%;            /* Sky Blue / Cyan */
-  --info-foreground: 0 0% 100%;
+  --info: 196 87% 73%;            /* #7dd6f6 Soft Sky */
+  --info-foreground: 232 50% 8%;
 
-  /* UI Borders & Controls: Subtle hairline division */
-  --border: 252 18% 18%;          /* Hairline border around dark surfaces */
-  --input: 252 18% 18%;
-  --ring: 268 75% 58%;            /* Vibrant purple focus glow */
+  /* UI Borders & Controls: Midnight hairline */
+  --border: 232 30% 21%;          /* #263159 */
+  --input: 232 30% 21%;
+  --ring: 200 85% 51%;            /* Glowing Cyan Focus Ring */
 }

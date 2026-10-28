@@ -2,13 +2,13 @@
 
 ## 1. Tổng quan Kiến trúc (Architectural Overview)
 
-Belp UI Kit được thiết kế theo mô hình phân tầng **Component Driven Architecture**, kế thừa triết lý từ `building-component-library.md`:
+Belp UI Kit được thiết kế theo mô hình phân tầng **Component Driven Architecture**, kết hợp giữa nền tảng Headless Accessibility và hệ thống Design Tokens định hình phong cách độc bản lấy cảm hứng từ bộ màu D3 Design (`#1aa7ec`, `#1e2f97`, `#4adede`, `#797ef6`, `#7dd6f6`):
 
 ```mermaid
 flowchart TD
     subgraph Layer0["Tầng 0: Foundations & Tokens"]
-        Tokens[Design Tokens: Colors, Spacing, Typography, Radii, Shadows]
-        CSSVars[CSS Variables & Theming Engine]
+        Tokens[Design Tokens: Primary #1aa7ec, Deep Navy #1e2f97, Aqua #4adede, Inter & JetBrains Mono]
+        CSSVars[CSS Variables & Theming Engine: 3-tier Surface Depth]
         Icons[Lucide Icon Core]
     end
 
@@ -33,7 +33,7 @@ flowchart TD
 
     subgraph Consumers["Trình diễn & Ứng dụng"]
         Playground[Interactive Showcase / Documentation App]
-        EndUserApps[Data Dashboards, Admin Panels, SaaS Apps]
+        EndUserApps[Data Dashboards, Cloud Panels, Admin SaaS]
     end
 
     Tokens --> CSSVars
@@ -55,98 +55,38 @@ flowchart TD
 
 ---
 
-## 2. Lựa chọn Công nghệ (Technology Stack)
+## 2. Bảng Màu Thương hiệu Cốt lõi (D3 Design Color Palette)
 
-| Hạng mục | Công nghệ | Lý do lựa chọn |
-|---|---|---|
-| **Ngôn ngữ** | TypeScript (Strict mode) | Type safety hoàn hảo cho props, autocomplete tốt cho dev |
-| **Framework nền tảng** | React 19 / 18 | Chuẩn phổ biến nhất, hệ sinh thái phong phú |
-| **Styling & Tokens** | Tailwind CSS v4 / v3 + CSS Variables | Viết class tiện lợi, định nghĩa token tập trung qua biến CSS gốc |
-| **Biến thể Component** | `class-variance-authority` (CVA) + `clsx` + `tailwind-merge` | Quản lý variants & sizes an toàn, tự động giải quyết xung đột Tailwind classes |
-| **Headless Primitives** | Radix UI (`@radix-ui/react-*`) | Giải quyết ~70% bài toán phức tạp về WAI-ARIA, Keyboard nav, Focus trap, Portal |
-| **Icon Set** | `lucide-react` | Nhất quán về kích thước (24x24 viewBox), nét vẽ (stroke 2px/1.5px), sắc nét |
-| **Bundler & Build Tool** | Vite + `vite-plugin-dts` | Build thư viện ra ESM/CJS cực nhanh, tự động xuất file `.d.ts` đầy đủ |
-| **Showcase / Docs** | Ứng dụng Playground tương tác trực tiếp (Interactive Component Gallery) | Kiểm thử trực quan tức thì mọi state, copy code mẫu, kiểm tra light/dark theme |
+Hệ thống token màu chủ đạo được trích xuất và tối ưu chuẩn HSL từ `https://d3design.vn/uploads/03.jpg`:
 
----
-
-## 3. Cấu trúc Thư mục Dự án (Project Structure)
-
-```text
-belp-ui-kit/
-├── .env.example
-├── .gitignore
-├── README.md
-├── package.json
-├── tsconfig.json
-├── tsconfig.node.json
-├── vite.config.ts
-├── docs/
-│   ├── REQUIREMENTS.md
-│   ├── ARCHITECTURE.md
-│   └── TASKS.md
-├── src/
-│   ├── index.ts                 # Điểm xuất (Export Entrypoint) chính của thư viện
-│   ├── tokens/                  # Tầng 0: Định nghĩa Design Tokens
-│   │   ├── colors.css           # Bảng mã màu CSS Variables
-│   │   ├── typography.css       # Quy chuẩn font chữ, font scale
-│   │   ├── spacing.css          # Quy chuẩn khoảng cách, border-radius, shadows
-│   │   └── index.css            # File tổng hợp tokens đưa vào dự án
-│   ├── utils/
-│   │   └── cn.ts                # Helper hợp nhất class (clsx + twMerge)
-│   ├── components/              # Các tầng components
-│   │   ├── primitives/          # Đợt 1
-│   │   │   ├── button/
-│   │   │   ├── input/
-│   │   │   ├── badge/
-│   │   │   ├── typography/
-│   │   │   ├── card/
-│   │   │   ├── stack/
-│   │   │   └── ...
-│   │   ├── composite/           # Đợt 2
-│   │   │   ├── form-field/
-│   │   │   ├── dialog/
-│   │   │   ├── tooltip/
-│   │   │   ├── toast/
-│   │   │   ├── alert/
-│   │   │   └── ...
-│   │   └── data/                # Đợt 3
-│   │       ├── data-table/
-│   │       ├── pagination/
-│   │       ├── filter-bar/
-│   │       └── metric-card/
-│   └── showcase/                # Ứng dụng Playground & Interactive Catalog
-│       ├── App.tsx
-│       ├── main.tsx
-│       └── pages/
-```
+| Vai trò | Mã Hex | Mã RGB | Mã HSL | Ý nghĩa & Vị trí ứng dụng |
+|---|---|---|---|---|
+| **Primary (Chủ đạo)** | `#1aa7ec` | `rgb(26, 167, 236)` | `200 85% 51%` | Màu thương hiệu chính: Nút Solid, Focus ring, Tab active, Link |
+| **Deep Navy (Nền tối)** | `#1e2f97` | `rgb(30, 47, 151)` | `232 67% 35%` | Màu nền canvas và card trong Dark Mode (Midnight Navy theme) |
+| **Aqua Mint (Điểm nhấn)** | `#4adede` | `rgb(74, 222, 222)` | `180 69% 58%` | Màu trạng thái Active, Healthy, Live indicators, Glowing dots |
+| **Periwinkle (Phụ trợ)** | `#797ef6` | `rgb(121, 126, 246)` | `238 87% 72%` | Huy hiệu trạng thái, icon phụ trợ, đường viền tương tác |
+| **Sky Ice (Mềm dịu)** | `#7dd6f6` | `rgb(125, 214, 246)` | `196 87% 73%` | Màu thông tin (Info badge), nền hover phụ trợ, text accents |
 
 ---
 
-## 4. Nguyên tắc Thiết kế Code (SOLID & Clean Code)
+## 3. Lựa chọn Công nghệ (Technology Stack)
 
-1. **Single Responsibility (SRP)**:
-   - Tách biệt logic headless (hành vi) và style (hiển thị).
-   - Component không đảm nhiệm việc fetch data từ backend; chỉ nhận `props` thuần túy.
-2. **Open / Closed (OCP)**:
-   - Các component mở rộng thuộc tính gốc HTML tương ứng (`React.ButtonHTMLAttributes`, `React.InputHTMLAttributes`).
-   - Hỗ trợ prop `className` ghi đè style qua hàm `cn()`.
-3. **Liskov Substitution (LSP)**:
-   - Biến thể kích thước (`sm`, `md`, `lg`) hay dạng thức (`solid`, `outline`, `ghost`) không làm thay đổi hành vi cơ bản của component gốc.
-4. **Interface Segregation (ISP)**:
-   - Chia nhỏ các sub-component lồng nhau theo chuẩn Compound Component (ví dụ: `Card`, `CardHeader`, `CardTitle`, `CardContent`, `CardFooter`) thay vì dồn tất cả vào 30 props trong 1 hàm duy nhất.
-5. **Dependency Inversion (DIP)**:
-   - Phụ thuộc vào các interface trừu tượng (`DataTableColumn<T>`, `FormFieldProps`) thay vì cấu trúc dữ liệu cứng.
+- **Ngôn ngữ**: TypeScript (Strict Mode).
+- **Framework UI**: React 18 / 19.
+- **Styling**: Tailwind CSS + CSS Variables (`colors.css`, `typography.css`, `spacing.css`).
+- **Phông chữ**:
+  - **Inter**: Dành cho toàn bộ tiêu đề (Headings), nhãn nút (Labels) và thân bài (Body) với độ sắc nét tuyệt đối.
+  - **JetBrains Mono**: Dành cho mã lệnh, số liệu kỹ thuật, hashes và endpoints.
+- **Headless Components**: Radix UI Primitives (`@radix-ui/react-*`).
+- **Icons**: `lucide-react`.
+- **Bundler**: Vite + `vite-plugin-dts`.
 
 ---
 
-## 5. Quy chuẩn Trạng thái Component (Component States Checklist)
+## 4. Nguyên tắc Thiết kế (SOLID Principles)
 
-Mọi component tương tác đều phải thể hiện rõ các trạng thái sau:
-- **Default**: Bình thường.
-- **Hover**: Rê chuột.
-- **Focus / Focus-visible**: Viền focus rõ nét, chuẩn accessibility cho bàn phím (`ring-2 ring-primary ring-offset-2`).
-- **Active / Pressed**: Cảm giác nhấn vật lý.
-- **Disabled**: Độ mờ (opacity-50), chuột dạng `not-allowed`, vô hiệu hóa sự kiện.
-- **Loading**: Hiển thị Spinner, giữ nguyên kích thước không nhảy layout (layout shift), tạm khóa click.
-- **Error**: Viền đỏ semantic, thông điệp lỗi kèm icon cảnh báo.
+1. **Single Responsibility (SRP)**: Tách rời logic điều khiển (Headless WAI-ARIA) và style hiển thị (Tailwind CVA).
+2. **Open / Closed (OCP)**: Cho phép mở rộng qua prop `className` kết hợp tiện ích `cn()`, không sửa mã lõi ổn định.
+3. **Liskov Substitution (LSP)**: Các biến thể `size` hay `variant` tuân thủ đầy đủ thuộc tính HTML gốc.
+4. **Interface Segregation (ISP)**: Phân tách compound components (`CardHeader`, `CardTitle`, `CardContent`, `CardFooter`).
+5. **Dependency Inversion (DIP)**: `DataTable` phụ thuộc vào interface trừu tượng `ColumnDef<T>`, độc lập với cấu trúc dữ liệu cụ thể.

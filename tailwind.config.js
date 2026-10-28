@@ -69,7 +69,6 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        serif: ["'IBM Plex Serif'", "Georgia", "serif"],
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
         mono: ["'JetBrains Mono'", "Fira Code", "Courier New", "monospace"],
       },

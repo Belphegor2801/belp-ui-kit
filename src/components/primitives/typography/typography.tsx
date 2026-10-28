@@ -2,24 +2,19 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
-export const headingVariants = cva('tracking-tight text-foreground', {
+export const headingVariants = cva('tracking-tight text-foreground font-semibold font-sans', {
   variants: {
     level: {
-      h1: 'text-3xl lg:text-4xl',
-      h2: 'text-2xl lg:text-3xl',
-      h3: 'text-xl',
-      h4: 'text-lg',
-      h5: 'text-base',
-      h6: 'text-sm',
-    },
-    variant: {
-      sans: 'font-sans font-semibold tracking-tight',
-      editorial: 'font-serif tracking-normal font-normal text-foreground/95',
+      h1: 'text-3xl font-bold lg:text-4xl tracking-tight',
+      h2: 'text-2xl font-bold lg:text-3xl tracking-tight',
+      h3: 'text-xl font-semibold',
+      h4: 'text-lg font-semibold',
+      h5: 'text-base font-medium',
+      h6: 'text-sm font-medium',
     },
   },
   defaultVariants: {
     level: 'h2',
-    variant: 'sans',
   },
 });
 
@@ -30,12 +25,12 @@ export interface HeadingProps
 }
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, level = 'h2', variant = 'sans', as, children, ...props }, ref) => {
+  ({ className, level = 'h2', as, children, ...props }, ref) => {
     const Component = as || level || 'h2';
     return (
       <Component
         ref={ref}
-        className={cn(headingVariants({ level, variant, className }))}
+        className={cn(headingVariants({ level, className }))}
         {...props}
       >
         {children}
@@ -45,7 +40,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
 );
 Heading.displayName = 'Heading';
 
-export const textVariants = cva('text-foreground', {
+export const textVariants = cva('text-foreground font-sans', {
   variants: {
     variant: {
       body: 'text-sm leading-relaxed',
