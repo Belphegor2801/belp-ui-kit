@@ -6,18 +6,22 @@ import {
   Layers,
   Component,
   Database,
-  Download,
   Plus,
   MoreHorizontal,
-  DollarSign,
-  Users,
-  CreditCard,
   Activity,
   Trash2,
-  Edit,
   ExternalLink,
   Search,
-  Sparkles,
+  Server,
+  GitBranch,
+  Terminal,
+  Cpu,
+  HardDrive,
+  RefreshCw,
+  Radio,
+  Play,
+  Copy,
+  Check,
 } from 'lucide-react';
 
 import {
@@ -31,7 +35,6 @@ import {
   TypographyHeading,
   TypographyText,
   Code,
-  Kbd,
   Badge,
   Avatar,
   Divider,
@@ -85,84 +88,119 @@ import {
   TabsContent,
 } from '@/components/data';
 
-// Mock Transaction Data Item
-interface Transaction {
+// Railway Deployment Service Data Item
+interface ServiceDeployment {
   id: string;
-  customer: {
-    name: string;
-    email: string;
-    avatar?: string;
+  name: string;
+  type: 'web' | 'database' | 'worker' | 'cache';
+  branch: string;
+  commitHash: string;
+  status: 'active' | 'building' | 'crashed' | 'sleeping';
+  resources: {
+    cpu: string;
+    ram: string;
   };
-  amount: number;
-  status: 'completed' | 'processing' | 'failed' | 'refunded';
-  date: string;
-  channel: string;
+  environment: 'production' | 'staging' | 'preview';
+  updatedAt: string;
+  url: string;
 }
 
-const INITIAL_TRANSACTIONS: Transaction[] = [
+const INITIAL_SERVICES: ServiceDeployment[] = [
   {
-    id: 'TXN-9021',
-    customer: { name: 'Nguyễn Văn An', email: 'an.nguyen@example.com' },
-    amount: 14500000,
-    status: 'completed',
-    date: '2026-10-28 10:24',
-    channel: 'Chuyển khoản QR',
+    id: 'srv-web-01',
+    name: 'web-dashboard-nextjs',
+    type: 'web',
+    branch: 'main',
+    commitHash: '7f20a1b',
+    status: 'active',
+    resources: { cpu: '0.12 vCPU', ram: '210 MB' },
+    environment: 'production',
+    updatedAt: '2 phút trước',
+    url: 'dashboard.railway.app',
   },
   {
-    id: 'TXN-9022',
-    customer: { name: 'Trần Thị Mai', email: 'mai.tran@fintech.vn' },
-    amount: 3200000,
-    status: 'processing',
-    date: '2026-10-28 09:15',
-    channel: 'Thẻ tín dụng Visa',
+    id: 'srv-db-02',
+    name: 'primary-postgres-db',
+    type: 'database',
+    branch: 'release/v2',
+    commitHash: 'e499d32',
+    status: 'active',
+    resources: { cpu: '0.45 vCPU', ram: '1.2 GB' },
+    environment: 'production',
+    updatedAt: '1 giờ trước',
+    url: 'postgres.railway.internal:5432',
   },
   {
-    id: 'TXN-9023',
-    customer: { name: 'Lê Hoàng Nam', email: 'nam.le@enterprise.org' },
-    amount: 48900000,
-    status: 'completed',
-    date: '2026-10-27 16:40',
-    channel: 'Cổng thanh toán Stripe',
+    id: 'srv-worker-03',
+    name: 'event-worker-celery',
+    type: 'worker',
+    branch: 'feature/async-jobs',
+    commitHash: '3a18e90',
+    status: 'building',
+    resources: { cpu: '0.80 vCPU', ram: '512 MB' },
+    environment: 'staging',
+    updatedAt: 'Vừa xong',
+    url: 'worker-queue.railway.app',
   },
   {
-    id: 'TXN-9024',
-    customer: { name: 'Phạm Thu Hương', email: 'huong.pt@domain.com' },
-    amount: 850000,
-    status: 'failed',
-    date: '2026-10-27 14:12',
-    channel: 'Ví MoMo',
+    id: 'srv-cache-04',
+    name: 'session-cache-redis',
+    type: 'cache',
+    branch: 'main',
+    commitHash: '91bc740',
+    status: 'active',
+    resources: { cpu: '0.05 vCPU', ram: '128 MB' },
+    environment: 'production',
+    updatedAt: '5 giờ trước',
+    url: 'redis.railway.internal:6379',
   },
   {
-    id: 'TXN-9025',
-    customer: { name: 'Vũ Quốc Bảo', email: 'bao.vu@saascorp.io' },
-    amount: 19200000,
-    status: 'completed',
-    date: '2026-10-27 11:05',
-    channel: 'Chuyển khoản QR',
+    id: 'srv-web-05',
+    name: 'docs-static-site',
+    type: 'web',
+    branch: 'docs-revamp',
+    commitHash: 'c1208fe',
+    status: 'sleeping',
+    resources: { cpu: '0.00 vCPU', ram: '0 MB' },
+    environment: 'preview',
+    updatedAt: '1 ngày trước',
+    url: 'docs-pr-42.railway.app',
   },
   {
-    id: 'TXN-9026',
-    customer: { name: 'Đặng Thanh Thảo', email: 'thao.dang@techviet.com' },
-    amount: 5400000,
-    status: 'refunded',
-    date: '2026-10-26 15:30',
-    channel: 'Thẻ nội địa NAPAS',
+    id: 'srv-worker-06',
+    name: 'billing-cron-sync',
+    type: 'worker',
+    branch: 'main',
+    commitHash: 'b4501a2',
+    status: 'crashed',
+    resources: { cpu: '0.00 vCPU', ram: '16 MB' },
+    environment: 'production',
+    updatedAt: '3 giờ trước',
+    url: 'cron.railway.internal',
   },
   {
-    id: 'TXN-9027',
-    customer: { name: 'Bùi Minh Đức', email: 'duc.bui@logistics.vn' },
-    amount: 67000000,
-    status: 'completed',
-    date: '2026-10-26 08:50',
-    channel: 'Chuyển khoản QR',
+    id: 'srv-web-07',
+    name: 'auth-gateway-oauth',
+    type: 'web',
+    branch: 'main',
+    commitHash: 'd887a11',
+    status: 'active',
+    resources: { cpu: '0.24 vCPU', ram: '340 MB' },
+    environment: 'production',
+    updatedAt: '12 giờ trước',
+    url: 'auth.railway.app',
   },
   {
-    id: 'TXN-9028',
-    customer: { name: 'Hoàng Kim Yến', email: 'yen.hoang@designhub.co' },
-    amount: 2750000,
-    status: 'processing',
-    date: '2026-10-25 18:20',
-    channel: 'Ví VNPay',
+    id: 'srv-db-08',
+    name: 'search-vector-milvus',
+    type: 'database',
+    branch: 'vector-v1',
+    commitHash: '61a029c',
+    status: 'active',
+    resources: { cpu: '0.62 vCPU', ram: '2.4 GB' },
+    environment: 'staging',
+    updatedAt: '6 giờ trước',
+    url: 'vector.railway.internal',
   },
 ];
 
@@ -176,6 +214,7 @@ export default function App() {
   });
 
   const toast = useToast();
+  const [copiedCmd, setCopiedCmd] = useState(false);
 
   // Dark Mode Toggle
   const toggleTheme = () => {
@@ -205,10 +244,11 @@ export default function App() {
   }, [isDark]);
 
   // Data Table & Filter State
-  const [transactions] = useState<Transaction[]>(INITIAL_TRANSACTIONS);
+  const [services] = useState<ServiceDeployment[]>(INITIAL_SERVICES);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [sortColumn, setSortColumn] = useState<string>('date');
+  const [envFilter, setEnvFilter] = useState<string>('all');
+  const [sortColumn, setSortColumn] = useState<string>('updatedAt');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [selectedRowIds, setSelectedRowIds] = useState<Set<string | number>>(new Set());
   const [tableDensity, setTableDensity] = useState<TableDensity>('default');
@@ -216,23 +256,25 @@ export default function App() {
   const [pageSize, setPageSize] = useState(5);
   const [isTableLoading, setIsTableLoading] = useState(false);
 
-  // Form Field Simulation State
-  const [formName, setFormName] = useState('');
-  const [formEmail, setFormEmail] = useState('');
+  // Modal State
+  const [newServiceName, setNewServiceName] = useState('');
+  const [newServiceType, setNewServiceType] = useState('web');
+  const [newServiceRepo, setNewServiceRepo] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   // Filtered & Sorted Data
   const filteredData = useMemo(() => {
-    let result = [...transactions];
+    let result = [...services];
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter(
         (item) =>
+          item.name.toLowerCase().includes(q) ||
           item.id.toLowerCase().includes(q) ||
-          item.customer.name.toLowerCase().includes(q) ||
-          item.customer.email.toLowerCase().includes(q) ||
-          item.channel.toLowerCase().includes(q)
+          item.branch.toLowerCase().includes(q) ||
+          item.commitHash.toLowerCase().includes(q) ||
+          item.url.toLowerCase().includes(q)
       );
     }
 
@@ -240,23 +282,21 @@ export default function App() {
       result = result.filter((item) => item.status === statusFilter);
     }
 
+    if (envFilter !== 'all') {
+      result = result.filter((item) => item.environment === envFilter);
+    }
+
     // Sort
     result.sort((a, b) => {
-      let valA: string | number = (a as unknown as Record<string, string | number>)[sortColumn] || '';
-      let valB: string | number = (b as unknown as Record<string, string | number>)[sortColumn] || '';
-
-      if (sortColumn === 'customer') {
-        valA = a.customer.name;
-        valB = b.customer.name;
-      }
-
+      const valA = (a as unknown as Record<string, string>)[sortColumn] || '';
+      const valB = (b as unknown as Record<string, string>)[sortColumn] || '';
       if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
       if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
 
     return result;
-  }, [transactions, searchQuery, statusFilter, sortColumn, sortDirection]);
+  }, [services, searchQuery, statusFilter, envFilter, sortColumn, sortDirection]);
 
   // Paginated Data
   const paginatedData = useMemo(() => {
@@ -275,48 +315,47 @@ export default function App() {
     }
   };
 
-  const handleSimulateLoad = () => {
+  const handleRefresh = () => {
     setIsTableLoading(true);
     setTimeout(() => {
       setIsTableLoading(false);
-      toast.success('Đã làm mới dữ liệu!', 'Bảng giao dịch đã được đồng bộ hóa tức thì.');
-    }, 800);
+      toast.success('Đồng bộ thành công', 'Trạng thái toàn bộ cụm dịch vụ đã được cập nhật.');
+    }, 700);
   };
 
-  // Table Columns Definition
-  const columns: ColumnDef<Transaction>[] = [
+  const copyCliCommand = () => {
+    navigator.clipboard?.writeText('npm i -g @railway/cli && railway up');
+    setCopiedCmd(true);
+    setTimeout(() => setCopiedCmd(false), 2000);
+    toast.info('Đã sao chép lệnh', 'Dán vào terminal để triển khai dịch vụ.');
+  };
+
+  // Columns Definition
+  const columns: ColumnDef<ServiceDeployment>[] = [
     {
-      key: 'id',
-      header: 'Mã GD',
-      sortable: true,
-      width: '120px',
-      accessor: (row) => <Code>{row.id}</Code>,
-    },
-    {
-      key: 'customer',
-      header: 'Khách hàng',
+      key: 'name',
+      header: 'Dịch vụ & Repo',
       sortable: true,
       accessor: (row) => (
         <HStack gap={3}>
-          <Avatar alt={row.customer.name} size="sm" status="online" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-muted/60 text-primary">
+            {row.type === 'web' && <Server className="h-4 w-4" />}
+            {row.type === 'database' && <Database className="h-4 w-4" />}
+            {row.type === 'worker' && <Cpu className="h-4 w-4" />}
+            {row.type === 'cache' && <HardDrive className="h-4 w-4" />}
+          </div>
           <div className="grid leading-tight">
-            <span className="font-medium text-foreground">{row.customer.name}</span>
-            <span className="text-xs text-muted-foreground">{row.customer.email}</span>
+            <span className="font-semibold text-foreground tracking-tight hover:text-primary transition-colors cursor-pointer">
+              {row.name}
+            </span>
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
+              <GitBranch className="h-3 w-3 text-muted-foreground/70" />
+              <span>{row.branch}</span>
+              <span className="text-border">•</span>
+              <Code className="text-[10px] px-1 py-0">{row.commitHash}</Code>
+            </div>
           </div>
         </HStack>
-      ),
-    },
-    {
-      key: 'amount',
-      header: 'Số tiền',
-      sortable: true,
-      align: 'right',
-      accessor: (row) => (
-        <span className="font-semibold tabular-nums text-foreground">
-          {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-            row.amount
-          )}
-        </span>
       ),
     },
     {
@@ -324,49 +363,86 @@ export default function App() {
       header: 'Trạng thái',
       sortable: true,
       align: 'center',
+      width: '140px',
       accessor: (row) => {
-        const variantMap = {
-          completed: 'success',
-          processing: 'warning',
-          failed: 'destructive',
-          refunded: 'info',
-        } as const;
-
-        const labelMap = {
-          completed: 'Thành công',
-          processing: 'Đang xử lý',
-          failed: 'Thất bại',
-          refunded: 'Hoàn tiền',
-        };
-
+        if (row.status === 'active') {
+          return (
+            <Badge variant="success" withDot pulse size="sm">
+              Active
+            </Badge>
+          );
+        }
+        if (row.status === 'building') {
+          return (
+            <Badge variant="default" withDot pulse size="sm">
+              Building
+            </Badge>
+          );
+        }
+        if (row.status === 'crashed') {
+          return (
+            <Badge variant="destructive" withDot size="sm">
+              Crashed
+            </Badge>
+          );
+        }
         return (
-          <Badge variant={variantMap[row.status]} withDot size="sm">
-            {labelMap[row.status]}
+          <Badge variant="secondary" withDot size="sm">
+            Sleeping
           </Badge>
         );
       },
     },
     {
-      key: 'channel',
-      header: 'Kênh thanh toán',
+      key: 'environment',
+      header: 'Môi trường',
+      sortable: true,
+      align: 'center',
+      width: '120px',
       accessor: (row) => (
-        <span className="text-xs text-muted-foreground">{row.channel}</span>
+        <Badge variant="outline" mono size="sm">
+          {row.environment}
+        </Badge>
       ),
     },
     {
-      key: 'date',
-      header: 'Thời gian',
-      sortable: true,
-      width: '150px',
+      key: 'resources',
+      header: 'Tài nguyên sử dụng',
       accessor: (row) => (
-        <span className="text-xs text-muted-foreground tabular-nums">{row.date}</span>
+        <span className="font-mono text-xs text-muted-foreground">
+          {row.resources.cpu} <span className="text-border">/</span> {row.resources.ram}
+        </span>
+      ),
+    },
+    {
+      key: 'url',
+      header: 'Endpoint / Domain',
+      accessor: (row) => (
+        <a
+          href={`https://${row.url}`}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-primary transition-colors"
+        >
+          <span>{row.url}</span>
+          <ExternalLink className="h-3 w-3 opacity-60" />
+        </a>
+      ),
+    },
+    {
+      key: 'updatedAt',
+      header: 'Cập nhật',
+      sortable: true,
+      width: '120px',
+      accessor: (row) => (
+        <span className="text-xs text-muted-foreground">{row.updatedAt}</span>
       ),
     },
     {
       key: 'actions',
-      header: 'Thao tác',
+      header: '',
       align: 'right',
-      width: '80px',
+      width: '60px',
       accessor: (row) => (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -375,22 +451,22 @@ export default function App() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Hành động</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => toast.info('Xem chi tiết', `Giao dịch ${row.id}`)}>
-              <ExternalLink className="mr-2 h-3.5 w-3.5" />
-              Xem hóa đơn
+            <DropdownMenuLabel>Quản lý dịch vụ</DropdownMenuLabel>
+            <DropdownMenuItem onClick={() => toast.info('Xem Logs', `Đang tải logs của ${row.name}`)}>
+              <Terminal className="mr-2 h-3.5 w-3.5" />
+              Xem Live Logs
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => toast.info('Chỉnh sửa', `Cập nhật ${row.id}`)}>
-              <Edit className="mr-2 h-3.5 w-3.5" />
-              Sửa ghi chú
+            <DropdownMenuItem onClick={() => toast.success('Redeploy', `Đang triển khai lại ${row.name}`)}>
+              <RefreshCw className="mr-2 h-3.5 w-3.5" />
+              Triển khai lại (Redeploy)
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               destructive
-              onClick={() => toast.error('Đã hủy giao dịch', `Giao dịch ${row.id} đã bị hủy.`)}
+              onClick={() => toast.error('Đã xóa dịch vụ', `Dịch vụ ${row.name} đã ngừng hoạt động.`)}
             >
               <Trash2 className="mr-2 h-3.5 w-3.5" />
-              Hủy giao dịch
+              Xóa dịch vụ
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -400,27 +476,39 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-40 border-b border-border bg-card/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      {/* Top Navigation Bar — Railway Signature */}
+      <header className="sticky top-0 z-40 border-b border-border bg-card/75 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold shadow-md shadow-primary/20">
-              <Sparkles className="h-5 w-5" />
+            {/* Railway Style Brand Icon */}
+            <div className="h-8 w-8 rounded-lg bg-primary/20 border border-primary/40 flex items-center justify-center text-primary shadow-[0_0_12px_hsl(var(--primary)/0.3)]">
+              <Radio className="h-4 w-4" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-lg tracking-tight">Belp UI Kit</span>
-                <Badge variant="default" size="sm">v0.1.0</Badge>
-              </div>
-              <p className="text-[11px] text-muted-foreground hidden sm:block">
-                Design System &amp; Data-Dense Component Framework
-              </p>
+
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-base tracking-tight text-foreground font-sans">
+                Railway
+              </span>
+              <span className="text-muted-foreground/60">/</span>
+              <span className="text-sm font-medium text-muted-foreground">production-cluster</span>
+              <Badge variant="default" mono size="sm" className="hidden sm:inline-flex">
+                v0.1.0
+              </Badge>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Tooltip content={isDark ? 'Chuyển sang Giao diện Sáng' : 'Chuyển sang Giao diện Tối'}>
-              <Button variant="outline" size="icon" onClick={toggleTheme}>
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={copyCliCommand}
+              className="hidden md:inline-flex items-center gap-2 h-8 px-3 rounded-md border border-border bg-muted/60 text-xs font-mono text-muted-foreground hover:text-foreground hover:border-border/80 transition-all"
+            >
+              <Terminal className="h-3.5 w-3.5 text-primary" />
+              <span>railway up</span>
+              {copiedCmd ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3 opacity-60" />}
+            </button>
+
+            <Tooltip content={isDark ? 'Chuyển sang giao diện Sáng' : 'Chuyển sang giao diện Tối'}>
+              <Button variant="outline" size="icon-sm" onClick={toggleTheme}>
                 {isDark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
               </Button>
             </Tooltip>
@@ -428,51 +516,51 @@ export default function App() {
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="solid" size="sm" leftIcon={<Plus className="h-4 w-4" />}>
-                  Tạo bản ghi mới
+                  Khởi tạo Service
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Thêm mới bản ghi giao dịch</DialogTitle>
+                  <DialogTitle>Deploy New Service</DialogTitle>
                   <DialogDescription>
-                    Nhập thông tin giao dịch để hiển thị trên hệ thống. Dữ liệu sẽ được xác thực tự động.
+                    Triển khai dịch vụ từ GitHub Repo hoặc Docker Image lên hạ tầng Railway.
                   </DialogDescription>
                 </DialogHeader>
 
-                <div className="grid gap-3.5 py-2">
+                <div className="grid gap-4 py-2">
                   <FormField
-                    label="Tên khách hàng"
+                    label="Tên dịch vụ (Service Name)"
                     required
-                    error={formSubmitted && !formName ? 'Vui lòng nhập họ và tên' : undefined}
+                    error={formSubmitted && !newServiceName ? 'Vui lòng đặt tên dịch vụ' : undefined}
                   >
                     <Input
-                      placeholder="Ví dụ: Nguyễn Văn A"
-                      value={formName}
-                      onChange={(e) => setFormName(e.target.value)}
+                      placeholder="vd: api-gateway, analytics-worker..."
+                      value={newServiceName}
+                      onChange={(e) => setNewServiceName(e.target.value)}
                     />
                   </FormField>
 
                   <FormField
-                    label="Địa chỉ Email"
+                    label="GitHub Repository"
                     required
-                    hint="Hệ thống gửi biên nhận thanh toán qua email này"
-                    error={
-                      formSubmitted && !formEmail
-                        ? 'Vui lòng nhập địa chỉ email hợp lệ'
-                        : undefined
-                    }
+                    hint="Nhập đường dẫn GitHub repository cần liên kết tự động build"
+                    error={formSubmitted && !newServiceRepo ? 'Vui lòng nhập repository' : undefined}
                   >
                     <Input
-                      type="email"
-                      placeholder="name@company.com"
-                      value={formEmail}
-                      onChange={(e) => setFormEmail(e.target.value)}
+                      placeholder="org/repo-name"
+                      leftIcon={<GitBranch className="h-4 w-4" />}
+                      value={newServiceRepo}
+                      onChange={(e) => setNewServiceRepo(e.target.value)}
                     />
                   </FormField>
 
-                  <FormField label="Ghi chú nội bộ">
-                    <Textarea placeholder="Ghi chú thêm nếu cần..." showCount maxLength={200} />
-                  </FormField>
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-medium text-foreground">Loại dịch vụ</label>
+                    <RadioGroup value={newServiceType} onValueChange={setNewServiceType} className="grid grid-cols-2 gap-2 pt-1">
+                      <RadioGroupItem value="web" label="Web Server" description="HTTP API, Next.js, Frontend" />
+                      <RadioGroupItem value="worker" label="Background Worker" description="Celery, Cron, Queue" />
+                    </RadioGroup>
+                  </div>
                 </div>
 
                 <DialogFooter>
@@ -482,15 +570,15 @@ export default function App() {
                   <Button
                     onClick={() => {
                       setFormSubmitted(true);
-                      if (formName && formEmail) {
-                        toast.success('Tạo thành công!', `Đã tạo giao dịch cho ${formName}`);
-                        setFormName('');
-                        setFormEmail('');
+                      if (newServiceName && newServiceRepo) {
+                        toast.success('Đang khởi tạo dịch vụ', `Service ${newServiceName} đang bắt đầu quá trình build.`);
+                        setNewServiceName('');
+                        setNewServiceRepo('');
                         setFormSubmitted(false);
                       }
                     }}
                   >
-                    Xác nhận tạo
+                    Bắt đầu Deploy
                   </Button>
                 </DialogFooter>
               </DialogContent>
@@ -501,86 +589,91 @@ export default function App() {
 
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Hero Section */}
-        <section className="space-y-2">
-          <TypographyHeading level="h1">
-            Thư viện UI Kit độc lập &amp; nhất quán
+        {/* Editorial Display Hero — Railway Signature Serif */}
+        <section className="space-y-2 max-w-3xl">
+          <TypographyHeading level="h1" variant="editorial" className="text-4xl sm:text-5xl tracking-tight leading-tight">
+            Deploy infrastructure, effortlessly.
           </TypographyHeading>
-          <TypographyText variant="lead">
-            Hệ thống Design Tokens quản lý tập trung qua CSS Variables, Primitives tương thích 100% WAI-ARIA,
-            và nhóm Data-Dense Components chuyên biệt cho quản lý dữ liệu lớn.
+          <TypographyText variant="lead" className="text-muted-foreground text-base sm:text-lg">
+            Hệ thống Design System lấy cảm hứng từ Railway: Bảng màu dark-first thanh lịch, điểm nhấn tím đặc trưng,
+            typography kết hợp giữa phong cách editorial serif và technical monospace cho hạ tầng đám mây.
           </TypographyText>
         </section>
 
-        {/* Live KPI Metric Cards */}
+        {/* Live Cluster Metrics */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <MetricCard
-            title="Tổng doanh thu"
-            value="172.540.000 ₫"
-            icon={<DollarSign className="h-5 w-5" />}
-            change={18.4}
-            changePeriod="so với tháng trước"
-          />
-          <MetricCard
-            title="Khách hàng tích cực"
-            value="2.845"
-            icon={<Users className="h-5 w-5" />}
-            change={12.1}
+            title="Active Services"
+            value="8 Dịch vụ"
+            icon={<Server className="h-5 w-5 text-primary" />}
+            change={14.2}
             changePeriod="so với tuần trước"
           />
           <MetricCard
-            title="Tỷ lệ thanh toán thành công"
-            value="98.2%"
-            icon={<CreditCard className="h-5 w-5" />}
-            change={0.8}
-            changePeriod="so với tháng trước"
+            title="Total CPU Usage"
+            value="2.35 vCPU"
+            icon={<Cpu className="h-5 w-5 text-emerald-400" />}
+            change={-4.5}
+            changePeriod="giảm 4.5% tải"
+            invertTrendColor
           />
           <MetricCard
-            title="Tỷ lệ hủy giao dịch"
-            value="1.4%"
-            icon={<Activity className="h-5 w-5" />}
-            change={-0.6}
-            changePeriod="giảm 0.6% (Tốt)"
-            invertTrendColor
+            title="Cluster Memory"
+            value="4.87 GB"
+            icon={<HardDrive className="h-5 w-5 text-sky-400" />}
+            change={8.1}
+            changePeriod="trên tổng 16 GB"
+          />
+          <MetricCard
+            title="Monthly Estimate"
+            value="$42.50"
+            icon={<Activity className="h-5 w-5 text-amber-400" />}
+            change={2.3}
+            changePeriod="dự kiến cuối tháng"
           />
         </section>
 
-        {/* Showcase Tabs */}
-        <Tabs defaultValue="data-views" className="w-full">
+        {/* Tabs Controller */}
+        <Tabs defaultValue="services" className="w-full">
           <TabsList variant="pill" className="w-full sm:w-auto grid grid-cols-4 max-w-xl">
-            <TabsTrigger value="data-views" className="flex items-center gap-1.5">
-              <Database className="h-3.5 w-3.5" />
-              <span>Bảng Dữ liệu</span>
+            <TabsTrigger value="services" className="flex items-center gap-1.5">
+              <Server className="h-3.5 w-3.5" />
+              <span>Services Table</span>
             </TabsTrigger>
             <TabsTrigger value="primitives" className="flex items-center gap-1.5">
               <Component className="h-3.5 w-3.5" />
-              <span>Đợt 1: Primitives</span>
+              <span>Primitives</span>
             </TabsTrigger>
             <TabsTrigger value="composite" className="flex items-center gap-1.5">
               <Layers className="h-3.5 w-3.5" />
-              <span>Đợt 2: Composite</span>
+              <span>Composite</span>
             </TabsTrigger>
             <TabsTrigger value="tokens" className="flex items-center gap-1.5">
               <LayoutGrid className="h-3.5 w-3.5" />
-              <span>Tầng 0: Tokens</span>
+              <span>Railway Tokens</span>
             </TabsTrigger>
           </TabsList>
 
-          {/* TAB 1: DATA-DENSE VIEWS (Live DataTable, FilterBar, Pagination) */}
-          <TabsContent value="data-views" className="space-y-4 pt-4">
+          {/* TAB 1: RAILWAY DATA TABLE */}
+          <TabsContent value="services" className="space-y-4 pt-4">
             <Card>
               <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <CardTitle>Bảng Quản lý Giao dịch Tài chính</CardTitle>
+                  <CardTitle className="flex items-center gap-2">
+                    <span>Deployments &amp; Active Containers</span>
+                    <Badge variant="default" pulse size="sm">
+                      Live
+                    </Badge>
+                  </CardTitle>
                   <CardDescription>
-                    Minh họa DataTable hỗ trợ sắp xếp cột, chọn từng dòng / tất cả, đổi mật độ hiển thị (density) và phân trang.
+                    Quản lý toàn bộ danh sách microservices, tiến trình build và tài nguyên hạ tầng điện toán đám mây.
                   </CardDescription>
                 </div>
 
                 <HStack gap={2}>
                   {selectedRowIds.size > 0 && (
                     <Badge variant="default" size="md">
-                      Đã chọn {selectedRowIds.size} dòng
+                      Đã chọn {selectedRowIds.size} service
                     </Badge>
                   )}
 
@@ -591,7 +684,7 @@ export default function App() {
                       className="h-7 text-xs px-2"
                       onClick={() => setTableDensity('compact')}
                     >
-                      Nhỏ gọn
+                      Compact
                     </Button>
                     <Button
                       variant={tableDensity === 'default' ? 'solid' : 'ghost'}
@@ -599,7 +692,7 @@ export default function App() {
                       className="h-7 text-xs px-2"
                       onClick={() => setTableDensity('default')}
                     >
-                      Chuẩn
+                      Default
                     </Button>
                     <Button
                       variant={tableDensity === 'relaxed' ? 'solid' : 'ghost'}
@@ -607,63 +700,78 @@ export default function App() {
                       className="h-7 text-xs px-2"
                       onClick={() => setTableDensity('relaxed')}
                     >
-                      Rộng rãi
+                      Relaxed
                     </Button>
                   </HStack>
 
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={handleSimulateLoad}
+                    onClick={handleRefresh}
                     isLoading={isTableLoading}
                   >
-                    Tải lại
+                    Sync Cluster
                   </Button>
                 </HStack>
               </CardHeader>
 
               <CardContent>
-                {/* Unified FilterBar */}
+                {/* Railway FilterBar */}
                 <FilterBar
                   searchValue={searchQuery}
                   onSearchChange={setSearchQuery}
-                  searchPlaceholder="Tìm theo mã GD, tên khách hàng, email..."
-                  activeFilterCount={(searchQuery ? 1 : 0) + (statusFilter !== 'all' ? 1 : 0)}
+                  searchPlaceholder="Tìm service, branch, commit hash..."
+                  activeFilterCount={
+                    (searchQuery ? 1 : 0) +
+                    (statusFilter !== 'all' ? 1 : 0) +
+                    (envFilter !== 'all' ? 1 : 0)
+                  }
                   onResetFilters={() => {
                     setSearchQuery('');
                     setStatusFilter('all');
+                    setEnvFilter('all');
                   }}
                   actions={
                     <Button
                       variant="outline"
                       size="sm"
-                      leftIcon={<Download className="h-4 w-4" />}
+                      leftIcon={<Play className="h-3.5 w-3.5" />}
                       onClick={() =>
-                        toast.success('Xuất file thành công', `Đã xuất ${filteredData.length} bản ghi ra file Excel.`)
+                        toast.info('Restart Cluster', 'Đang gửi tín hiệu khởi động lại các worker.')
                       }
                     >
-                      Xuất Excel
+                      Restart All
                     </Button>
                   }
                 >
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs text-muted-foreground">Trạng thái:</span>
+                  <div className="flex items-center gap-2">
                     <select
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
-                      className="h-8 rounded-md border border-input bg-background px-2.5 text-xs text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                      className="h-8 rounded-md border border-input bg-background px-2.5 text-xs text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring font-mono"
                     >
-                      <option value="all">Tất cả trạng thái</option>
-                      <option value="completed">Thành công</option>
-                      <option value="processing">Đang xử lý</option>
-                      <option value="failed">Thất bại</option>
-                      <option value="refunded">Hoàn tiền</option>
+                      <option value="all">Mọi trạng thái</option>
+                      <option value="active">Active</option>
+                      <option value="building">Building</option>
+                      <option value="crashed">Crashed</option>
+                      <option value="sleeping">Sleeping</option>
+                    </select>
+
+                    <select
+                      value={envFilter}
+                      onChange={(e) => setEnvFilter(e.target.value)}
+                      className="h-8 rounded-md border border-input bg-background px-2.5 text-xs text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring font-mono"
+                    >
+                      <option value="all">Mọi môi trường</option>
+                      <option value="production">production</option>
+                      <option value="staging">staging</option>
+                      <option value="preview">preview</option>
                     </select>
                   </div>
                 </FilterBar>
 
-                {/* Main DataTable */}
-                <DataTable<Transaction>
+                {/* DataTable */}
+                <DataTable<ServiceDeployment>
                   data={paginatedData}
                   columns={columns}
                   rowKey={(row) => row.id}
@@ -676,7 +784,7 @@ export default function App() {
                   selectedKeys={selectedRowIds}
                   onSelectionChange={setSelectedRowIds}
                   onRowClick={(row) =>
-                    toast.info(`Chọn giao dịch ${row.id}`, `Khách hàng: ${row.customer.name}`)
+                    toast.info(`Service: ${row.name}`, `Endpoint: https://${row.url}`)
                   }
                 />
 
@@ -696,219 +804,208 @@ export default function App() {
             </Card>
           </TabsContent>
 
-          {/* TAB 2: PRIMITIVES SHOWCASE */}
+          {/* TAB 2: PRIMITIVES */}
           <TabsContent value="primitives" className="space-y-6 pt-4">
-            {/* Buttons Grid */}
             <Card>
               <CardHeader>
-                <CardTitle>Button &amp; Trạng thái hành động</CardTitle>
+                <CardTitle>Buttons &amp; Interactive Controls</CardTitle>
                 <CardDescription>
-                  Tuân thủ nguyên tắc 1: đầy đủ trạng thái default, hover, focus, active, disabled, loading.
+                  Thiết kế nút với viền sắc sảo, ánh tím Railway signature và hiệu ứng active tinh tế.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="solid">Solid (Primary)</Button>
-                  <Button variant="secondary">Secondary</Button>
-                  <Button variant="outline">Outline</Button>
-                  <Button variant="ghost">Ghost</Button>
+                  <Button variant="solid">Primary Solid</Button>
+                  <Button variant="secondary">Secondary Button</Button>
+                  <Button variant="outline">Outline Border</Button>
+                  <Button variant="ghost">Ghost Action</Button>
                   <Button variant="destructive">Destructive</Button>
-                  <Button variant="link">Link Button</Button>
-                  <Button variant="solid" isLoading>Đang lưu...</Button>
-                  <Button variant="solid" disabled>Vô hiệu hóa</Button>
+                  <Button variant="link">Link Style</Button>
+                  <Button variant="solid" isLoading>Deploying...</Button>
+                  <Button variant="solid" disabled>Disabled State</Button>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <Button size="sm">Size Small (sm)</Button>
-                  <Button size="md">Size Medium (md)</Button>
-                  <Button size="lg">Size Large (lg)</Button>
-                  <div className="flex items-center gap-2 pl-4 border-l border-border/60">
+                  <Button size="sm">Small (sm)</Button>
+                  <Button size="md">Medium (md)</Button>
+                  <Button size="lg">Large (lg)</Button>
+                  <div className="flex items-center gap-2 pl-4 border-l border-border/80">
                     <span className="text-xs text-muted-foreground">Spinners:</span>
                     <Spinner size="sm" />
                     <Spinner size="md" />
-                    <Spinner size="lg" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Inputs & Controls Grid */}
             <Card>
               <CardHeader>
-                <CardTitle>Nhập liệu &amp; Điều khiển nhị phân</CardTitle>
+                <CardTitle>Inputs &amp; Binary Switches</CardTitle>
                 <CardDescription>
-                  Input có icon prefix/suffix, clear button, password visibility toggle; Checkbox, Switch, Radio.
+                  Ô nhập liệu viền hairline tinh giản kèm tính năng clear nhanh, password toggle và toggle 2FA.
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <Input
-                    placeholder="Input kèm icon tìm kiếm và nút xóa..."
+                    placeholder="Tìm kiếm repository..."
                     leftIcon={<Search className="h-4 w-4" />}
                     isClearable
-                    defaultValue="Từ khóa tìm kiếm mẫu"
+                    defaultValue="railwayapp/core"
                   />
                   <Input
                     type="password"
-                    placeholder="Nhập mật khẩu an toàn..."
+                    placeholder="API Token..."
                     showPasswordToggle
-                    defaultValue="SecurePassword123"
-                  />
-                  <Input
-                    placeholder="Input trạng thái lỗi (hasError)..."
-                    hasError
-                    defaultValue="Dữ liệu không đúng định dạng"
+                    defaultValue="railway_sec_99a80b12cd"
                   />
                   <Textarea
-                    placeholder="Nhập ghi chú đa dòng kèm bộ đếm ký tự..."
+                    placeholder="Dockerfile custom directives..."
                     showCount
-                    maxLength={100}
-                    defaultValue="Giao diện thiết kế theo chuẩn SOLID và Clean Code."
+                    maxLength={150}
+                    defaultValue="FROM node:20-alpine&#10;WORKDIR /app&#10;COPY package*.json ./&#10;RUN npm ci"
                   />
                 </div>
 
-                <div className="space-y-4 pl-0 md:pl-6 border-t md:border-t-0 md:border-l border-border/60 pt-4 md:pt-0">
+                <div className="space-y-4 pl-0 md:pl-6 border-t md:border-t-0 md:border-l border-border/80 pt-4 md:pt-0">
+                  <Switch
+                    label="Tự động Deploy khi git push"
+                    description="Xây dựng và phát hành phiên bản mới mỗi khi có commit lên nhánh main."
+                    defaultChecked
+                  />
+                  <Divider />
+                  <Switch
+                    label="Healthcheck Endpoint"
+                    description="Gửi ping mỗi 30s để kiểm tra container còn sống."
+                    defaultChecked
+                  />
+                  <Divider />
                   <VStack gap={3}>
                     <Checkbox
-                      label="Kích hoạt thông báo hệ thống"
-                      description="Nhận email khi có giao dịch phát sinh trên tài khoản."
+                      label="Bật chế độ Auto-sleep"
+                      description="Tạm ngắt container khi không có lưu lượng truy cập để tiết kiệm chi phí."
                       defaultChecked
                     />
                     <Checkbox
-                      label="Chính sách bảo mật GDPR"
-                      description="Đồng ý xử lý dữ liệu theo tiêu chuẩn quốc tế."
+                      label="Kích hoạt Ephemeral Volumes"
+                      description="Dữ liệu tạm sẽ được dọn sạch khi khởi động lại container."
                     />
                   </VStack>
-
-                  <Divider />
-
-                  <Switch
-                    label="Chế độ bảo vệ 2 lớp (2FA)"
-                    description="Yêu cầu mã OTP khi đăng nhập từ thiết bị lạ."
-                    defaultChecked
-                  />
-
-                  <Divider />
-
-                  <RadioGroup defaultValue="daily">
-                    <RadioGroupItem value="realtime" label="Thời gian thực (Real-time)" />
-                    <RadioGroupItem value="daily" label="Tổng kết hàng ngày (Daily summary)" />
-                    <RadioGroupItem value="weekly" label="Báo cáo tuần (Weekly digest)" />
-                  </RadioGroup>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Badges & Avatars */}
             <Card>
               <CardHeader>
-                <CardTitle>Hiển thị: Badges, Avatars &amp; Typography</CardTitle>
+                <CardTitle>Badges với Hiệu ứng Glowing Pulse</CardTitle>
                 <CardDescription>
-                  Các thành phần biểu diễn trạng thái và thông tin định danh dữ liệu.
+                  Đặc trưng của Railway với chấm trạng thái phát sáng báo hiệu service online, building hoặc lỗi.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <Badge variant="default" withDot>Primary Tag</Badge>
-                  <Badge variant="success" withDot>Thành công</Badge>
-                  <Badge variant="warning" withDot>Cảnh báo</Badge>
-                  <Badge variant="destructive" withDot>Lỗi nghiêm trọng</Badge>
-                  <Badge variant="info" withDot>Thông tin</Badge>
-                  <Badge variant="outline">Viền mảnh</Badge>
-                  <Badge variant="secondary" onRemove={() => toast.info('Đã xóa nhãn')}>
-                    Nhãn có nút xóa
+              <CardContent className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <Badge variant="success" withDot pulse>
+                    Active / Healthy
+                  </Badge>
+                  <Badge variant="default" withDot pulse>
+                    Building Container
+                  </Badge>
+                  <Badge variant="warning" withDot pulse>
+                    High CPU Usage
+                  </Badge>
+                  <Badge variant="destructive" withDot>
+                    Build Failed
+                  </Badge>
+                  <Badge variant="secondary" withDot>
+                    Sleeping
+                  </Badge>
+                  <Badge variant="outline" mono>
+                    sha256:4b91ac
                   </Badge>
                 </div>
 
-                <HStack gap={4} align="center">
-                  <Avatar fallback="NV" size="sm" status="online" />
-                  <Avatar fallback="TM" size="md" status="busy" />
-                  <Avatar fallback="HN" size="lg" status="away" />
-                  <Avatar fallback="AD" size="xl" status="online" />
+                <HStack gap={3} align="center" className="pt-2">
+                  <Avatar fallback="RW" size="sm" status="online" />
+                  <Avatar fallback="NX" size="md" status="online" />
+                  <Avatar fallback="DB" size="lg" status="away" />
                   <div className="text-xs text-muted-foreground">
-                    Avatar hỗ trợ đa kích cỡ (sm, md, lg, xl) kèm status dot badge.
+                    Avatars hỗ trợ fallback initials và status dot viền tương phản.
                   </div>
-                </HStack>
-
-                <HStack gap={2} align="center">
-                  <TypographyText variant="body">Nhấn</TypographyText>
-                  <Kbd>⌘</Kbd>
-                  <Kbd>K</Kbd>
-                  <TypographyText variant="body">để mở bảng tìm kiếm nhanh. Mã hàm:</TypographyText>
-                  <Code>useDataTable()</Code>
                 </HStack>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* TAB 3: COMPOSITE COMPONENTS */}
+          {/* TAB 3: COMPOSITE */}
           <TabsContent value="composite" className="space-y-6 pt-4">
-            {/* FormField & Validation */}
             <Card>
               <CardHeader>
-                <CardTitle>FormField Wrapper &amp; WAI-ARIA Automatic Binding</CardTitle>
+                <CardTitle>FormField Wrapper &amp; Input Validation</CardTitle>
                 <CardDescription>
-                  Tự động đồng bộ id, label, aria-describedby, helper text và thông điệp lỗi.
+                  Tự động đồng bộ id, label, required mark, aria-describedby và thông điệp lỗi.
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
-                  label="Tên miền ứng dụng"
+                  label="Tên miền phụ (Custom Domain)"
                   required
-                  hint="Chỉ nhập tên miền phụ, ví dụ: my-app.domain.vn"
+                  hint="Nhập domain mong muốn cho dịch vụ của bạn"
                 >
-                  <Input placeholder="my-app" rightIcon={<span className="text-xs text-muted-foreground">.domain.vn</span>} />
+                  <Input placeholder="my-service" rightIcon={<span className="text-xs font-mono text-muted-foreground">.railway.app</span>} />
                 </FormField>
 
                 <FormField
-                  label="Hạn mức giao dịch ngày"
+                  label="Port lắng nghe HTTP"
                   required
-                  error="Hạn mức tối đa cho phép là 500.000.000 ₫"
+                  error="Port 80 bị giới hạn cho hệ thống, vui lòng dùng port 3000 hoặc 8080"
                 >
-                  <Input defaultValue="900000000" />
+                  <Input defaultValue="80" />
                 </FormField>
               </CardContent>
             </Card>
 
-            {/* Overlays: Tooltips, Popovers, Alerts, Toasts */}
             <Card>
               <CardHeader>
-                <CardTitle>Lớp Overlay &amp; Phản hồi (Feedback)</CardTitle>
+                <CardTitle>Lớp Overlay &amp; Feedback</CardTitle>
                 <CardDescription>
-                  Modal dialog, Tooltip, Popover, Alert và hệ thống thông báo Toast stackable.
+                  Modal, Tooltip, Popover, Alert và hệ thống Toast stackable.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Tooltip content="Tooltip giải thích chi tiết chức năng">
-                    <Button variant="outline">Rê chuột xem Tooltip</Button>
+                  <Tooltip content="Mở live logs trực tiếp từ container">
+                    <Button variant="outline">Tooltip: Live Logs</Button>
                   </Tooltip>
 
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button variant="outline">Mở Popover tương tác</Button>
+                      <Button variant="outline">Cấu hình CPU &amp; RAM</Button>
                     </PopoverTrigger>
                     <PopoverContent>
-                      <div className="space-y-2">
-                        <h4 className="font-semibold text-sm">Cài đặt bộ lọc nhanh</h4>
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-sm">Hạn mức tài nguyên</h4>
                         <p className="text-xs text-muted-foreground">
-                          Bạn có thể tùy chỉnh các chỉ số hiển thị trên dashboard.
+                          Container tự động co giãn theo dung lượng tải thực tế.
                         </p>
-                        <Button size="sm" className="w-full mt-2">Áp dụng</Button>
+                        <div className="flex items-center justify-between text-xs font-mono border-t border-border pt-2">
+                          <span>Max Memory:</span>
+                          <span className="font-semibold text-foreground">2048 MB</span>
+                        </div>
+                        <Button size="sm" className="w-full">Lưu cấu hình</Button>
                       </div>
                     </PopoverContent>
                   </Popover>
 
                   <Button
                     variant="solid"
-                    onClick={() => toast.success('Thao tác thành công', 'Dữ liệu đã được lưu trữ vĩnh viễn.')}
+                    onClick={() => toast.success('Triển khai hoàn tất', 'Commit 7f20a1b đã được deploy thành công.')}
                   >
                     Kích hoạt Toast Success
                   </Button>
 
                   <Button
                     variant="destructive"
-                    onClick={() => toast.error('Lỗi kết nối', 'Không thể đồng bộ với máy chủ thanh toán.')}
+                    onClick={() => toast.error('Container Out-of-Memory', 'Service bị tắt do vượt quá hạn mức RAM.')}
                   >
                     Kích hoạt Toast Error
                   </Button>
@@ -916,35 +1013,24 @@ export default function App() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Alert variant="info">
-                    <AlertTitle>Bảo trì hệ thống định kỳ</AlertTitle>
+                    <AlertTitle>Bảo trì hệ thống hạ tầng</AlertTitle>
                     <AlertDescription>
-                      Hệ thống sẽ cập nhật phiên bản 0.2 vào 02:00 sáng chủ nhật.
+                      Cụm máy chủ Singapore sẽ nâng cấp kernel vào 03:00 UTC thứ 7 tới.
                     </AlertDescription>
                   </Alert>
 
                   <Alert variant="success">
-                    <AlertTitle>Bản sao lưu đã hoàn tất</AlertTitle>
+                    <AlertTitle>SSL Certificate Auto-renewed</AlertTitle>
                     <AlertDescription>
-                      Toàn bộ cơ sở dữ liệu đã được backup an toàn lên AWS S3.
+                      Chứng chỉ HTTPS cho toàn bộ domain đã được tự động gia hạn an toàn.
                     </AlertDescription>
                   </Alert>
                 </div>
-              </CardContent>
-            </Card>
 
-            {/* Skeleton Loading State */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Skeleton Shimmer Effect</CardTitle>
-                <CardDescription>
-                  Hiển thị khung hình tải trang mượt mà, loại bỏ hiện tượng nhảy layout (CLS).
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <HStack gap={4} align="center">
-                  <Skeleton className="h-12 w-12 rounded-full" />
+                <HStack gap={4} align="center" className="p-4 rounded-lg border border-border/80 bg-muted/20">
+                  <Skeleton className="h-10 w-10 rounded-md" />
                   <div className="space-y-2 flex-1">
-                    <Skeleton className="h-4 w-1/3" />
+                    <Skeleton className="h-4 w-1/4" />
                     <Skeleton className="h-3 w-1/2" />
                   </div>
                 </HStack>
@@ -952,66 +1038,52 @@ export default function App() {
             </Card>
           </TabsContent>
 
-          {/* TAB 4: DESIGN TOKENS FOUNDATIONS */}
+          {/* TAB 4: RAILWAY DESIGN TOKENS */}
           <TabsContent value="tokens" className="space-y-6 pt-4">
             <Card>
               <CardHeader>
-                <CardTitle>Bảng mã màu Design Tokens (CSS Variables)</CardTitle>
+                <CardTitle>Bảng mã màu Design Tokens (Railway Signature)</CardTitle>
                 <CardDescription>
-                  Toàn bộ giao diện được điều khiển qua các biến CSS tại `src/tokens/colors.css`.
+                  Các biến CSS trung tâm tại `src/tokens/colors.css` định hình phong cách độc bản của Railway.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h4 className="text-sm font-semibold mb-3">Màu Thương hiệu &amp; Trung tính (Brand &amp; Neutral)</h4>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs">
-                    <div className="rounded-lg p-3 border border-border bg-primary text-primary-foreground font-medium">
-                      Primary
-                    </div>
-                    <div className="rounded-lg p-3 border border-border bg-secondary text-secondary-foreground font-medium">
-                      Secondary
-                    </div>
-                    <div className="rounded-lg p-3 border border-border bg-muted text-muted-foreground font-medium">
-                      Muted
-                    </div>
-                    <div className="rounded-lg p-3 border border-border bg-accent text-accent-foreground font-medium">
-                      Accent
-                    </div>
-                    <div className="rounded-lg p-3 border border-border bg-card text-card-foreground font-medium">
-                      Card / Surface
-                    </div>
-                    <div className="rounded-lg p-3 border border-border bg-background text-foreground font-medium">
-                      Background
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-sm font-semibold mb-3">Màu Ngữ nghĩa (Semantic Feedback)</h4>
+                  <h4 className="text-sm font-semibold mb-3">Railway Surface Hierarchy</h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                    <div className="rounded-lg p-3 border border-emerald-500/30 bg-emerald-500 text-white font-medium">
-                      Success (Emerald)
+                    <div className="rounded-lg p-3 border border-border bg-background text-foreground font-mono">
+                      Canvas (#0b0b0f)
                     </div>
-                    <div className="rounded-lg p-3 border border-amber-500/30 bg-amber-500 text-white font-medium">
-                      Warning (Amber)
+                    <div className="rounded-lg p-3 border border-border bg-card text-card-foreground font-mono">
+                      Card (#13111c)
                     </div>
-                    <div className="rounded-lg p-3 border border-rose-500/30 bg-destructive text-white font-medium">
-                      Destructive (Crimson)
+                    <div className="rounded-lg p-3 border border-border bg-popover text-popover-foreground font-mono">
+                      Popover (#1b1828)
                     </div>
-                    <div className="rounded-lg p-3 border border-sky-500/30 bg-sky-500 text-white font-medium">
-                      Info (Sky)
+                    <div className="rounded-lg p-3 border border-primary/40 bg-primary text-primary-foreground font-mono">
+                      Primary (#853bce)
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold mb-3">Hệ thống Thang đo Spacing &amp; Radius</h4>
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-                    <div className="p-3 border border-border rounded-sm bg-muted/40">sm: 4px</div>
-                    <div className="p-3 border border-border rounded-md bg-muted/40">md: 6px</div>
-                    <div className="p-3 border border-border rounded-lg bg-muted/40">lg: 8px (Default)</div>
-                    <div className="p-3 border border-border rounded-xl bg-muted/40">xl: 12px</div>
-                    <div className="p-3 border border-border rounded-full bg-muted/40 px-4">full: 9999px</div>
+                  <h4 className="text-sm font-semibold mb-3">Typography Pairing</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div className="p-4 border border-border rounded-lg bg-card space-y-1">
+                      <span className="text-muted-foreground uppercase text-[10px]">Headings / Editorial</span>
+                      <p className="font-serif text-lg font-normal text-foreground">IBM Plex Serif</p>
+                      <p className="text-muted-foreground text-xs">Sử dụng cho Hero, Display title tạo cảm giác thẩm mỹ đẳng cấp.</p>
+                    </div>
+                    <div className="p-4 border border-border rounded-lg bg-card space-y-1">
+                      <span className="text-muted-foreground uppercase text-[10px]">Body &amp; UI Controls</span>
+                      <p className="font-sans text-lg font-semibold text-foreground">Inter</p>
+                      <p className="text-muted-foreground text-xs">Sử dụng cho Button, Label, Input với độ nét cao ở kích thước nhỏ.</p>
+                    </div>
+                    <div className="p-4 border border-border rounded-lg bg-card space-y-1">
+                      <span className="text-muted-foreground uppercase text-[10px]">Code &amp; Technical Metrics</span>
+                      <p className="font-mono text-lg font-medium text-foreground">JetBrains Mono</p>
+                      <p className="text-muted-foreground text-xs">Sử dụng cho Commit hashes, Endpoints, Terminal commands, vCPU/RAM.</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -1022,8 +1094,10 @@ export default function App() {
 
       {/* Footer */}
       <footer className="border-t border-border mt-16 py-8 text-center text-xs text-muted-foreground">
-        <p>Belp UI Kit — Thiết kế &amp; kiến trúc theo tiêu chuẩn Clean Code, SOLID và WAI-ARIA.</p>
-        <p className="mt-1">Xây dựng nhất quán cho các hệ thống quản trị và dữ liệu phức tạp.</p>
+        <p>Belp UI Kit — Railway Design Language: Dark-first, Electric Violet accent, IBM Plex Serif &amp; JetBrains Mono.</p>
+        <p className="mt-1 font-mono text-[11px] text-muted-foreground/80">
+          Built with React 18, Tailwind CSS, Radix UI Primitives and Strict TypeScript.
+        </p>
       </footer>
     </div>
   );

@@ -69,8 +69,13 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
+        serif: ["'IBM Plex Serif'", "Georgia", "serif"],
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        mono: ["JetBrains Mono", "Fira Code", "Courier New", "monospace"],
+        mono: ["'JetBrains Mono'", "Fira Code", "Courier New", "monospace"],
+      },
+      boxShadow: {
+        railway: "inset 0 1px 0 0 rgba(255, 255, 255, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.4)",
+        glow: "0 0 20px -5px hsl(var(--primary) / 0.5)",
       },
       keyframes: {
         "accordion-down": {
@@ -90,12 +95,16 @@ export default {
           to: { opacity: "0" },
         },
         "scale-in": {
-          from: { opacity: "0", transform: "scale(0.95)" },
+          from: { opacity: "0", transform: "scale(0.97)" },
           to: { opacity: "1", transform: "scale(1)" },
         },
         "slide-in-right": {
           from: { transform: "translateX(100%)" },
           to: { transform: "translateX(0)" },
+        },
+        pulseGlow: {
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.6", transform: "scale(1.15)" },
         },
       },
       animation: {
@@ -104,6 +113,7 @@ export default {
         "fade-in": "fade-in 0.15s ease-out",
         "scale-in": "scale-in 0.15s ease-out",
         "slide-in-right": "slide-in-right 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+        "pulse-glow": "pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },

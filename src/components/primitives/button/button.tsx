@@ -9,12 +9,18 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        solid: 'bg-primary text-primary-foreground shadow hover:bg-primary-hover active:bg-primary-hover',
-        secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary-hover',
-        outline: 'border border-border bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        link: 'text-primary underline-offset-4 hover:underline p-0 h-auto font-normal',
+        solid:
+          'bg-primary text-primary-foreground shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_1px_2px_rgba(0,0,0,0.3)] hover:bg-primary-hover active:bg-primary-hover border border-primary/40',
+        secondary:
+          'bg-secondary text-secondary-foreground border border-border shadow-sm hover:bg-secondary-hover hover:border-muted-foreground/30',
+        outline:
+          'border border-border bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground hover:border-muted-foreground/30',
+        ghost:
+          'hover:bg-accent hover:text-accent-foreground',
+        destructive:
+          'bg-destructive text-destructive-foreground shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2)] hover:bg-destructive/90',
+        link:
+          'text-primary underline-offset-4 hover:underline p-0 h-auto font-normal',
       },
       size: {
         sm: 'h-8 px-3 text-xs rounded',
