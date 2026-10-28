@@ -5,6 +5,7 @@ node_modules/
 
 # Production / Build output
 dist/
+dist-showcase/
 build/
 out/
 storybook-static/
