@@ -1,7 +1,6 @@
 import * as React from 'react';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/composite/popover';
-import { Button } from '@/components/primitives/button';
 import { cn } from '@/utils/cn';
 
 export interface DatePickerProps {
@@ -12,6 +11,9 @@ export interface DatePickerProps {
   hasError?: boolean;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
+  showPresets?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 const DAYS_OF_WEEK = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
@@ -28,6 +30,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   hasError = false,
   className,
   size = 'md',
+  showPresets = false,
+  minDate,
+  maxDate,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [viewDate, setViewDate] = React.useState<Date>(() => value || new Date());
@@ -49,14 +54,26 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     setViewDate(new Date(year, month + 1, 1));
   };
 
+  const isDateDisabled = (d: Date) => {
+    if (minDate && d < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())) {
+      return true;
+    }
+    if (maxDate && d > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())) {
+      return true;
+    }
+    return false;
+  };
+
   const handleSelectDay = (day: number) => {
     const selected = new Date(year, month, day);
+    if (isDateDisabled(selected)) return;
     onChange?.(selected);
     setIsOpen(false);
   };
 
   const handleSelectToday = () => {
     const today = new Date();
+    if (isDateDisabled(today)) return;
     onChange?.(today);
     setViewDate(today);
     setIsOpen(false);
@@ -67,8 +84,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     onChange?.(null);
   };
 
-  // Calendar calculations
-  const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7; // Monday = 0
+  const applyPreset = (daysFromToday: number) => {
+    const target = new Date();
+    target.setDate(target.getDate() + daysFromToday);
+    if (isDateDisabled(target)) return;
+    onChange?.(target);
+    setViewDate(target);
+    setIsOpen(false);
+  };
+
+  // Calendar calculations (Monday = 0)
+  const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const daysInPrevMonth = new Date(year, month, 0).getDate();
 
@@ -98,23 +124,24 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
+    <PopoverPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverPrimitive.Trigger asChild>
         <button
           type="button"
           disabled={disabled}
           className={cn(
-            'flex items-center justify-between rounded-md border border-input bg-background text-sm ring-offset-background transition-colors placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 select-none text-left',
+            'flex items-center justify-between rounded-lg border border-input bg-background text-sm ring-offset-background transition-all duration-150 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 select-none text-left shadow-xs hover:border-primary/50 cursor-pointer',
             size === 'sm' && 'h-8 px-2.5 text-xs',
             size === 'md' && 'h-9 px-3 py-1.5 text-sm',
             size === 'lg' && 'h-11 px-4 text-base',
             hasError && 'border-destructive focus:ring-destructive text-destructive',
+            isOpen && 'border-primary ring-2 ring-primary/20',
             className
           )}
         >
-          <div className="flex items-center gap-2 overflow-hidden">
-            <CalendarIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
-            <span className={cn('truncate', !value && 'text-muted-foreground')}>
+          <div className="flex items-center gap-2 overflow-hidden truncate">
+            <CalendarIcon className="h-4 w-4 shrink-0 text-primary opacity-80" />
+            <span className={cn('truncate', !value && 'text-muted-foreground', value && 'font-mono text-foreground font-medium')}>
               {value ? formatDisplayDate(value) : placeholder}
             </span>
           </div>
@@ -124,7 +151,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
               role="button"
               tabIndex={0}
               onClick={handleClear}
-              className="rounded-full p-0.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors ml-1"
+              className="rounded-full p-0.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors ml-1 cursor-pointer"
+              title="Xóa ngày đã chọn"
             >
               <X className="h-3.5 w-3.5" />
             </span>
@@ -132,109 +160,153 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             <span className="w-3" />
           )}
         </button>
-      </PopoverTrigger>
+      </PopoverPrimitive.Trigger>
 
-      <PopoverContent className="w-auto p-3" align="start">
-        <div className="space-y-3">
-          {/* Header Navigation */}
-          <div className="flex items-center justify-between">
-            <Button
-              variant="outline"
-              size="icon-sm"
-              onClick={handlePrevMonth}
-              aria-label="Tháng trước"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-
-            <span className="text-xs font-semibold text-foreground">
-              {MONTH_NAMES[month]} năm {year}
-            </span>
-
-            <Button
-              variant="outline"
-              size="icon-sm"
-              onClick={handleNextMonth}
-              aria-label="Tháng sau"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* Days of Week Header */}
-          <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-medium text-muted-foreground">
-            {DAYS_OF_WEEK.map((day) => (
-              <div key={day} className="h-7 w-7 flex items-center justify-center">
-                {day}
-              </div>
-            ))}
-          </div>
-
-          {/* Days Grid */}
-          <div className="grid grid-cols-7 gap-1">
-            {/* Prev month days */}
-            {Array.from({ length: firstDayIndex }).map((_, idx) => (
-              <div
-                key={`prev-${idx}`}
-                className="h-7 w-7 flex items-center justify-center text-xs text-muted-foreground/30 select-none"
+      <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
+          align="start"
+          sideOffset={6}
+          className="z-50 flex rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl outline-none duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
+        >
+          {showPresets && (
+            <div className="flex flex-col gap-1 border-r border-border p-3 text-xs w-32 bg-card/40">
+              <span className="font-semibold text-muted-foreground px-2 py-1 uppercase text-[10px] tracking-wider font-mono">
+                Chọn nhanh
+              </span>
+              <button
+                type="button"
+                onClick={handleSelectToday}
+                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-accent text-foreground transition-colors"
               >
-                {daysInPrevMonth - firstDayIndex + idx + 1}
-              </div>
-            ))}
+                Hôm nay
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset(1)}
+                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-accent text-foreground transition-colors"
+              >
+                Ngày mai
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset(7)}
+                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-accent text-foreground transition-colors"
+              >
+                7 ngày tới
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset(30)}
+                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-accent text-foreground transition-colors"
+              >
+                1 tháng tới
+              </button>
+            </div>
+          )}
 
-            {/* Current month days */}
-            {Array.from({ length: daysInMonth }).map((_, idx) => {
-              const day = idx + 1;
-              const selected = isSelected(day);
-              const today = isToday(day);
+          <div className="p-3 w-72 space-y-3">
+            {/* Header Navigation */}
+            <div className="flex items-center justify-between pb-1 border-b border-border/60">
+              <button
+                type="button"
+                onClick={handlePrevMonth}
+                className="rounded-md p-1 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                aria-label="Tháng trước"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
 
-              return (
-                <button
-                  key={`curr-${day}`}
-                  type="button"
-                  onClick={() => handleSelectDay(day)}
-                  className={cn(
-                    'h-7 w-7 rounded-md text-xs font-medium transition-colors flex items-center justify-center',
-                    selected
-                      ? 'bg-primary text-primary-foreground font-semibold shadow-sm'
-                      : 'hover:bg-muted text-foreground',
-                    today && !selected && 'border border-primary text-primary font-semibold'
-                  )}
-                >
+              <span className="text-sm font-semibold text-foreground">
+                {MONTH_NAMES[month]} {year}
+              </span>
+
+              <button
+                type="button"
+                onClick={handleNextMonth}
+                className="rounded-md p-1 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                aria-label="Tháng sau"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Days of Week Header */}
+            <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-medium text-muted-foreground font-mono">
+              {DAYS_OF_WEEK.map((day) => (
+                <div key={day} className="h-7 w-7 flex items-center justify-center">
                   {day}
-                </button>
-              );
-            })}
-          </div>
+                </div>
+              ))}
+            </div>
 
-          {/* Quick Footer Action */}
-          <div className="flex items-center justify-between border-t border-border pt-2 text-xs">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 text-xs px-2 text-primary"
-              onClick={handleSelectToday}
-            >
-              Hôm nay
-            </Button>
+            {/* Days Grid */}
+            <div className="grid grid-cols-7 gap-1">
+              {/* Prev month days */}
+              {Array.from({ length: firstDayIndex }).map((_, idx) => (
+                <div
+                  key={`prev-${idx}`}
+                  className="h-7 w-7 flex items-center justify-center text-xs text-muted-foreground/30 select-none font-mono"
+                >
+                  {daysInPrevMonth - firstDayIndex + idx + 1}
+                </div>
+              ))}
 
-            {value && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-7 text-xs px-2 text-muted-foreground"
-                onClick={() => {
-                  onChange?.(null);
-                  setIsOpen(false);
-                }}
+              {/* Current month days */}
+              {Array.from({ length: daysInMonth }).map((_, idx) => {
+                const day = idx + 1;
+                const dateObj = new Date(year, month, day);
+                const selected = isSelected(day);
+                const today = isToday(day);
+                const disabledDay = isDateDisabled(dateObj);
+
+                return (
+                  <button
+                    key={`curr-${day}`}
+                    type="button"
+                    disabled={disabledDay}
+                    onClick={() => handleSelectDay(day)}
+                    className={cn(
+                      'h-7 w-7 rounded-md text-xs font-medium font-mono transition-all duration-100 flex items-center justify-center',
+                      disabledDay && 'opacity-25 cursor-not-allowed',
+                      selected
+                        ? 'bg-primary text-primary-foreground font-bold shadow-sm shadow-primary/30 scale-105'
+                        : 'hover:bg-accent hover:text-accent-foreground text-foreground hover:scale-105 active:scale-95',
+                      today && !selected && 'border border-primary/70 text-primary font-semibold'
+                    )}
+                  >
+                    {day}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Quick Footer Action */}
+            <div className="flex items-center justify-between border-t border-border pt-2 text-xs">
+              <button
+                type="button"
+                onClick={handleSelectToday}
+                className="font-medium text-primary hover:underline text-xs"
               >
-                Xóa ngày
-              </Button>
-            )}
+                Hôm nay
+              </button>
+
+              {value && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange?.(null);
+                    setIsOpen(false);
+                  }}
+                  className="text-muted-foreground hover:text-foreground text-xs"
+                >
+                  Xóa ngày
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+        </PopoverPrimitive.Content>
+      </PopoverPrimitive.Portal>
+    </PopoverPrimitive.Root>
   );
 };
 

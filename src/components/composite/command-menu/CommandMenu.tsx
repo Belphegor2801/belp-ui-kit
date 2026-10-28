@@ -86,10 +86,10 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <DialogPrimitive.Content
           onKeyDown={handleKeyDown}
-          className="fixed left-[50%] top-[20%] z-50 w-full max-w-lg -translate-x-[50%] overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 sm:rounded-xl"
+          className="fixed left-[50%] top-[20%] z-50 w-full max-w-lg -translate-x-[50%] overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%] sm:rounded-xl"
         >
           <div className="flex items-center border-b border-border px-3.5 py-2.5">
             <Search className="mr-2.5 h-4 w-4 shrink-0 text-primary opacity-80" />

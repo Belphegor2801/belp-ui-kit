@@ -16,7 +16,7 @@ export const DrawerOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-200 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out',
+      'fixed inset-0 z-50 bg-black/60 backdrop-blur-sm duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className
     )}
     {...props}
@@ -25,7 +25,7 @@ export const DrawerOverlay = React.forwardRef<
 DrawerOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 export const drawerVariants = cva(
-  'fixed z-50 gap-4 bg-card p-6 shadow-2xl transition ease-in-out data-[state=open]:duration-300 data-[state=closed]:duration-200 border-border',
+  'fixed z-50 gap-4 bg-card p-6 shadow-2xl duration-300 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out border-border',
   {
     variants: {
       side: {

@@ -27,7 +27,7 @@ export const Checkbox = React.forwardRef<
       )}
       {...props}
     >
-      <CheckboxPrimitive.Indicator className={cn('flex items-center justify-center text-current')}>
+      <CheckboxPrimitive.Indicator className={cn('flex items-center justify-center text-current duration-150 data-[state=checked]:animate-in data-[state=unchecked]:animate-out data-[state=checked]:zoom-in-75')}>
         <Check className="h-3 w-3 stroke-[3]" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>

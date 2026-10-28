@@ -39,7 +39,7 @@
 
 - [x] **Giai đoạn 3: Đợt 2 — Composite Components**
   - [x] `FormField` (tự động liên kết id, label, required mark, hint, error message, WAI-ARIA `aria-describedby` và `aria-invalid`).
-  - [x] `DatePicker` (bộ chọn ngày Calendar Popover tương tác, format ngày, điều hướng tháng/năm, clear button).
+  - [x] `DatePicker` (bộ chọn ngày Calendar Popover tương tác, format ngày, điều hướng tháng/năm, clear button, presets).
   - [x] `DateRangePicker` (bộ chọn khoảng ngày start/end với các preset nhanh).
   - [x] `NumberInput` / `CurrencyInput` (ô nhập số kèm nút tăng/giảm stepper và định dạng).
   - [x] `TagInput` / `MultiSelect` (ô chọn và nhập đa thẻ kèm xóa nhanh và tìm kiếm).
@@ -57,6 +57,12 @@
   - [x] `EmptyState` (Icon minh họa, Tiêu đề, Mô tả, CTA action).
   - [x] `ConfirmDialog` (Hộp thoại xác nhận nhanh các hành động quan trọng).
   - [x] `Toast` (ToastProvider, `useToast` hook: `toast.success`, `toast.error`, `toast.warning`, `toast.info`, auto-dismiss & stacked layout).
+
+- [x] **Giai đoạn 6: Tối ưu Mượt mà hóa Animation & Hoàn thiện DatePicker**
+  - [x] Cài đặt `tailwindcss-animate`, cấu hình cubic-bezier transitions (`spring`, `smooth`) trong `tailwind.config.js`.
+  - [x] Đồng bộ hóa các hiệu ứng mở/đóng mượt mà cho: Popover, Tooltip, Dialog, Drawer, DropdownMenu, Select, CommandMenu, DatePicker.
+  - [x] Nâng cấp `DatePicker` độc lập: hỗ trợ preset nhanh, calendar navigation tinh tế, nút xóa, hiển thị ngày rõ nét.
+  - [x] Bổ sung card trình diễn chuyên biệt cho `DatePicker` và `DateRangePicker` song song trong Tab Composite và FilterBar của Showcase.
 
 - [x] **Giai đoạn 4: Đợt 3 — Nâng cao cho Dữ liệu lớn (Data-Dense Components)**
   - [x] `DataTable` (Generic `<T>` type-safe table, sorting header, row selection checkbox with select-all/indeterminate, sticky header, 3 chế độ density: compact/default/relaxed, integrated loading skeleton & empty state).

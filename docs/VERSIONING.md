@@ -15,7 +15,22 @@ Belp UI Kit tuân thủ tiêu chuẩn [Semantic Versioning 2.0.0](https://semver
 
 ## 📜 Lịch sử Phiên bản (Changelog)
 
-### `v0.2.0` — Expanding Controls, Time Range & Power-User Tools (Hoàn thành)
+### `v0.2.1` — Ultra-Smooth Animation Engine & Dedicated DatePicker Showcase (Hiện tại)
+*Ngày phát hành: 28/10/2026*
+
+#### ⚡ Tối ưu Hiệu ứng Chuyển động (Transitions & Micro-interactions)
+- Tích hợp chính thức engine animation `tailwindcss-animate` với hàm làm mượt `cubic-bezier(0.16, 1, 0.3, 1)` (spring) và `cubic-bezier(0.4, 0, 0.2, 1)` (smooth).
+- Cập nhật hiệu ứng mở (enter) và đóng (exit) mượt mà không bị ngắt quãng cho: `Popover`, `Tooltip`, `Dialog`, `Drawer/Sheet`, `DropdownMenu`, `Select`, `CommandMenu`, `DatePicker`, `DateRangePicker`.
+- Hiệu ứng trượt Drawer/Sheet tự nhiên, hiệu ứng Zoom-in/Zoom-out `95% -> 100%` cho Popover/Select/Dialog.
+
+#### 📅 Hoàn thiện & Tách bạch DatePicker
+- Bổ sung card demo độc lập, nổi bật cho `DatePicker` song song với `DateRangePicker` trong Tab Composite và FilterBar.
+- Hỗ trợ chọn ngày đơn với các preset nhanh: "Hôm nay", "Ngày mai", "7 ngày tới", "Tháng sau", nút xóa ngày một chạm.
+- Tinh chỉnh hover day indicator với hiệu ứng scale nhẹ và viền sáng Electric Cyan `#1aa7ec`.
+
+---
+
+### `v0.2.0` — Expanding Controls, Time Range & Power-User Tools
 *Ngày phát hành: 28/10/2026*
 
 #### ✨ Thành phần mới được bổ sung

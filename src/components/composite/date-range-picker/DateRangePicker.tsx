@@ -186,7 +186,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
         <PopoverPrimitive.Content
           align="start"
           sideOffset={6}
-          className="z-50 flex rounded-xl border border-border bg-popover text-popover-foreground shadow-xl outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+          className="z-50 flex rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl outline-none duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
         >
           {showPresets && (
             <div className="flex flex-col gap-1 border-r border-border p-3 text-xs w-36 bg-card/40">

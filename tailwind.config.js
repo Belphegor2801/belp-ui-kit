@@ -1,3 +1,5 @@
+import tailwindcssAnimate from 'tailwindcss-animate';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
@@ -76,6 +78,10 @@ export default {
         railway: "inset 0 1px 0 0 rgba(255, 255, 255, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.4)",
         glow: "0 0 20px -5px hsl(var(--primary) / 0.5)",
       },
+      transitionTimingFunction: {
+        spring: "cubic-bezier(0.16, 1, 0.3, 1)",
+        smooth: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -85,36 +91,17 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "fade-in": {
-          from: { opacity: "0" },
-          to: { opacity: "1" },
-        },
-        "fade-out": {
-          from: { opacity: "1" },
-          to: { opacity: "0" },
-        },
-        "scale-in": {
-          from: { opacity: "0", transform: "scale(0.97)" },
-          to: { opacity: "1", transform: "scale(1)" },
-        },
-        "slide-in-right": {
-          from: { transform: "translateX(100%)" },
-          to: { transform: "translateX(0)" },
-        },
         pulseGlow: {
           "0%, 100%": { opacity: "1", transform: "scale(1)" },
           "50%": { opacity: "0.6", transform: "scale(1.15)" },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.15s ease-out",
-        "scale-in": "scale-in 0.15s ease-out",
-        "slide-in-right": "slide-in-right 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+        "accordion-down": "accordion-down 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+        "accordion-up": "accordion-up 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
         "pulse-glow": "pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssAnimate],
 }

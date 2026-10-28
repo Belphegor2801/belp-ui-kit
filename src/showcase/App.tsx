@@ -28,6 +28,7 @@ import {
   Clock,
   Tag,
   AlertTriangle,
+  Calendar as CalendarIcon,
 } from 'lucide-react';
 
 import {
@@ -317,6 +318,7 @@ export default function App() {
   const [latencyRangeValue, setLatencyRangeValue] = useState<number[]>([40, 240]);
   const [activeSegment, setActiveSegment] = useState('services');
   const [activeTimeframe, setActiveTimeframe] = useState('24h');
+  const [demoSingleDate, setDemoSingleDate] = useState<Date | null>(new Date());
   const [demoDateRange, setDemoDateRange] = useState<DateRange>({});
   const [demoTags, setDemoTags] = useState<string[]>([
     'production',
@@ -1343,15 +1345,92 @@ export default function App() {
               </CardContent>
             </Card>
 
-            {/* Command Palette, DateRangePicker & TagInput */}
+            {/* Temporal Controls: DatePicker & DateRangePicker */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CalendarIcon className="h-5 w-5 text-primary" />
+                  <span>Bộ chọn Ngày &amp; Khoảng Ngày (DatePicker &amp; DateRangePicker)</span>
+                </CardTitle>
+                <CardDescription>
+                  Thành phần chọn ngày đơn lẻ (DatePicker) và chọn dải ngày dữ liệu (DateRangePicker) với popup lịch và preset nhanh.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Single DatePicker */}
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground flex items-center justify-between">
+                      <span>1. DatePicker (Chọn Ngày Đơn Lẻ)</span>
+                      {demoSingleDate && (
+                        <Badge variant="outline" mono size="sm">
+                          {demoSingleDate.toLocaleDateString('vi-VN')}
+                        </Badge>
+                      )}
+                    </h4>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Hỗ trợ chọn ngày cụ thể, chuyển tháng nhanh, xóa ngày và cột Preset chọn nhanh (Hôm nay, Ngày mai, 7 ngày tới, 1 tháng tới).
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <FormField label="DatePicker với Preset chọn nhanh">
+                      <DatePicker
+                        showPresets
+                        value={demoSingleDate}
+                        onChange={setDemoSingleDate}
+                        placeholder="Chọn ngày kiểm tra sự cố..."
+                      />
+                    </FormField>
+
+                    <div className="flex items-center gap-3 pt-2">
+                      <span className="text-xs text-muted-foreground">Biến thể kích cỡ nhỏ (size="sm"):</span>
+                      <div className="w-48">
+                        <DatePicker
+                          size="sm"
+                          placeholder="Chọn ngày nhanh (SM)..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* DateRangePicker */}
+                <div className="space-y-4 pl-0 md:pl-6 border-t md:border-t-0 md:border-l border-border/80 pt-4 md:pt-0">
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground flex items-center justify-between">
+                      <span>2. DateRangePicker (Chọn Dải Khoảng Ngày)</span>
+                      {demoDateRange.from && (
+                        <Badge variant="default" mono size="sm">
+                          Dải lọc hoạt động
+                        </Badge>
+                      )}
+                    </h4>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Chọn ngày bắt đầu và kết thúc với dải màu highlight trực quan cùng các Preset 7 ngày/30 ngày.
+                    </p>
+                  </div>
+
+                  <FormField label="Khoảng ngày báo cáo cụm máy chủ">
+                    <DateRangePicker
+                      value={demoDateRange}
+                      onChange={setDemoDateRange}
+                      placeholder="Chọn khoảng ngày phát hành..."
+                    />
+                  </FormField>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Command Palette, TagInput & CodeSnippet */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Command className="h-5 w-5 text-primary" />
-                  <span>Command Menu, DateRangePicker &amp; TagInput</span>
+                  <span>Command Menu, TagInput &amp; CodeSnippet</span>
                 </CardTitle>
                 <CardDescription>
-                  Công cụ tìm kiếm lệnh nhanh, chọn khoảng ngày dữ liệu và quản lý thẻ gắn tags.
+                  Công cụ tìm kiếm lệnh nhanh toàn hệ thống, quản lý thẻ gắn tags và khối hiển thị mã.
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1370,19 +1449,6 @@ export default function App() {
                     >
                       Mở Command Palette
                     </Button>
-                  </div>
-
-                  <Divider />
-
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-foreground">
-                      DateRangePicker (Chọn khoảng ngày)
-                    </label>
-                    <DateRangePicker
-                      value={demoDateRange}
-                      onChange={setDemoDateRange}
-                      placeholder="Chọn khoảng ngày báo cáo..."
-                    />
                   </div>
                 </div>
 
