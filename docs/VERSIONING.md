@@ -15,7 +15,29 @@ Belp UI Kit tuân thủ tiêu chuẩn [Semantic Versioning 2.0.0](https://semver
 
 ## 📜 Lịch sử Phiên bản (Changelog)
 
-### `v0.3.0` — Advanced Form & Workflow Components (Hoàn thành)
+### `v1.0.0` — Official Production Release (Phiên bản Chính thức)
+*Ngày phát hành: 30/10/2026*
+
+Đây là phiên bản phát hành chính thức đầu tiên (**v1.0.0 Production Ready**) của **Belp UI Kit** sau khi hoàn thành đầy đủ cả 4 tầng kiến trúc (Tokens, Primitives, Composite, Data-Dense & App Shell):
+
+#### 🚀 Điểm nhấn chính của v1.0.0
+- **Hệ thống Design Tokens chuẩn chỉnh (D3 Design Inspiration)**:
+  - Màu sắc cốt lõi: Electric Cyan (`#1aa7ec`), Deep Navy (`#1e2f97`), Aqua Mint (`#4adede`), Periwinkle (`#797ef6`), Ice Sky (`#7dd6f6`).
+  - Hỗ trợ toàn diện **Light / Dark mode** mượt mà, lưu trạng thái `localStorage`, chống giật màn hình (FOUC).
+  - Cặp phông đôi hoàn hảo: **Inter** (Headings, Body, Controls) và **JetBrains Mono** (Metrics, Code, Terminal, Hashes).
+- **Hơn 30+ UI Components Production-Ready**:
+  - **Tầng Primitives**: Button, IconButton, Link, Input, Textarea, Checkbox, RadioGroup, Switch, Select, Slider, SegmentedControl, Typography, Badge, Avatar, Divider, Spinner, Card, Stack.
+  - **Tầng Composite**: FormField, DatePicker, DateRangePicker, NumberInput, TagInput, Dialog/Modal, Drawer/Sheet, CommandMenu (Cmd+K), Tooltip, DropdownMenu, Popover, Alert, ProgressBar, Timeline, CodeSnippet, Skeleton, EmptyState, ConfirmDialog, Toast (`useToast`).
+  - **Tầng Data-Dense & App Shell**: DataTable (sortable, selectable, 3 densities), Pagination, FilterBar, MetricCard, Breadcrumb, Tabs, Accordion, FileUpload / Dropzone, Combobox, Stepper / Wizard, Sidebar Navigation Shell, TreeView.
+- **Engine Animation Siêu Mượt (`tailwindcss-animate`)**:
+  - Đường cong chuyển động `cubic-bezier(0.16, 1, 0.3, 1)` cho trải nghiệm cao cấp giống Railway / Linear.
+- **Đóng gói phân phối chuẩn npm & thư viện hiện đại**:
+  - Xuất bản đa định dạng: ESM (`dist/belp-ui-kit.es.js`), UMD (`dist/belp-ui-kit.umd.js`), CSS độc lập (`dist/belp-ui-kit.css`) và TypeScript definitions (`dist/index.d.ts`).
+  - Đầy đủ ứng dụng tương tác **Interactive Showcase** phục vụ thử nghiệm và tài liệu trực quan.
+
+---
+
+### `v0.3.0` — Advanced Form & Workflow Components
 *Ngày phát hành: 30/10/2026*
 
 #### ✨ 5 Thành phần Mới được Bổ sung

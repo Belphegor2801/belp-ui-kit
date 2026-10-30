@@ -849,7 +849,7 @@ export default function App() {
               <span className="text-muted-foreground/60">/</span>
               <span className="text-sm font-medium text-muted-foreground hidden sm:inline">data-dense system</span>
               <Badge variant="default" mono size="sm">
-                v0.1.0
+                v1.0.0
               </Badge>
             </div>
           </div>
@@ -2145,7 +2145,7 @@ export default function App() {
       <footer className="border-t border-border mt-16 py-8 text-center text-xs text-muted-foreground">
         <p>Belp UI Kit — Thư viện UI hiện đại, tối ưu cho ứng dụng nhiều dữ liệu.</p>
         <p className="mt-1 font-mono text-[11px] text-muted-foreground/80">
-          v0.1.0 • Built with React 18, Tailwind CSS, Radix UI Primitives and TypeScript.
+          v1.0.0 • Built with React 18, Tailwind CSS, Radix UI Primitives and TypeScript.
         </p>
       </footer>
     </div>

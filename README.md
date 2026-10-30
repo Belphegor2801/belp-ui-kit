@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Belp UI Kit Banner](https://img.shields.io/badge/Belp%20UI%20Kit-v0.1.0-853bce?style=for-the-badge&logo=react&logoColor=white)
+![Belp UI Kit Banner](https://img.shields.io/badge/Belp%20UI%20Kit-v1.0.0-1aa7ec?style=for-the-badge&logo=react&logoColor=white)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v3.4-38bdf8?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Radix UI](https://img.shields.io/badge/Radix%20UI-Headless-161618?style=flat-square&logo=radix-ui&logoColor=white)](https://www.radix-ui.com/)

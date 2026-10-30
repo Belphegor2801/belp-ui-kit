@@ -81,8 +81,9 @@
   - [x] `TreeView`: Cây thư mục/tài nguyên phân cấp lồng nhau với mở/đóng node, icon thư mục/tệp và chọn node.
   - [x] Tích hợp demo toàn diện vào Showcase, kiểm thử TypeScript, build production và cập nhật tài liệu.
 
-- [x] **Giai đoạn 5: Interactive Showcase & Build Configuration**
-  - [x] Áp dụng màu chủ đạo `#1aa7ec` và bảng màu D3 Design xuyên suốt toàn bộ showcase.
-  - [x] Thêm demo cho `Select` tùy chỉnh, `DatePicker`, `Drawer/Sheet`, `ProgressBar`, `Breadcrumb`, `ConfirmDialog`.
-  - [x] Kiểm thử TypeScript `tsc --noEmit` đạt 0 lỗi, Showcase build đạt 100%, Library build đạt 100%.
-  - [x] Commit Git & tài liệu hoàn tất.
+- [x] **Giai đoạn 8: Đóng gói & Phát hành v1.0.0 (Official Release)**
+  - [x] Đánh số phiên bản chính thức `v1.0.0` trong `package.json`.
+  - [x] Cập nhật tài liệu `docs/VERSIONING.md`, `README.md`, `docs/TASKS.md`.
+  - [x] Rebuild toàn diện bản thư viện `npm run build` và showcase `npm run build:showcase`.
+  - [x] Đóng gói thử nghiệm npm tarball `npm pack` xác nhận đầy đủ artifacts (ESM, UMD, CSS, .d.ts).
+  - [x] Tạo Git commit & gắn Git tag `v1.0.0`.
