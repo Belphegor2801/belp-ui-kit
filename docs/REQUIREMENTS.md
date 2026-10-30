@@ -55,6 +55,8 @@ Dự án tuân thủ triệt để lộ trình từ file `building-component-lib
   - `DateRangePicker`: Bộ chọn khoảng ngày `[startDate, endDate]` với các preset nhanh (Hôm nay, 7 ngày qua, 30 ngày qua, Tháng này) tối ưu cho báo cáo dữ liệu.
   - `NumberInput` / `CurrencyInput`: Ô nhập số định dạng tiền tệ hoặc số lượng kèm nút tăng giảm (stepper).
   - `TagInput` / `MultiSelect`: Ô chọn và nhập nhiều thẻ gắn (tags) kèm thao tác xóa nhanh, tìm kiếm và badge hiển thị.
+  - `Combobox`: Hộp chọn kèm ô tìm kiếm lọc tức thì (Searchable Select / Autocomplete), lý tưởng cho danh sách nhiều mục.
+  - `FileUpload` / `Dropzone`: Vùng kéo thả tải tệp tin lên hệ thống, kiểm soát đuôi file, kích thước tối đa, danh sách tệp đính kèm kèm thao tác xóa.
 - **Overlay Layer (Dựa trên Headless Primitive đồng nhất)**:
   - `Dialog` / `Modal`: Hộp thoại trung tâm với backdrop mờ, focus trap, phím Esc đóng, scale animation.
   - `Drawer` / `Sheet`: Ngăn kéo trượt từ các cạnh (phải, trái, dưới, trên) chuyên dụng cho chi tiết bản ghi.
@@ -80,6 +82,9 @@ Dự án tuân thủ triệt để lộ trình từ file `building-component-lib
 - `MetricCard` / `StatCard`: Thẻ thống kê KPI với tỷ lệ tăng/giảm % và màu xu hướng ngữ nghĩa.
 - `Tabs`: Chuyển đổi tab linh hoạt dạng `pill` hoặc `underline`.
 - `Accordion`: Thu gọn / mở rộng nhóm dữ liệu mượt mà.
+- `Stepper` / `Wizard`: Thanh chỉ báo tiến trình luồng công việc nhiều bước (dạng ngang hoặc dọc) với các trạng thái bước (*completed*, *active*, *pending*, *error*).
+- `Sidebar` / `AppShell`: Khung điều hướng bên trái chuẩn mực cho dashboard kỹ thuật, hỗ trợ mở rộng/thu gọn (collapsible), badge số lượng và active indicators.
+- `TreeView`: Cây phân cấp hiển thị thư mục/tài nguyên dạng lồng nhau với icon tương thích, mở/đóng node và chọn phần tử.
 
 ---
 

@@ -19,7 +19,7 @@ flowchart TD
     end
 
     subgraph Layer2["Đợt 2: Composite Components"]
-        FormFields[FormField Wrapper, DatePicker, DateRangePicker, NumberInput, TagInput]
+        FormFields[FormField Wrapper, DatePicker, DateRangePicker, NumberInput, TagInput, Combobox, FileUpload]
         Overlays[Dialog, Drawer, CommandMenu, Popover, Tooltip, DropdownMenu, ConfirmDialog]
         Feedback[Toast, Alert, ProgressBar, Timeline, CodeSnippet, Skeleton, EmptyState]
     end
@@ -28,7 +28,8 @@ flowchart TD
         DataTable[DataTable / DataGrid with Sorting, Selection & Density]
         DataFilters[FilterBar & SearchFilter]
         Metrics[MetricCard & StatDisplay]
-        Nav[Tabs, Accordion, Pagination]
+        Nav[Tabs, Accordion, Pagination, Stepper, TreeView]
+        Shell[Sidebar & Layout Navigation]
     end
 
     subgraph Consumers["Trình diễn & Ứng dụng"]

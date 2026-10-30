@@ -73,6 +73,14 @@
   - [x] `Tabs` (Radix Tabs với biến thể Pill và Underline).
   - [x] `Accordion` (Radix Accordion với smooth chevron animation).
 
+- [x] **Giai đoạn 7: Bổ sung 5 Thành phần Chuyên sâu (Advanced System Extension)**
+  - [x] `FileUpload` / `Dropzone`: Khu vực kéo thả tệp tin, xem danh sách tệp đính kèm, kích thước, tiến trình tải và nút xóa.
+  - [x] `Combobox`: Hộp chọn kèm ô tìm kiếm fuzzy filter tức thì, điều hướng phím mũi tên và popup mượt mà.
+  - [x] `Stepper` / `Wizard`: Thanh chỉ báo tiến trình luồng nhiều bước (horizontal / vertical) với các trạng thái bước (*completed*, *active*, *pending*, *error*).
+  - [x] `Sidebar`: Khung điều hướng bên trái chuẩn mực với hỗ trợ thu gọn/mở rộng, icon, badge đếm, nhóm menu và footer tài khoản.
+  - [x] `TreeView`: Cây thư mục/tài nguyên phân cấp lồng nhau với mở/đóng node, icon thư mục/tệp và chọn node.
+  - [x] Tích hợp demo toàn diện vào Showcase, kiểm thử TypeScript, build production và cập nhật tài liệu.
+
 - [x] **Giai đoạn 5: Interactive Showcase & Build Configuration**
   - [x] Áp dụng màu chủ đạo `#1aa7ec` và bảng màu D3 Design xuyên suốt toàn bộ showcase.
   - [x] Thêm demo cho `Select` tùy chỉnh, `DatePicker`, `Drawer/Sheet`, `ProgressBar`, `Breadcrumb`, `ConfirmDialog`.

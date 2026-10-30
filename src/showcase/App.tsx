@@ -29,6 +29,14 @@ import {
   Tag,
   AlertTriangle,
   Calendar as CalendarIcon,
+  UploadCloud,
+  FolderTree,
+  GitFork,
+  Globe,
+  Settings,
+  FileCode,
+  FileText,
+  Workflow,
 } from 'lucide-react';
 
 import {
@@ -82,6 +90,13 @@ import {
   DatePicker,
   DateRangePicker,
   type DateRange,
+  Combobox,
+  type ComboboxOption,
+  FileUpload,
+  type UploadedFile,
+  Sidebar,
+  SidebarGroup,
+  SidebarItem,
   CommandMenu,
   type CommandAction,
   Timeline,
@@ -121,6 +136,10 @@ import {
   TabsList,
   TabsTrigger,
   TabsContent,
+  Stepper,
+  type StepItem,
+  TreeView,
+  type TreeNode,
 } from '@/components/data';
 
 // Service Deployment Interface
@@ -327,6 +346,144 @@ export default function App() {
     'high-cpu',
     'auto-scaling',
   ]);
+
+  // Advanced Components State
+  const [selectedClusterNode, setSelectedClusterNode] = useState('sg-node-01');
+  const [demoUploadedFiles, setDemoUploadedFiles] = useState<UploadedFile[]>([
+    {
+      id: 'file-1',
+      name: 'docker-compose.production.yml',
+      size: 14336,
+      status: 'completed',
+    },
+    {
+      id: 'file-2',
+      name: 'cluster-cert-fullchain.pem',
+      size: 4096,
+      status: 'completed',
+    },
+  ]);
+  const [activeWorkflowStep, setActiveWorkflowStep] = useState(1);
+  const [sidebarDemoCollapsed, setSidebarDemoCollapsed] = useState(false);
+  const [sidebarActiveId, setSidebarActiveId] = useState('services');
+  const [selectedTreeId, setSelectedTreeId] = useState('button');
+
+  const clusterNodeOptions: ComboboxOption[] = [
+    {
+      value: 'sg-node-01',
+      label: 'Singapore Cluster (ap-southeast-1a)',
+      description: 'Cụm chính độ trễ thấp 18ms, 32 Cores, 128GB RAM',
+      icon: <Globe className="h-4 w-4 text-primary" />,
+    },
+    {
+      value: 'sg-node-02',
+      label: 'Singapore Backup (ap-southeast-1b)',
+      description: 'Dự phòng nóng tự động chuyển mạch Failover',
+      icon: <Globe className="h-4 w-4 text-sky-400" />,
+    },
+    {
+      value: 'tokyo-node-01',
+      label: 'Tokyo Edge (ap-northeast-1)',
+      description: 'Cụm CDN & Cache khu vực Đông Á',
+      icon: <Globe className="h-4 w-4 text-emerald-400" />,
+    },
+    {
+      value: 'virginia-node-01',
+      label: 'US East Virginia (us-east-1)',
+      description: 'Cụm máy chủ lưu trữ dữ liệu trung tâm Bắc Mỹ',
+      icon: <Globe className="h-4 w-4 text-purple-400" />,
+    },
+    {
+      value: 'frankfurt-node-01',
+      label: 'Frankfurt Central (eu-central-1)',
+      description: 'Tuân thủ tiêu chuẩn bảo mật dữ liệu GDPR',
+      icon: <Globe className="h-4 w-4 text-amber-400" />,
+    },
+  ];
+
+  const workflowSteps: StepItem[] = [
+    {
+      id: 'step-repo',
+      title: 'Chọn Nguồn Mã',
+      description: 'GitHub Repo hoặc Container Registry',
+    },
+    {
+      id: 'step-env',
+      title: 'Biến Môi Trường',
+      description: 'Khóa bí mật .env & Cổng mạng',
+    },
+    {
+      id: 'step-resources',
+      title: 'Tài Nguyên vCPU/RAM',
+      description: 'Định mức giới hạn & Tự động scale',
+    },
+    {
+      id: 'step-deploy',
+      title: 'Kiểm Tra & Deploy',
+      description: 'Xác nhận và kích hoạt pipeline',
+    },
+  ];
+
+  const repositoryTreeData: TreeNode[] = [
+    {
+      id: 'src',
+      label: 'src',
+      children: [
+        {
+          id: 'components',
+          label: 'components',
+          children: [
+            {
+              id: 'primitives',
+              label: 'primitives',
+              children: [
+                { id: 'button', label: 'button.tsx', icon: <FileCode className="h-4 w-4 text-primary" /> },
+                { id: 'select', label: 'select.tsx', icon: <FileCode className="h-4 w-4 text-primary" /> },
+                { id: 'slider', label: 'slider.tsx', icon: <FileCode className="h-4 w-4 text-primary" /> },
+              ],
+            },
+            {
+              id: 'composite',
+              label: 'composite',
+              children: [
+                { id: 'combobox', label: 'combobox.tsx', icon: <FileCode className="h-4 w-4 text-sky-400" /> },
+                { id: 'file-upload', label: 'file-upload.tsx', icon: <FileCode className="h-4 w-4 text-sky-400" /> },
+                { id: 'date-picker', label: 'date-picker.tsx', icon: <FileCode className="h-4 w-4 text-sky-400" /> },
+              ],
+            },
+            {
+              id: 'data',
+              label: 'data',
+              children: [
+                { id: 'data-table', label: 'data-table.tsx', icon: <FileCode className="h-4 w-4 text-emerald-400" /> },
+                { id: 'stepper', label: 'stepper.tsx', icon: <FileCode className="h-4 w-4 text-emerald-400" /> },
+                { id: 'tree-view', label: 'tree-view.tsx', icon: <FileCode className="h-4 w-4 text-emerald-400" /> },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'tokens',
+          label: 'tokens',
+          children: [
+            { id: 'colors', label: 'colors.css', icon: <FileCode className="h-4 w-4 text-amber-400" /> },
+            { id: 'spacing', label: 'spacing.css', icon: <FileCode className="h-4 w-4 text-amber-400" /> },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'docs',
+      label: 'docs',
+      children: [
+        { id: 'req', label: 'REQUIREMENTS.md', icon: <FileText className="h-4 w-4 text-muted-foreground" /> },
+        { id: 'arch', label: 'ARCHITECTURE.md', icon: <FileText className="h-4 w-4 text-muted-foreground" /> },
+        { id: 'tasks', label: 'TASKS.md', icon: <FileText className="h-4 w-4 text-muted-foreground" /> },
+      ],
+    },
+    { id: 'pkg', label: 'package.json', icon: <FileCode className="h-4 w-4 text-yellow-400" /> },
+    { id: 'readme', label: 'README.md', icon: <FileText className="h-4 w-4 text-muted-foreground" /> },
+  ];
 
   // Global Cmd+K / Ctrl+K keyboard shortcut
   React.useEffect(() => {
@@ -881,7 +1038,7 @@ export default function App() {
 
         {/* Tabs Controller */}
         <Tabs defaultValue="services" className="w-full">
-          <TabsList variant="pill" className="w-full sm:w-auto grid grid-cols-4 max-w-xl">
+          <TabsList variant="pill" className="w-full sm:w-auto grid grid-cols-2 sm:grid-cols-5 max-w-2xl">
             <TabsTrigger value="services" className="flex items-center gap-1.5">
               <Server className="h-3.5 w-3.5" />
               <span>Services Table</span>
@@ -893,6 +1050,10 @@ export default function App() {
             <TabsTrigger value="composite" className="flex items-center gap-1.5">
               <Layers className="h-3.5 w-3.5" />
               <span>Composite</span>
+            </TabsTrigger>
+            <TabsTrigger value="workflows" className="flex items-center gap-1.5">
+              <Workflow className="h-3.5 w-3.5" />
+              <span>Workflows &amp; Shell</span>
             </TabsTrigger>
             <TabsTrigger value="tokens" className="flex items-center gap-1.5">
               <LayoutGrid className="h-3.5 w-3.5" />
@@ -1519,7 +1680,285 @@ export default function App() {
             </Card>
           </TabsContent>
 
-          {/* TAB 4: D3 DESIGN COLOR TOKENS */}
+          {/* TAB 4: WORKFLOWS, ADVANCED DATA & SHELL */}
+          <TabsContent value="workflows" className="space-y-6 pt-4">
+            {/* Card 1: Interactive Stepper */}
+            <Card>
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <Workflow className="h-4 w-4 text-primary" />
+                      <span>Stepper — Multi-Step Deployment Pipeline</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Thành phần điều hướng luồng quy trình nhiều bước, hỗ trợ trạng thái active, completed, clickable steps và cả 2 chế độ ngang / dọc.
+                    </CardDescription>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={activeWorkflowStep === 0}
+                      onClick={() => setActiveWorkflowStep((prev) => Math.max(0, prev - 1))}
+                    >
+                      Bước trước
+                    </Button>
+                    <Button
+                      variant="solid"
+                      size="sm"
+                      disabled={activeWorkflowStep === workflowSteps.length - 1}
+                      onClick={() => setActiveWorkflowStep((prev) => Math.min(workflowSteps.length - 1, prev + 1))}
+                    >
+                      Bước tiếp theo
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <Stepper
+                  steps={workflowSteps}
+                  activeStep={activeWorkflowStep}
+                  onStepClick={(index) => setActiveWorkflowStep(index)}
+                />
+
+                <div className="rounded-lg border border-border/70 bg-muted/20 p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                        Nội dung cấu hình bước {activeWorkflowStep + 1}:
+                      </div>
+                      <h4 className="text-base font-bold text-foreground">
+                        {workflowSteps[activeWorkflowStep]?.title}
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        {workflowSteps[activeWorkflowStep]?.description}
+                      </p>
+                    </div>
+                    <Badge variant={activeWorkflowStep === 3 ? 'success' : 'default'} mono size="sm">
+                      Step {activeWorkflowStep + 1} of {workflowSteps.length}
+                    </Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Card 2: Combobox & File Upload */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Combobox */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Search className="h-4 w-4 text-primary" />
+                    <span>Combobox (Autocomplete &amp; Search)</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Hộp chọn tìm kiếm thời gian thực với icon, mô tả chi tiết, hỗ trợ tạo tùy chọn mới và phím tắt bàn phím.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <FormField
+                    label="Chọn Cụm Máy Chủ Mục Tiêu (Cluster Node)"
+                    hint="Nhập tên khu vực hoặc mã node để lọc nhanh"
+                  >
+                    <Combobox
+                      options={clusterNodeOptions}
+                      value={selectedClusterNode}
+                      onChange={(val) => {
+                        setSelectedClusterNode(val);
+                        toast.info('Đã chọn node', `Node kết nối: ${val}`);
+                      }}
+                      placeholder="Tìm kiếm khu vực hoặc node..."
+                      searchPlaceholder="Gõ để tìm kiếm..."
+                    />
+                  </FormField>
+
+                  <div className="text-xs rounded-md bg-muted/30 p-3 border border-border flex items-center justify-between font-mono">
+                    <span className="text-muted-foreground">Selected Value:</span>
+                    <Code className="text-primary font-bold">{selectedClusterNode || 'Chưa chọn node'}</Code>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* File Upload Dropzone */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <UploadCloud className="h-4 w-4 text-primary" />
+                    <span>FileUpload / Dropzone</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Kéo thả tệp tin hoặc duyệt thư mục, hỗ trợ định dạng giới hạn, dung lượng tối đa và xem danh sách tệp đính kèm.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <FileUpload
+                    value={demoUploadedFiles}
+                    onChange={(files) => {
+                      setDemoUploadedFiles(files);
+                      if (files.length > 0) {
+                        toast.success('Tải tệp thành công', `Đã đính kèm ${files.length} tệp.`);
+                      }
+                    }}
+                    accept=".json,.yaml,.yml,.env,.zip,.tar.gz"
+                    maxSize={15 * 1024 * 1024}
+                    description="Hỗ trợ .json, .yaml, .env, .zip tối đa 15MB"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Card 3: Sidebar Shell & TreeView Navigation */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* Live Mini App Sidebar */}
+              <Card className="lg:col-span-6">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="flex items-center gap-2">
+                        <Layers className="h-4 w-4 text-primary" />
+                        <span>Sidebar Navigation Shell</span>
+                      </CardTitle>
+                      <CardDescription>
+                        Thanh điều hướng bên ứng dụng với khả năng thu gọn / mở rộng mượt mà, phân nhóm mục và badge số liệu.
+                      </CardDescription>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setSidebarDemoCollapsed((prev) => !prev)}
+                    >
+                      {sidebarDemoCollapsed ? 'Mở rộng' : 'Thu gọn'}
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="border border-border rounded-lg overflow-hidden bg-card/50 flex min-h-[380px]">
+                    <Sidebar
+                      collapsed={sidebarDemoCollapsed}
+                      onCollapsedChange={setSidebarDemoCollapsed}
+                      className="border-r border-border"
+                      header={
+                        <div className="flex items-center gap-2 px-1">
+                          <div className="h-6 w-6 rounded bg-primary/20 text-primary flex items-center justify-center font-bold text-xs">
+                            B
+                          </div>
+                          {!sidebarDemoCollapsed && (
+                            <span className="font-semibold text-xs text-foreground tracking-tight">
+                              Belp Console
+                            </span>
+                          )}
+                        </div>
+                      }
+                      footer={
+                        <SidebarItem
+                          id="settings"
+                          icon={<Settings className="h-4 w-4" />}
+                          label="Cài đặt hệ thống"
+                          collapsed={sidebarDemoCollapsed}
+                          active={sidebarActiveId === 'settings'}
+                          onClick={() => setSidebarActiveId('settings')}
+                        />
+                      }
+                    >
+                      <SidebarGroup title="Tổng Quan">
+                        <SidebarItem
+                          id="dashboard"
+                          icon={<LayoutGrid className="h-4 w-4" />}
+                          label="Bảng điều khiển"
+                          collapsed={sidebarDemoCollapsed}
+                          active={sidebarActiveId === 'dashboard'}
+                          badge={<Badge variant="success" size="sm">Live</Badge>}
+                          onClick={() => setSidebarActiveId('dashboard')}
+                        />
+                        <SidebarItem
+                          id="services"
+                          icon={<Server className="h-4 w-4" />}
+                          label="Dịch vụ Đang chạy"
+                          collapsed={sidebarDemoCollapsed}
+                          active={sidebarActiveId === 'services'}
+                          badge={<Badge variant="default" mono size="sm">8</Badge>}
+                          onClick={() => setSidebarActiveId('services')}
+                        />
+                        <SidebarItem
+                          id="clusters"
+                          icon={<Globe className="h-4 w-4" />}
+                          label="Cụm Máy Chủ"
+                          collapsed={sidebarDemoCollapsed}
+                          active={sidebarActiveId === 'clusters'}
+                          onClick={() => setSidebarActiveId('clusters')}
+                        />
+                      </SidebarGroup>
+
+                      <SidebarGroup title="Bảo Mật &amp; CI/CD">
+                        <SidebarItem
+                          id="pipelines"
+                          icon={<GitFork className="h-4 w-4" />}
+                          label="Git Pipelines"
+                          collapsed={sidebarDemoCollapsed}
+                          active={sidebarActiveId === 'pipelines'}
+                          onClick={() => setSidebarActiveId('pipelines')}
+                        />
+                        <SidebarItem
+                          id="audit"
+                          icon={<Terminal className="h-4 w-4" />}
+                          label="Audit Logs"
+                          collapsed={sidebarDemoCollapsed}
+                          active={sidebarActiveId === 'audit'}
+                          onClick={() => setSidebarActiveId('audit')}
+                        />
+                      </SidebarGroup>
+                    </Sidebar>
+
+                    <div className="flex-1 p-6 flex flex-col items-center justify-center text-center bg-muted/10">
+                      <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3">
+                        <Activity className="h-5 w-5" />
+                      </div>
+                      <h4 className="font-semibold text-sm text-foreground">
+                        Nội dung màn hình: <span className="text-primary font-mono">{sidebarActiveId}</span>
+                      </h4>
+                      <p className="text-xs text-muted-foreground mt-1 max-w-xs">
+                        Nhấn vào các mục menu bên trái để chuyển tab và kiểm tra hiệu ứng chuyển trạng thái linh hoạt.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* TreeView File Browser */}
+              <Card className="lg:col-span-6">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FolderTree className="h-4 w-4 text-primary" />
+                    <span>TreeView — Hierarchical File Explorer</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Cấu trúc cây thư mục phân cấp nhiều cấp, có thể mở/thu gọn đệ quy, chọn node và hỗ trợ icon tùy chỉnh từng mục.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="border border-border rounded-lg p-3 bg-muted/20 min-h-[380px] overflow-y-auto">
+                    <TreeView
+                      data={repositoryTreeData}
+                      selectedId={selectedTreeId}
+                      onSelectNode={(node: TreeNode) => {
+                        setSelectedTreeId(node.id);
+                        toast.info('Chọn tệp tin', `Đang mở file: ${node.label}`);
+                      }}
+                      defaultExpandedIds={['src', 'components', 'composite', 'data']}
+                    />
+                  </div>
+
+                  <div className="text-xs rounded-md bg-muted/30 p-2.5 border border-border flex items-center justify-between font-mono">
+                    <span className="text-muted-foreground">Active File / Folder:</span>
+                    <Code className="text-emerald-400 font-semibold">{selectedTreeId || 'chưa chọn'}</Code>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          {/* TAB 5: D3 DESIGN COLOR TOKENS */}
           <TabsContent value="tokens" className="space-y-6 pt-4">
             <Card>
               <CardHeader>

@@ -15,7 +15,20 @@ Belp UI Kit tuân thủ tiêu chuẩn [Semantic Versioning 2.0.0](https://semver
 
 ## 📜 Lịch sử Phiên bản (Changelog)
 
-### `v0.2.1` — Ultra-Smooth Animation Engine & Dedicated DatePicker Showcase (Hiện tại)
+### `v0.3.0` — Advanced Form & Workflow Components (Hoàn thành)
+*Ngày phát hành: 30/10/2026*
+
+#### ✨ 5 Thành phần Mới được Bổ sung
+- **`FileUpload` / `Dropzone`**: Kéo thả tệp tin, xem danh sách tệp, dung lượng file, tiến trình tải và nút xóa.
+- **`Combobox`**: Hộp chọn có tích hợp ô tìm kiếm lọc tức thì (Fuzzy Filter) khi số lượng mục lớn.
+- **`Stepper` / `Wizard`**: Chỉ báo tiến trình quy trình nhiều bước với trạng thái `completed`, `active`, `pending`, `error`.
+- **`Sidebar`**: Layout khung điều hướng bên trái chuẩn mực với hỗ trợ mở/thu gọn (collapsible), icon, và badge số lượng.
+- **`TreeView`**: Cây thư mục/tài nguyên phân cấp lồng nhau với icon động và mở/đóng node mượt mà.
+- **Showcase Tab "Workflows & Shell"**: Bổ sung tab trình diễn tương tác trực tiếp cho cả 5 component trên.
+
+---
+
+### `v0.2.1` — Ultra-Smooth Animation Engine & Dedicated DatePicker Showcase
 *Ngày phát hành: 28/10/2026*
 
 #### ⚡ Tối ưu Hiệu ứng Chuyển động (Transitions & Micro-interactions)

@@ -431,6 +431,106 @@ export function PowerTools() {
 
 ---
 
+### 9. FileUpload, Combobox & Stepper Workflows (v0.3.0)
+
+```tsx
+import { useState } from 'react';
+import { FileUpload, Combobox, Stepper, Button } from 'belp-ui-kit';
+
+export function WorkflowWizard() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [selectedCluster, setSelectedCluster] = useState('tokyo-node');
+  const [files, setFiles] = useState([]);
+
+  const steps = [
+    { id: '1', title: 'Tải cấu hình', description: 'Upload Dockerfile / .env' },
+    { id: '2', title: 'Chọn Node', description: 'Chọn cụm máy chủ vùng' },
+    { id: '3', title: 'Triển khai', description: 'Kích hoạt pipeline' },
+  ];
+
+  return (
+    <div className="space-y-6 max-w-lg">
+      <Stepper steps={steps} activeStep={activeStep} onStepClick={setActiveStep} />
+
+      {activeStep === 0 && (
+        <FileUpload
+          value={files}
+          onChange={setFiles}
+          accept=".json,.yaml,.env"
+          maxSize={10 * 1024 * 1024}
+        />
+      )}
+
+      {activeStep === 1 && (
+        <Combobox
+          value={selectedCluster}
+          onChange={setSelectedCluster}
+          options={[
+            { value: 'sgp-node', label: 'Singapore Edge (ap-southeast-1)' },
+            { value: 'tokyo-node', label: 'Tokyo Central (ap-northeast-1)' },
+          ]}
+          placeholder="Tìm kiếm máy chủ..."
+        />
+      )}
+
+      <div className="flex justify-between">
+        <Button variant="outline" disabled={activeStep === 0} onClick={() => setActiveStep(p => p - 1)}>
+          Quay lại
+        </Button>
+        <Button variant="solid" disabled={activeStep === 2} onClick={() => setActiveStep(p => p + 1)}>
+          Tiếp theo
+        </Button>
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+### 10. Sidebar Navigation & TreeView Explorer (v0.3.0)
+
+```tsx
+import { useState } from 'react';
+import { Sidebar, SidebarGroup, SidebarItem, TreeView } from 'belp-ui-kit';
+import { Server, Settings, FolderTree } from 'lucide-react';
+
+export function AppLayout() {
+  const [collapsed, setCollapsed] = useState(false);
+  const [selectedTree, setSelectedTree] = useState('src/index.ts');
+
+  return (
+    <div className="flex h-96 border rounded-lg overflow-hidden">
+      <Sidebar collapsed={collapsed} onCollapsedChange={setCollapsed}>
+        <SidebarGroup title="Quản trị">
+          <SidebarItem id="services" icon={<Server className="h-4 w-4" />} label="Dịch vụ" active />
+          <SidebarItem id="settings" icon={<Settings className="h-4 w-4" />} label="Cài đặt" />
+        </SidebarGroup>
+      </Sidebar>
+
+      <div className="flex-1 p-4 overflow-y-auto">
+        <TreeView
+          selectedId={selectedTree}
+          onSelectNode={(node) => setSelectedTree(node.id)}
+          data={[
+            {
+              id: 'src',
+              label: 'src',
+              children: [
+                { id: 'src/index.ts', label: 'index.ts' },
+                { id: 'src/style.css', label: 'style.css' },
+              ],
+            },
+          ]}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
 ## 🛠️ Lệnh Phát triển & Kiểm thử (CLI Scripts)
 
 Dự án cung cấp sẵn môi trường Showcase tương tác để bạn phát triển và kiểm tra component trực tiếp:
