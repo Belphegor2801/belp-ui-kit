@@ -539,7 +539,7 @@ Dự án cung cấp sẵn môi trường Showcase tương tác để bạn phát
 # Cài đặt toàn bộ dependencies
 npm install
 
-# Khởi chạy Interactive Showcase Playground tại http://localhost:5173/
+# Khởi chạy Interactive Showcase Playground tại http://localhost:8888/
 npm run dev
 
 # Đóng gói bản phân phối thư viện vào thư mục dist/ (ESM + UMD + CSS + .d.ts)
