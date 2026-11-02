@@ -14,6 +14,11 @@ export interface DatePickerProps {
   showPresets?: boolean;
   minDate?: Date;
   maxDate?: Date;
+  align?: 'start' | 'center' | 'end';
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  sideOffset?: number;
+  alignOffset?: number;
+  collisionPadding?: number | { top?: number; right?: number; bottom?: number; left?: number };
 }
 
 const DAYS_OF_WEEK = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
@@ -33,6 +38,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   showPresets = false,
   minDate,
   maxDate,
+  align = 'start',
+  side,
+  sideOffset = 6,
+  alignOffset,
+  collisionPadding = 12,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [viewDate, setViewDate] = React.useState<Date>(() => value || new Date());
@@ -164,8 +174,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
-          align="start"
-          sideOffset={6}
+          align={align}
+          side={side}
+          sideOffset={sideOffset}
+          alignOffset={alignOffset}
+          collisionPadding={collisionPadding}
+          avoidCollisions={true}
           className="z-50 flex rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl outline-none duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2"
         >
           {showPresets && (
