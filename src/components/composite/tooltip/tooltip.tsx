@@ -27,6 +27,7 @@ export interface TooltipProps {
   children: React.ReactNode;
   side?: 'top' | 'right' | 'bottom' | 'left';
   delayDuration?: number;
+  className?: string;
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
@@ -34,12 +35,13 @@ export const Tooltip: React.FC<TooltipProps> = ({
   children,
   side = 'top',
   delayDuration = 200,
+  className,
 }) => {
   return (
     <TooltipProvider delayDuration={delayDuration}>
       <TooltipRoot>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent side={side}>{content}</TooltipContent>
+        <TooltipContent side={side} className={className}>{content}</TooltipContent>
       </TooltipRoot>
     </TooltipProvider>
   );
