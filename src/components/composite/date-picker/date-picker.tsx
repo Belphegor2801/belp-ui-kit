@@ -173,6 +173,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           ref={triggerRef}
           type="button"
           disabled={disabled}
+          onPointerDown={calculatePosition}
+          onFocus={calculatePosition}
           onClick={calculatePosition}
           className={cn(
             'flex items-center justify-between rounded-lg border border-input bg-background text-sm ring-offset-background transition-all duration-150 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 select-none text-left shadow-xs hover:border-primary/50 cursor-pointer',
