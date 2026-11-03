@@ -38,7 +38,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   showPresets = false,
   minDate,
   maxDate,
-  align = 'start',
+  align,
   side,
   sideOffset = 6,
   alignOffset,
@@ -46,6 +46,33 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [viewDate, setViewDate] = React.useState<Date>(() => value || new Date());
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const [dynamicAlign, setDynamicAlign] = React.useState<'start' | 'end'>('start');
+  const [dynamicSide, setDynamicSide] = React.useState<'bottom' | 'top'>('bottom');
+
+  const calculatePosition = React.useCallback(() => {
+    if (!triggerRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    const popoverWidth = showPresets ? 416 : 288;
+    const popoverHeight = 340;
+    const padding = typeof collisionPadding === 'number' ? collisionPadding : 12;
+
+    // Mặc định: lề trái = lề trái button ('start')
+    // Nếu tràn cạnh phải màn hình thì đổi sang lề phải = lề phải button ('end')
+    if (rect.left + popoverWidth > window.innerWidth - padding) {
+      setDynamicAlign('end');
+    } else {
+      setDynamicAlign('start');
+    }
+
+    // Mặc định: nằm bên dưới ('bottom')
+    // Nếu tràn cạnh dưới màn hình và phía trên đủ chỗ thì đổi sang nằm trên ('top')
+    if (rect.bottom + popoverHeight > window.innerHeight - padding && rect.top >= popoverHeight) {
+      setDynamicSide('top');
+    } else {
+      setDynamicSide('bottom');
+    }
+  }, [showPresets, collisionPadding]);
 
   React.useEffect(() => {
     if (value) {
@@ -134,11 +161,19 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   return (
-    <PopoverPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
+    <PopoverPrimitive.Root
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (open) calculatePosition();
+        setIsOpen(open);
+      }}
+    >
       <PopoverPrimitive.Trigger asChild>
         <button
+          ref={triggerRef}
           type="button"
           disabled={disabled}
+          onClick={calculatePosition}
           className={cn(
             'flex items-center justify-between rounded-lg border border-input bg-background text-sm ring-offset-background transition-all duration-150 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 select-none text-left shadow-xs hover:border-primary/50 cursor-pointer',
             size === 'sm' && 'h-8 px-2.5 text-xs',
@@ -174,8 +209,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
-          align={align}
-          side={side}
+          align={align ?? dynamicAlign}
+          side={side ?? dynamicSide}
           sideOffset={sideOffset}
           alignOffset={alignOffset}
           collisionPadding={collisionPadding}
@@ -280,11 +315,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                     disabled={disabledDay}
                     onClick={() => handleSelectDay(day)}
                     className={cn(
-                      'h-7 w-7 rounded-md text-xs font-medium font-mono transition-all duration-100 flex items-center justify-center',
+                      'h-7 w-7 rounded-md text-xs font-medium font-mono transition-colors duration-150 flex items-center justify-center',
                       disabledDay && 'opacity-25 cursor-not-allowed',
                       selected
-                        ? 'bg-primary text-primary-foreground font-bold shadow-sm shadow-primary/30 scale-105'
-                        : 'hover:bg-accent hover:text-accent-foreground text-foreground hover:scale-105 active:scale-95',
+                        ? 'bg-primary text-primary-foreground font-bold shadow-sm shadow-primary/30'
+                        : 'hover:bg-accent hover:text-accent-foreground text-foreground active:bg-accent/80',
                       today && !selected && 'border border-primary/70 text-primary font-semibold'
                     )}
                   >
