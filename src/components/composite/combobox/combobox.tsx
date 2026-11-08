@@ -100,43 +100,67 @@ export const Combobox: React.FC<ComboboxProps> = ({
   };
 
   return (
-    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
-      <PopoverPrimitive.Trigger asChild>
-        <button
-          type="button"
-          disabled={disabled}
-          className={cn(
-            'flex w-full items-center justify-between rounded-lg border border-input bg-background text-sm ring-offset-background transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-left shadow-xs hover:border-primary/50 cursor-pointer',
-            size === 'sm' && 'h-8 px-2.5 text-xs',
-            size === 'md' && 'h-9 px-3 py-1.5 text-sm',
-            size === 'lg' && 'h-11 px-4 text-base',
-            open && 'border-primary ring-2 ring-primary/20',
-            className
-          )}
-        >
-          <div className="flex items-center gap-2 truncate flex-1 min-w-0">
-            {selectedOption?.icon && <span className="shrink-0">{selectedOption.icon}</span>}
-            <span className={cn('truncate', !selectedOption && 'text-muted-foreground')}>
-              {selectedOption ? selectedOption.label : placeholder}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1 shrink-0 ml-2">
-            {isClearable && value && !disabled && (
-              <span
-                role="button"
-                tabIndex={0}
-                onClick={handleClear}
-                className="rounded-full p-0.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                title="Xóa lựa chọn"
-              >
-                <X className="h-3.5 w-3.5" />
-              </span>
+    <div className={cn('relative w-full', className)}>
+      <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
+        <PopoverPrimitive.Trigger asChild>
+          <button
+            type="button"
+            disabled={disabled}
+            className={cn(
+              'flex w-full items-center justify-between rounded-lg border border-input bg-background text-sm ring-offset-background transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-left shadow-xs hover:border-primary/50 cursor-pointer max-md:pointer-events-none',
+              size === 'sm' && 'h-8 px-2.5 text-xs',
+              size === 'md' && 'h-9 px-3 py-1.5 text-sm',
+              size === 'lg' && 'h-11 px-4 text-base',
+              open && 'border-primary ring-2 ring-primary/20'
             )}
-            <ChevronsUpDown className="h-4 w-4 opacity-50 shrink-0" />
-          </div>
-        </button>
-      </PopoverPrimitive.Trigger>
+          >
+            <div className="flex items-center gap-2 truncate flex-1 min-w-0">
+              {selectedOption?.icon && <span className="shrink-0">{selectedOption.icon}</span>}
+              <span className={cn('truncate', !selectedOption && 'text-muted-foreground')}>
+                {selectedOption ? selectedOption.label : placeholder}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1 shrink-0 ml-2">
+              {isClearable && value && !disabled && (
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={handleClear}
+                  className="rounded-full p-0.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors pointer-events-auto"
+                  title="Xóa lựa chọn"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </span>
+              )}
+              <ChevronsUpDown className="h-4 w-4 opacity-50 shrink-0" />
+            </div>
+          </button>
+        </PopoverPrimitive.Trigger>
+
+        {options && options.length > 0 && (
+          <select
+            aria-label={placeholder}
+            value={value ?? ''}
+            disabled={disabled}
+            tabIndex={-1}
+            onChange={(e) => {
+              onChange?.(e.target.value);
+            }}
+            className="absolute inset-0 z-10 h-full w-full opacity-0 cursor-pointer disabled:cursor-not-allowed md:hidden pointer-events-auto"
+          >
+            {placeholder && (
+              <option value="" disabled hidden>
+                {placeholder}
+              </option>
+            )}
+            {options.map((opt) => (
+              <option key={opt.value} value={opt.value} disabled={opt.disabled}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        )}
 
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
@@ -214,6 +238,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
         </PopoverPrimitive.Content>
       </PopoverPrimitive.Portal>
     </PopoverPrimitive.Root>
+    </div>
   );
 };
 
