@@ -992,14 +992,14 @@ export default function App() {
           </BreadcrumbList>
         </Breadcrumb>
 
-        {/* Hero Section — Belp UI Kit Inter Sans */}
+        {/* Hero Section — Belp UI Kit Be Vietnam Pro */}
         <section className="space-y-2 max-w-3xl">
           <TypographyHeading level="h1" className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-sans">
             Belp UI Kit
           </TypographyHeading>
           <TypographyText variant="lead" className="text-muted-foreground text-sm sm:text-base">
             Thư viện giao diện người dùng chuyên biệt cho ứng dụng nhiều dữ liệu. Bảng màu chủ đạo trích xuất từ D3 Design
-            với sắc xanh Electric Cyan (<Code>#1aa7ec</Code>), nền Midnight Navy (<Code>#1e2f97</Code>), cùng phông chữ Inter &amp; JetBrains Mono sắc nét.
+            với sắc xanh Electric Blue (<Code>#0d6bd6</Code>), nền Midnight Navy (<Code>#1e2f97</Code>), cùng phông chữ Be Vietnam Pro &amp; JetBrains Mono sắc nét.
           </TypographyText>
         </section>
 
@@ -2022,8 +2022,8 @@ export default function App() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div className="p-4 border border-border rounded-lg bg-card space-y-1">
                       <span className="text-muted-foreground uppercase text-[10px]">Headings &amp; UI Body</span>
-                      <p className="font-sans text-lg font-bold text-foreground">Inter (400 - 800)</p>
-                      <p className="text-muted-foreground text-xs">Sử dụng cho toàn bộ Heading, Button, Label, Input với độ sắc nét tuyệt đối ở mọi kích cỡ.</p>
+                      <p className="font-sans text-lg font-bold text-foreground">Be Vietnam Pro (300 - 800)</p>
+                      <p className="text-muted-foreground text-xs">Phông chữ hình học tối ưu hóa hoàn hảo cho tiếng Việt có dấu, dùng cho toàn bộ Heading, Button, Label, Input.</p>
                     </div>
                     <div className="p-4 border border-border rounded-lg bg-card space-y-1">
                       <span className="text-muted-foreground uppercase text-[10px]">Code &amp; Technical Metrics</span>

@@ -24,7 +24,7 @@
    - Lấy cảm hứng từ phong cách kỹ thuật cao cấp của Railway: Màu nền đen thẫm (`#0b0b0f`), bề mặt thẻ tím than (`#13111c`), viền hairline sắc nét `1px`, và điểm nhấn sắc tím điện tử **Electric Violet (`#853bce`)**.
    - Hỗ trợ chuyển đổi **Light Mode** sạch sẽ, tinh giản và thanh lịch chỉ với một thuộc tính class `dark`/`light`.
 2. **Typography chuẩn xác**:
-   - Sử dụng phông **Inter** cho toàn bộ tiêu đề, nhãn và văn bản giao diện — đem lại độ rõ nét tối đa ở mọi kích cỡ màn hình.
+   - Sử dụng phông **Be Vietnam Pro** cho toàn bộ tiêu đề, nhãn và văn bản giao diện — được thiết kế hình học tối ưu tuyệt đối cho tiếng Việt có dấu và đem lại độ rõ nét tối đa ở mọi kích cỡ màn hình.
    - Sử dụng phông **JetBrains Mono** cho mã lệnh, commit hash, endpoints, cổng mạng và tài nguyên kỹ thuật.
 3. **Chuyên trị Dữ liệu lớn (Data-Dense Focus)**:
    - Thành phần `DataTable` linh hoạt hỗ trợ 3 chế độ mật độ hiển thị (`compact` 36px cho bảng tài chính nhiều dòng, `default` 44px, `relaxed` 56px).
@@ -566,7 +566,7 @@ belp-ui-kit/
 ├── src/
 │   ├── tokens/               # Tầng 0: Bảng mã màu, Spacing & Typography CSS
 │   │   ├── colors.css        # Biến màu Light & Dark Mode
-│   │   ├── typography.css    # Font scales Inter & JetBrains Mono
+│   │   ├── typography.css    # Font scales Be Vietnam Pro & JetBrains Mono
 │   │   ├── spacing.css       # Hệ thống lưới 4px/8px & elevation shadows
 │   │   └── index.css         # Điểm hợp nhất CSS Tokens
 │   ├── components/

@@ -7,7 +7,7 @@ Belp UI Kit được thiết kế theo mô hình phân tầng **Component Driven
 ```mermaid
 flowchart TD
     subgraph Layer0["Tầng 0: Foundations & Tokens"]
-        Tokens[Design Tokens: Primary #1aa7ec, Deep Navy #1e2f97, Aqua #4adede, Inter & JetBrains Mono]
+        Tokens[Design Tokens: Primary #0d6bd6, Deep Navy #1e2f97, Aqua #4adede, Be Vietnam Pro & JetBrains Mono]
         CSSVars[CSS Variables & Theming Engine: 3-tier Surface Depth]
         Icons[Lucide Icon Core]
     end
@@ -76,7 +76,7 @@ Hệ thống token màu chủ đạo được trích xuất và tối ưu chuẩ
 - **Framework UI**: React 18 / 19.
 - **Styling**: Tailwind CSS + CSS Variables (`colors.css`, `typography.css`, `spacing.css`).
 - **Phông chữ**:
-  - **Inter**: Dành cho toàn bộ tiêu đề (Headings), nhãn nút (Labels) và thân bài (Body) với độ sắc nét tuyệt đối.
+  - **Be Vietnam Pro**: Dành cho toàn bộ tiêu đề (Headings), nhãn nút (Labels) và thân bài (Body) với độ sắc nét tuyệt đối và tối ưu hoàn hảo cho tiếng Việt có dấu.
   - **JetBrains Mono**: Dành cho mã lệnh, số liệu kỹ thuật, hashes và endpoints.
 - **Headless Components**: Radix UI Primitives (`@radix-ui/react-*`).
 - **Icons**: `lucide-react`.

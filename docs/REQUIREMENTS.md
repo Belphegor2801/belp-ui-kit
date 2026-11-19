@@ -4,7 +4,7 @@
 Xây dựng một thư viện giao diện người dùng (UI Component Library) độc lập, có phong cách thẩm mỹ riêng biệt, tính nhất quán cao, tối ưu hóa cho các ứng dụng hiển thị và thao tác nhiều dữ liệu (data-dense dashboards, tables, admin portals, SaaS).
 
 Dự án tuân thủ triệt để lộ trình từ file `building-component-library.md` và sử dụng bảng màu chủ đạo trích xuất từ D3 Design (`https://d3design.vn/uploads/03.jpg`):
-- **Tầng 0: Foundations** (Design Tokens với màu chủ đạo `#1aa7ec`, nền `#1e2f97`, accent `#4adede`, phông Inter & JetBrains Mono).
+- **Tầng 0: Foundations** (Design Tokens với màu chủ đạo `#0d6bd6`, nền `#1e2f97`, accent `#4adede`, phông Be Vietnam Pro & JetBrains Mono).
 - **Đợt 1: Primitives** (Button, IconButton, Link, Input, Textarea, Checkbox, Radio, Switch, Select, Slider, SegmentedControl, Typography, Badge, Avatar, Card, Stack...).
 - **Đợt 2: Composite** (FormField, DatePicker, DateRangePicker, NumberInput, TagInput, Modal/Dialog, Drawer/Sheet, CommandMenu, Tooltip, DropdownMenu, Toast, Alert, ProgressBar, Timeline, CodeSnippet, Skeleton, EmptyState, ConfirmDialog).
 - **Đợt 3: Nâng cao** (Data Table/DataGrid, Pagination, Breadcrumb, Tabs, FilterBar, MetricCard, Accordion).
@@ -21,7 +21,7 @@ Dự án tuân thủ triệt để lộ trình từ file `building-component-lib
     - Aqua Mint: `#4adede` (`hsl(180 69% 58%)`) cho trạng thái Active / Live / Glowing Dots.
     - Periwinkle: `#797ef6` (`hsl(238 87% 72%)`) cho trạng thái thứ cấp & Highlights.
     - Soft Sky: `#7dd6f6` (`hsl(196 87% 73%)`) cho Info badges & accents.
-  - **Typography Scale**: Phông **Inter** (Heading & UI) và **JetBrains Mono** (Code & Metrics).
+  - **Typography Scale**: Phông **Be Vietnam Pro** (Heading & UI) và **JetBrains Mono** (Code & Metrics).
   - **Spacing Scale**: Hệ lưới 4px/8px chuẩn mực.
   - **Borders & Radii**: none, sm, md, lg, full với viền hairline sắc nét.
   - **Z-Index Layering**: Base, dropdown, sticky, overlay, modal, popover, tooltip, toast.
