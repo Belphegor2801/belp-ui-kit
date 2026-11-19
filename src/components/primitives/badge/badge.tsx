@@ -85,7 +85,7 @@ export const Badge: React.FC<BadgeProps> = ({
           />
         </span>
       )}
-      <span>{children}</span>
+      <span className="inline-flex items-center gap-1.5">{children}</span>
       {onRemove && (
         <button
           type="button"

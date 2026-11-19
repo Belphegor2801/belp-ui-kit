@@ -1233,19 +1233,33 @@ export default function App() {
               <CardHeader>
                 <CardTitle>Buttons, IconButtons &amp; Links</CardTitle>
                 <CardDescription>
-                  Thiết kế nút với ánh xanh Electric Cyan (#1aa7ec), viền hairline và hiệu ứng active tinh tế.
+                  Thiết kế nút với gam màu Deep Electric Blue đậm đà, độ bo cong radius mềm mại và hiệu ứng active tinh tế.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="solid">Primary Solid (#1aa7ec)</Button>
-                  <Button variant="secondary">Secondary Button</Button>
-                  <Button variant="outline">Outline Border</Button>
-                  <Button variant="ghost">Ghost Action</Button>
-                  <Button variant="destructive">Destructive</Button>
-                  <Button variant="link">Link Style</Button>
-                  <Button variant="solid" isLoading>Deploying...</Button>
-                  <Button variant="solid" disabled>Disabled State</Button>
+                <div className="space-y-2">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Các Biến Thể Variant</div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Button variant="solid">Primary Solid (Đậm)</Button>
+                    <Button variant="secondary">Secondary Button</Button>
+                    <Button variant="outline">Outline Border</Button>
+                    <Button variant="ghost">Ghost Action</Button>
+                    <Button variant="destructive">Destructive</Button>
+                    <Button variant="link">Link Style</Button>
+                    <Button variant="solid" isLoading>Deploying...</Button>
+                    <Button variant="solid" disabled>Disabled State</Button>
+                  </div>
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-border/60">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Tùy Chọn Radius Bo Cong (Radius Scale)</div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Button variant="solid">Default (Bo mềm - XL)</Button>
+                    <Button variant="solid" radius="full">Pill (Radius Full)</Button>
+                    <Button variant="solid" radius="lg">Radius LG</Button>
+                    <Button variant="solid" radius="md">Radius MD</Button>
+                    <Button variant="solid" radius="none">Square (None)</Button>
+                  </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-4 pt-2">

@@ -15,10 +15,10 @@
   --popover: 0 0% 100%;           /* #ffffff - Elevated menus */
   --popover-foreground: 232 45% 10%;
 
-  /* Brand / Primary: #1aa7ec (Electric Cyan Blue) */
-  --primary: 200 85% 51%;         /* #1aa7ec */
+  /* Brand / Primary: Deeper, richer Electric Royal Blue (Đậm đà & Tương phản cao) */
+  --primary: 212 90% 44%;         /* #0d6bd6 - Rich Deep Electric Blue */
   --primary-foreground: 0 0% 100%;
-  --primary-hover: 200 85% 43%;
+  --primary-hover: 212 90% 37%;   /* #0953a8 */
 
   /* Secondary / Neutral */
   --secondary: 210 30% 95%;
@@ -49,7 +49,7 @@
   /* UI Borders & Controls */
   --border: 214 32% 91%;          /* Slate-200 */
   --input: 214 32% 91%;
-  --ring: 200 85% 51%;            /* Electric Cyan focus ring */
+  --ring: 212 90% 44%;            /* Deep Electric Blue focus ring */
 }
 
 .dark {
@@ -71,10 +71,10 @@
   --popover: 232 46% 15%;         /* #141d40 */
   --popover-foreground: 210 40% 98%;
 
-  /* Brand / Primary: #1aa7ec (Electric Cyan Blue) */
-  --primary: 200 85% 51%;         /* #1aa7ec */
+  /* Brand / Primary: Deep Vibrant Sapphire (Đậm sắc, phát sáng kỹ thuật Railway) */
+  --primary: 212 92% 48%;         /* #1075e8 */
   --primary-foreground: 0 0% 100%;
-  --primary-hover: 200 85% 60%;
+  --primary-hover: 212 92% 55%;   /* #2a88f0 */
 
   /* Secondary / Neutral: #1a2246 */
   --secondary: 232 38% 17%;
@@ -105,5 +105,5 @@
   /* UI Borders & Controls: Midnight hairline */
   --border: 232 30% 21%;          /* #263159 */
   --input: 232 30% 21%;
-  --ring: 200 85% 51%;            /* Glowing Cyan Focus Ring */
+  --ring: 212 92% 48%;            /* Glowing Sapphire Focus Ring */
 }

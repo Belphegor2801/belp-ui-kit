@@ -10,11 +10,12 @@ export interface IconButtonProps extends Omit<ButtonProps, 'leftIcon' | 'rightIc
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ className, icon, tooltip, size = 'icon', 'aria-label': ariaLabel, ...props }, ref) => {
+  ({ className, icon, tooltip, size = 'icon', radius, 'aria-label': ariaLabel, ...props }, ref) => {
     const button = (
       <Button
         ref={ref}
         size={size}
+        radius={radius}
         className={cn('shrink-0', className)}
         aria-label={ariaLabel}
         {...props}
