@@ -56,7 +56,7 @@ export const SidebarItem: React.FC<SidebarItemProps & { collapsed?: boolean }> =
         'group flex w-full items-center rounded-lg px-2.5 py-2 text-xs font-medium transition-all duration-150 select-none cursor-pointer',
         collapsed ? 'justify-center' : 'justify-between',
         active
-          ? 'bg-primary text-primary-foreground font-semibold shadow-sm shadow-primary/20'
+          ? 'bg-primary text-primary-foreground font-medium shadow-sm'
           : 'text-muted-foreground hover:bg-secondary/80 hover:text-foreground',
         disabled && 'opacity-50 cursor-not-allowed pointer-events-none'
       )}

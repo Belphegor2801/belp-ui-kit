@@ -75,8 +75,11 @@ export default {
         mono: ["'JetBrains Mono'", "Fira Code", "Courier New", "monospace"],
       },
       boxShadow: {
-        railway: "inset 0 1px 0 0 rgba(255, 255, 255, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.4)",
-        glow: "0 0 20px -5px hsl(var(--primary) / 0.5)",
+        sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        DEFAULT: "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)",
+        md: "0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04)",
+        lg: "0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03)",
+        xl: "0 16px 24px -4px rgba(0, 0, 0, 0.07), 0 6px 12px -4px rgba(0, 0, 0, 0.03)",
       },
       transitionTimingFunction: {
         spring: "cubic-bezier(0.16, 1, 0.3, 1)",

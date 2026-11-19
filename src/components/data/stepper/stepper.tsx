@@ -137,7 +137,7 @@ export const Stepper: React.FC<StepperProps> = ({
                   className={cn(
                     'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold font-mono transition-all duration-200 border-2',
                     status === 'completed' &&
-                      'border-primary bg-primary text-primary-foreground shadow-sm shadow-primary/30',
+                      'border-primary bg-primary text-primary-foreground shadow-sm',
                     status === 'active' &&
                       'border-primary bg-background text-primary ring-4 ring-primary/20 shadow-sm',
                     status === 'pending' &&

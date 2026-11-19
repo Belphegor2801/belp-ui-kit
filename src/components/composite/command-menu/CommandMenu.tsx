@@ -90,7 +90,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
           <DialogPrimitive.Content
             onKeyDown={handleKeyDown}
-            className="pointer-events-auto relative w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-popover text-popover-foreground shadow-2xl duration-200 ease-out origin-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+            className="pointer-events-auto relative w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-popover text-popover-foreground shadow-lg duration-200 ease-spring origin-center data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
           >
           <div className="flex items-center border-b border-border px-3.5 py-2.5">
             <Search className="mr-2.5 h-4 w-4 shrink-0 text-primary opacity-80" />

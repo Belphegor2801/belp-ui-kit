@@ -9,10 +9,10 @@ const dotVariants = cva(
     variants: {
       status: {
         default: 'border-border bg-card text-muted-foreground',
-        info: 'border-sky-500 bg-sky-500/20 text-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.4)]',
-        success: 'border-emerald-500 bg-emerald-500/20 text-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.4)]',
-        warning: 'border-amber-500 bg-amber-500/20 text-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.4)]',
-        destructive: 'border-rose-500 bg-rose-500/20 text-rose-400 shadow-[0_0_8px_rgba(244,63,94,0.4)]',
+        info: 'border-sky-500 bg-sky-500/15 text-sky-400 shadow-sm',
+        success: 'border-emerald-500 bg-emerald-500/15 text-emerald-400 shadow-sm',
+        warning: 'border-amber-500 bg-amber-500/15 text-amber-400 shadow-sm',
+        destructive: 'border-rose-500 bg-rose-500/15 text-rose-400 shadow-sm',
       },
     },
     defaultVariants: {

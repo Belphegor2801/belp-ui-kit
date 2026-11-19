@@ -74,13 +74,13 @@ export const Badge: React.FC<BadgeProps> = ({
           <span
             className={cn(
               'relative inline-flex h-2 w-2 rounded-full',
-              variant === 'default' && 'bg-primary shadow-[0_0_8px_hsl(var(--primary)/0.7)]',
+              variant === 'default' && 'bg-primary shadow-sm',
               variant === 'secondary' && 'bg-muted-foreground',
               variant === 'outline' && 'bg-foreground',
-              variant === 'success' && 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]',
-              variant === 'warning' && 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.7)]',
-              variant === 'destructive' && 'bg-destructive shadow-[0_0_8px_hsl(var(--destructive)/0.7)]',
-              variant === 'info' && 'bg-sky-500 shadow-[0_0_8px_rgba(14,165,233,0.7)]'
+              variant === 'success' && 'bg-emerald-500 shadow-sm',
+              variant === 'warning' && 'bg-amber-500 shadow-sm',
+              variant === 'destructive' && 'bg-destructive shadow-sm',
+              variant === 'info' && 'bg-sky-500 shadow-sm'
             )}
           />
         </span>

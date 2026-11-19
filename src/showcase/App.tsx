@@ -837,8 +837,8 @@ export default function App() {
       <header className="sticky top-0 z-40 border-b border-border bg-card/75 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Belp UI Kit Brand Icon in #1aa7ec */}
-            <div className="h-8 w-8 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-[0_0_12px_hsl(var(--primary)/0.35)]">
+            {/* Belp UI Kit Brand Icon */}
+            <div className="h-8 w-8 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center text-primary shadow-sm">
               <Radio className="h-4 w-4" />
             </div>
 

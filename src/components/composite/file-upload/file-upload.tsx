@@ -114,7 +114,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         className={cn(
           'relative flex flex-col items-center justify-center p-6 text-center border-2 border-dashed rounded-xl transition-all duration-200 cursor-pointer select-none group',
           isDragOver
-            ? 'border-primary bg-primary/10 shadow-lg shadow-primary/10 scale-[1.01]'
+            ? 'border-primary bg-primary/10 shadow-sm scale-[1.005]'
             : 'border-border bg-card/40 hover:border-primary/60 hover:bg-card/70',
           disabled && 'opacity-50 cursor-not-allowed pointer-events-none'
         )}
