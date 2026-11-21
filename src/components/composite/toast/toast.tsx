@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { X, CheckCircle2, AlertCircle, Info, AlertTriangle } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, Info, AlertTriangle, Loader2 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
-export type ToastVariant = 'default' | 'success' | 'destructive' | 'warning' | 'info';
+export type ToastVariant = 'default' | 'success' | 'destructive' | 'warning' | 'info' | 'loading';
 
 export interface ToastItem {
   id: string;
@@ -50,7 +50,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       {children}
       <div
         aria-live="polite"
-        className="fixed bottom-4 right-4 z-[var(--z-toast,1080)] flex max-h-screen w-full flex-col-reverse gap-2 sm:max-w-sm pointer-events-none"
+        className="fixed bottom-6 right-6 z-[var(--z-toast,99999)] flex max-h-screen w-full flex-col-reverse gap-2 sm:max-w-sm pointer-events-none"
       >
         {toasts.map((toast) => (
           <div
@@ -61,6 +61,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               toast.variant === 'destructive' && 'border-destructive/30 text-rose-900 dark:text-rose-100 bg-destructive/10 dark:bg-rose-950/40 backdrop-blur-sm',
               toast.variant === 'warning' && 'border-amber-500/30 text-amber-900 dark:text-amber-100 bg-amber-500/10 dark:bg-amber-950/40 backdrop-blur-sm',
               toast.variant === 'info' && 'border-sky-500/30 text-sky-900 dark:text-sky-100 bg-sky-500/10 dark:bg-sky-950/40 backdrop-blur-sm',
+              toast.variant === 'loading' && 'border-primary/40 text-foreground bg-card/95 dark:bg-slate-900/95 shadow-2xl backdrop-blur-md',
               (!toast.variant || toast.variant === 'default') && 'border-border'
             )}
           >
@@ -69,6 +70,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               {toast.variant === 'destructive' && <AlertCircle className="h-5 w-5 text-destructive" />}
               {toast.variant === 'warning' && <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />}
               {toast.variant === 'info' && <Info className="h-5 w-5 text-sky-600 dark:text-sky-400" />}
+              {toast.variant === 'loading' && <Loader2 className="h-5 w-5 text-primary animate-spin" />}
               {(!toast.variant || toast.variant === 'default') && <Info className="h-5 w-5 text-primary" />}
             </div>
 

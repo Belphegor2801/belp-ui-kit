@@ -45,7 +45,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       rightIcon,
       isClearable = false,
       onClear,
-      showPasswordToggle = false,
+      showPasswordToggle = true,
       value,
       onChange,
       disabled,
@@ -87,7 +87,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               type="button"
               tabIndex={-1}
               onClick={onClear}
-              className="rounded-full p-0.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+              className="rounded-full p-0.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               aria-label="Xóa nội dung"
             >
               <X className="h-3.5 w-3.5" />
@@ -98,8 +98,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               type="button"
               tabIndex={-1}
               onClick={() => setShowPassword((prev) => !prev)}
-              className="rounded p-0.5 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+              className="rounded p-1 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+              title={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
@@ -112,3 +113,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = 'Input';
+
+export interface PasswordInputProps extends Omit<InputProps, 'type'> {}
+
+export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
+  (props, ref) => {
+    return <Input ref={ref} type="password" showPasswordToggle={true} {...props} />;
+  }
+);
+
+PasswordInput.displayName = 'PasswordInput';

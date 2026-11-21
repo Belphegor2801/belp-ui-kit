@@ -35,3 +35,7 @@ Thumbs.db
 .idea/
 .vscode/
 *.local
+
+# Agent history & telemetry
+agy/history/
+*.jsonl
